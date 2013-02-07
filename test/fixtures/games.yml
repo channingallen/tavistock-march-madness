@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  team_one_id: 1
+  team_two_id: 1
+  winning_team_id: 1
+  next_game_id: 1
+
+two:
+  team_one_id: 1
+  team_two_id: 1
+  winning_team_id: 1
+  next_game_id: 1
