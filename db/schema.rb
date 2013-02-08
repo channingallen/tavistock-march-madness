@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130207010459) do
+ActiveRecord::Schema.define(:version => 20130207212657) do
 
   create_table "brackets", :force => true do |t|
     t.boolean  "is_official", :default => false
