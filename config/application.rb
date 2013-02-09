@@ -11,6 +11,11 @@ end
 
 module MarchMadness
   class Application < Rails::Application
+    # Decide what shouldn't be created via the generators.
+    config.generators.stylesheets = false
+    config.generators.javascripts = false
+    config.generators.test_framework = false
+    
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
