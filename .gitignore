@@ -1,7 +1,7 @@
-/.bundle
-/log/*.log
-/tmp
-/db/*.sqlite3
-/.idea/
-/.DS_Store
-/config/database.yml
+.bundle
+log/*.log
+tmp
+db/*.sqlite3
+.idea/
+.DS_Store
+config/database.yml
