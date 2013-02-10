@@ -34,4 +34,8 @@ MarchMadness::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
+
+  # Set up Ember.js and Handlebars
+  config.ember.variant = :development
+  config.handlebars.templates_root = 'application/templates/'
 end
