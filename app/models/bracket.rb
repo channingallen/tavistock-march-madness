@@ -1,5 +1,8 @@
 class Bracket < ActiveRecord::Base
 
+  attr_accessible :is_official, :user_id
+
+
   #################
   #   Constants   #
   #################
@@ -12,7 +15,7 @@ class Bracket < ActiveRecord::Base
   ####################
 
   belongs_to :user
-  has_many :games
+  has_many :games, :dependent => :destroy
 
   ###################
   #   Validations   #
