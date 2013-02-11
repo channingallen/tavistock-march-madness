@@ -58,5 +58,5 @@ MarchMadness::Application.routes.draw do
 
   #-----------------------------------------------------------------------------
 
-  match "/" => "pages#index", :via => :get, :as => :home
+  root :to => 'pages#index'
 end
