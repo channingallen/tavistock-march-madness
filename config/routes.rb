@@ -59,4 +59,11 @@ MarchMadness::Application.routes.draw do
   #-----------------------------------------------------------------------------
 
   root :to => 'pages#index'
+
+  namespace :api do
+    resources :users, :only => [:index, :show, :create, :destroy]
+    resources :brackets, :only => [:show]
+    resources :teams, :only => [:index]
+    resources :games, :only => [:update]
+  end
 end
