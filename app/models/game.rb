@@ -1,5 +1,8 @@
 class Game < ActiveRecord::Base
 
+  attr_accessible :bracket_id, :team_one_id, :team_two_id, :winning_team_id,
+                  :next_game_id
+
   ####################
   #   Associations   #
   ####################
@@ -25,7 +28,8 @@ class Game < ActiveRecord::Base
     end
   end
 
-  # Ensure the team_one_id attribute corresponds to an existing team if the t1id != nil.
+  # Ensure the team_one_id attribute corresponds to an existing team if the
+  # t1id != nil.
   def validate_team_one_id
     unless self[:team_one_id].nil?
       team = Team.first({ :conditions => "id = #{self[:team_one_id]}" })

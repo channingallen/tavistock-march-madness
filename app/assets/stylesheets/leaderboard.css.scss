@@ -1,0 +1,74 @@
+#leaderboard {
+  padding: 0 50px 50px;
+
+  #rankings {
+    float: left;
+
+    nav {
+      margin: 0 0 5px;
+
+      ul {
+        overflow: hidden; // to clear floated <li> children
+
+        li {
+          float: left;
+
+          a {
+            border: 1px solid black;
+            display: inline-block;
+            padding: 10px 20px;
+          }
+        }
+      }
+    }
+
+    > ul {
+
+      li {
+        $rowHeight: 50px;
+        border: 1px solid black;
+        line-height: $rowHeight;
+
+        .score {
+          float: left;
+          font-size: 11px;
+          font-weight: bold;
+          line-height: inherit;
+          width: 40px;
+        }
+
+        .photo {
+          $photoPadding: 4px;
+          background-color: #dddddd;
+          float: left;
+          height: $rowHeight - ($photoPadding * 2);
+          line-height: inherit;
+          margin: $photoPadding 10px 0 0;
+          width: $rowHeight - ($photoPadding * 2);
+        }
+
+        .name {
+          float: left;
+          line-height: inherit;
+        }
+      }
+    }
+  }
+
+  #right {
+    float: right;
+
+    #restaurant {
+      border: 1px solid black;
+      height: 100px;
+      margin: 0 0 35px;
+      width: 300px;
+    }
+
+    #info {
+      border: 1px solid black;
+      height: 250px;
+      width: 300px;
+    }
+  }
+}

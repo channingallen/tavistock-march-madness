@@ -1,15 +1,17 @@
-// This is a manifest file that'll be compiled into application.js, which will include all the files
-// listed below.
-//
-// Any JavaScript/Coffee file within this directory, lib/assets/javascripts, vendor/assets/javascripts,
-// or vendor/assets/javascripts of plugins, if any, can be referenced here using a relative path.
-//
-// It's not advisable to add code directly here, but if you do, it'll appear at the bottom of the
-// the compiled file.
-//
-// WARNING: THE FIRST BLANK LINE MARKS THE END OF WHAT'S TO BE PROCESSED, ANY BLANK LINE SHOULD
-// GO AFTER THE REQUIRES BELOW.
-//
-//= require jquery
-//= require jquery_ujs
-//= require_tree .
+//= require external/jquery-1.9.1.min
+//= require external/underscore
+//= require handlebars
+//= require ember
+//= require ember-data
+
+// Before including Ember files, set up the namespace
+//= require ./application/setup
+
+//= require ./application/store
+//= require_tree ./application/models
+//= require_tree ./application/controllers
+//= require_tree ./application/views
+//= require_tree ./application/helpers
+//= require_tree ./application/templates
+//= require ./application/router
+//= require_tree ./application/routes

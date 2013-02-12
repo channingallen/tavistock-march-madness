@@ -1,10 +1,13 @@
 class User < ActiveRecord::Base
 
+  attr_accessible :name, :email, :score
+
+
   ####################
   #   Associations   #
   ####################
 
-  has_one :bracket
+  has_one :bracket, :dependent => :destroy
 
 
   ###################
@@ -21,7 +24,6 @@ class User < ActiveRecord::Base
   #   Callbacks   #
   #################
 
-  # TODO: put callbacks here
   after_create :build_bracket
 
   def build_bracket

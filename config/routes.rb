@@ -58,7 +58,14 @@ MarchMadness::Application.routes.draw do
 
   #-----------------------------------------------------------------------------
 
-  match "/" => "pages#index", :via => :get, :as => :home
+  root :to => 'pages#index'
+
+  namespace :api do
+    resources :users, :only => [:index, :show, :create, :destroy]
+    resources :brackets, :only => [:show]
+    resources :teams, :only => [:index]
+    resources :games, :only => [:update]
+  end
 
   match "/create_user" => "users#create_user"
   match "/retrieve_user" => "users#retrieve_user"
