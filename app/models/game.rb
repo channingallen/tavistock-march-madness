@@ -16,12 +16,12 @@ class Game < ActiveRecord::Base
   validate :validate_winning_team_id
   validate :validate_next_game_id
 
-  # Ensure the bracket_id attribute corresponds to an existing user.
+  # Ensure the game's bracket_id attr corresponds to a extant bracket.
   def validate_bracket_id
-    user = User.first({ :conditions => "id = #{self[:bracket_id]}" })
+    bracket = Bracket.first({ :conditions => "id = #{self[:bracket_id]}" })
 
-    if user == nil
-      errors.add(:bracket_id, "No such user exists.")
+    if bracket == nil
+      errors.add(:bracket_id, "No such bracket exists.")
     end
   end
 
