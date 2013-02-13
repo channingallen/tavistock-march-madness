@@ -1,4 +1,4 @@
 App.LeaderboardTopView = Ember.View.extend({
   tagName: 'ul',
-  templateName: 'leaderboard/leaderboard_top'
+  templateName: 'leaderboard/leaderboard_rankings'
 });

@@ -1,5 +1,7 @@
 App.LeaderboardTopRoute = Ember.Route.extend({
   model: function() {
-    return App.store.find(App.User);
+    var users = App.store.find(App.User);
+    users = users.toArray().slice(0, 100);
+    return users;
   }
 });
