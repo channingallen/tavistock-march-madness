@@ -3,5 +3,8 @@ App.LeaderboardTopRoute = Ember.Route.extend({
     var users = App.store.find(App.User);
     users = users.toArray().slice(0, 100);
     return users;
+  },
+  renderTemplate: function() {
+    this.render('leaderboard/leaderboard_rankings');
   }
 });

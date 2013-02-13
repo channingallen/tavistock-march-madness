@@ -12,5 +12,8 @@ App.LeaderboardYouRoute = Ember.Route.extend({
               (i <= index + Math.floor(numToShow / 2)));
     });
     return users;
+  },
+  renderTemplate: function() {
+    this.render('leaderboard/leaderboard_rankings');
   }
 });
