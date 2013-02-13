@@ -1,6 +1,8 @@
 App.BracketController = Ember.ObjectController.extend({
   firstFourGames: function() {
-    return [];
+    var games = this.get('content.games'),
+      firstFourGames = [];
+    return firstFourGames;
   }.property('content.games'),
 
   buildRegionGames: function(regionNum) {
@@ -35,13 +37,13 @@ App.BracketController = Ember.ObjectController.extend({
     return this.buildRegionGames(4);
   }.property('content.games'),
 
-  semiFinalGames: function() {
+  semisFinalsGames: function() {
     var games = this.get('content.games'),
       gamesArr = games.toArray(),
       championship = _.find(gamesArr, function(game) {
         return (!game.get('nextGame'));
       }),
-      semiFinalGames = _.every(gamesArr, function(game) {
+      semiFinalGames = _.filter(gamesArr, function(game) {
         return (game.get('nextGame') == championship);
       });
     return [semiFinalGames[0], championship, semiFinalGames[1]];
@@ -51,6 +53,4 @@ App.BracketController = Ember.ObjectController.extend({
     var games = this.get('content.games');
     return ;
   }.property('content.games')
-
-
 });

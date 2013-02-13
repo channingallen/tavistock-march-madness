@@ -1,16 +1,14 @@
 App.helpers.gameHtml = function(game, extraClasses) {
-  var classes = ['game'];
-  extraClasses = extraClasses || [];
-  classes = _.uniq(classes.concat(extraClasses));
-  classes = classes.join(' ');
-
-  var teamOneName = game.get('teamOne.name'),
-    teamOneName = App.helpers.abbreviateTeamName(teamOneName),
-    teamTwoName = game.get('teamTwo.name'),
-    teamTwoName = App.helpers.abbreviateTeamName(teamTwoName);
+  var classes = _.uniq(['game'].concat(extraClasses || [])).join(' '),
+    rawTeamOneName = game.get('teamOne.name'),
+    rawTeamTwoName = game.get('teamTwo.name'),
+    teamOneName = App.helpers.abbreviateTeamName(rawTeamOneName),
+    teamTwoName = App.helpers.abbreviateTeamName(rawTeamTwoName),
+    score = game.get('score');
 
   return [
     '<div class="', classes, '" data-game-id="', game.get('id'), '">',
+      (score ? '<span class="score">+' + score + '</span>' : ''),
       '<ol>',
         '<li class="team_one">', (teamOneName ? teamOneName : '...'), '</li>',
         '<li class="team_two">', (teamTwoName ? teamTwoName : '...'), '</li>',
