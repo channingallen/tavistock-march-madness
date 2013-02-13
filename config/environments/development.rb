@@ -38,4 +38,5 @@ MarchMadness::Application.configure do
   # Set up Ember.js and Handlebars
   config.ember.variant = :development
   config.handlebars.templates_root = 'application/templates/'
+  config.handlebars.precompile = false
 end

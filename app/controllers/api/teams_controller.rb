@@ -11,4 +11,11 @@ class Api::TeamsController < ApplicationController
     render :json => teams
   end
 
+  # GET /teams/:id
+  def show
+    team = Team.find_by_id(params[:id])
+
+    render :json => team
+  end
+
 end
