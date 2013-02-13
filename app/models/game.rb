@@ -1,18 +1,20 @@
 class Game < ActiveRecord::Base
 
   attr_accessible :bracket_id, :team_one_id, :team_two_id, :winning_team_id,
-                  :next_game_id
+                  :next_game_id, :score
 
   ####################
   #   Associations   #
   ####################
 
   belongs_to :bracket
+  has_one :user, :through => :bracket
 
   ###################
   #   Validations   #
   ###################
 
+  validates :score, :length => { :minimum => 0 }
   validates :bracket_id, :presence => true
   validate :validate_bracket_id
   validate :validate_team_one_id

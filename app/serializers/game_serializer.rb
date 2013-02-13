@@ -4,5 +4,6 @@ class GameSerializer < ActiveModel::Serializer
              :team_two_id,
              :winning_team_id,
              :next_game_id,
-             :bracket_id
+             :bracket_id,
+             :score
 end

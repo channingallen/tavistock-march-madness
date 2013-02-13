@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
 
-  attr_accessible :name, :email, :score
+  attr_accessible :name, :email
 
 
   ####################
@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
   ####################
 
   has_one :bracket, :dependent => :destroy
+  has_many :games, :through => :bracket
 
 
   ###################
@@ -17,7 +18,6 @@ class User < ActiveRecord::Base
   validates :name, :presence => true
   validates :name, :length => { :maximum => 200, :minimum => 1 }
   validates :email, :length => { :maximum => 200, :minimum => 1 }, :allow_nil => true
-  validates :score, :length => { :minimum => 0 }
 
 
   #################
