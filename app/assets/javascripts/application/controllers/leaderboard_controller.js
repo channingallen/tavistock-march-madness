@@ -1,4 +1,4 @@
-App.BracketController = Ember.ArrayController.extend({
+App.LeaderboardController = Ember.ArrayController.extend({
   sortProperties: ['score'],
   sortAscending: false
 });
