@@ -8,6 +8,7 @@
 
   .game {
     border: 1px solid black;
+    position: relative; // so we can absolutely-position the score
     width: $gameWidth;
 
     li {
@@ -22,6 +23,20 @@
       &:last-child {
         border-top: 1px solid black;
       }
+    }
+
+    .score {
+      $dimensions: 32px;
+      @include border-radius(50px);
+      background-color: #ffffff;
+      border: 1px solid black;
+      font-weight: bold;
+      height: $dimensions;
+      line-height: $dimensions;
+      right: -($dimensions / 2);
+      position: absolute;
+      top: -($dimensions / 2);
+      width: $dimensions;
     }
   }
 
