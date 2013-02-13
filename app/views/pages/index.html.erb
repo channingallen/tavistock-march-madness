@@ -1,0 +1,18 @@
+<% if @json_data %>
+  <%= content_for :head do %>
+    <script type="text/javascript">
+
+      // Load data into store.
+      var initialData = <%= @json_data.html_safe %>;
+      App.store.loadMany(App.Team, initialData.teams);
+      App.store.load(App.User, initialData.user);
+      App.store.load(App.Bracket, initialData.bracket);
+      App.store.loadMany(App.Game, initialData.games);
+
+      // Set global so we know who the current user is.
+      var user = App.store.find(App.User, initialData.user.id);
+      App.set('currentUser', user);
+
+    </script>
+  <% end %>
+<% end %>

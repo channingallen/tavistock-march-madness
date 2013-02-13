@@ -1,3 +1,5 @@
-MarchMadness.IndexRoute = Ember.Route.extend({
-  setupController: function(controller, model) {}
+App.IndexRoute = Ember.Route.extend({
+  model: function() {
+    return App.get('currentUser');
+  }
 });

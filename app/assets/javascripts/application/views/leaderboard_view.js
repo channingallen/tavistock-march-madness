@@ -1,4 +1,4 @@
-MarchMadness.LeaderboardView = Ember.View.extend({
-  elementId: 'leaderboard',
+App.LeaderboardView = Ember.View.extend({
+  elementId: 'leaderboard_page',
   templateName: 'leaderboard'
 });

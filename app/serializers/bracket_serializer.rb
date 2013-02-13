@@ -1,7 +1,7 @@
 class BracketSerializer < ActiveModel::Serializer
   attributes :id,
-             :is_official
+             :is_official,
+             :user_id
 
-  has_one :user, :embed => :ids
-  has_many :games, :embed => :ids, :include => true
+  has_many :games, :embed => :ids
 end

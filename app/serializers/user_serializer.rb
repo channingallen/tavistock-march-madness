@@ -4,5 +4,5 @@ class UserSerializer < ActiveModel::Serializer
              :email,
              :score
 
-  has_one :bracket, :embed => :ids, :include => true
+  has_one :bracket, :embed => :ids, :key => :bracket_id
 end

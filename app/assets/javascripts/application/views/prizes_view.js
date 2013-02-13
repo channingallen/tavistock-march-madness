@@ -1,4 +1,4 @@
-MarchMadness.PrizesView = Ember.View.extend({
-  elementId: 'prizes',
+App.PrizesView = Ember.View.extend({
+  elementId: 'prizes_page',
   templateName: 'prizes'
 });

@@ -1,5 +1,5 @@
-MarchMadness.Bracket = DS.Model.extend({
+App.Bracket = DS.Model.extend({
   isOfficial: DS.attr('boolean'),
-  user: DS.belongsTo('MarchMadness.User'),
-  games: DS.hasMany('MarchMadness.Game')
+  user: DS.belongsTo('App.User'),
+  games: DS.hasMany('App.Game')
 });

@@ -1,7 +1,7 @@
-MarchMadness.Game = DS.Model.extend({
-  teamOne: DS.belongsTo('MarchMadness.Team'),
-  teamTwo: DS.belongsTo('MarchMadness.Team'),
-  winningTeam: DS.belongsTo('MarchMadness.Team'),
-  nextGame: DS.belongsTo('MarchMadness.Game'),
-  bracket: DS.belongsTo('MarchMadness.Bracket')
+App.Game = DS.Model.extend({
+  teamOne: DS.belongsTo('App.Team'),
+  teamTwo: DS.belongsTo('App.Team'),
+  winningTeam: DS.belongsTo('App.Team'),
+  nextGame: DS.belongsTo('App.Game'),
+  bracket: DS.belongsTo('App.Bracket')
 });

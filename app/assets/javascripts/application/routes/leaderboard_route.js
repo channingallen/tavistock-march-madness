@@ -1,3 +1,3 @@
-MarchMadness.LeaderboardRoute = Ember.Route.extend({
+App.LeaderboardRoute = Ember.Route.extend({
   setupController: function(controller, model) {}
 });

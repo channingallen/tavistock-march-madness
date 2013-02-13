@@ -1,8 +1,10 @@
 #navigation {
-  display: inline-block; // so it won't be 100% width
-  margin: 0 auto 50px;
+  $height: 50px;
+  margin: 0 0 $height;
 
   ul {
+    display: inline-block; // so it won't be 100% width
+    margin: 0 auto;
     overflow: hidden; // to clear floated <li> children
 
     li {
@@ -12,7 +14,7 @@
         border: 1px solid black;
         display: inline-block;
         font-size: 13px;
-        height: 50px;
+        height: $height;
         line-height: 50px;
         padding: 0 30px;
       }

@@ -1,4 +1,4 @@
-MarchMadness.IndexView = Ember.View.extend({
-  elementId: 'index',
+App.IndexView = Ember.View.extend({
+  elementId: 'index_page',
   templateName: 'index'
 });

@@ -1,3 +1,3 @@
-MarchMadness.PrizesRoute = Ember.Route.extend({
+App.PrizesRoute = Ember.Route.extend({
   setupController: function(controller, model) {}
 });

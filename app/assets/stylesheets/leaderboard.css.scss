@@ -1,7 +1,7 @@
-#leaderboard {
+#leaderboard_page {
   padding: 0 50px 50px;
 
-  #rankings {
+  #leaderboard {
     float: left;
 
     nav {
@@ -43,13 +43,14 @@
           float: left;
           height: $rowHeight - ($photoPadding * 2);
           line-height: inherit;
-          margin: $photoPadding 10px 0 0;
+          margin: $photoPadding 0 0 0;
           width: $rowHeight - ($photoPadding * 2);
         }
 
         .name {
           float: left;
           line-height: inherit;
+          padding: 0 10px
         }
       }
     }

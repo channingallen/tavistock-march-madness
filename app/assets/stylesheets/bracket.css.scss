@@ -1,0 +1,123 @@
+#bracket_page {
+  $teamHeight: 25px;
+  $gameHeight: ($teamHeight * 2) + 3; // 3px for top + bottom + middle borders
+  $gameWidth: 100px;
+  $spaceBetweenGames: 20px;
+  $regionWidth: ($gameWidth * 4) + 8 + 20 - 15; // 8px game borders, 20px extra, -40px round margins,
+  padding: 0 20px 50px;
+
+  .game {
+    border: 1px solid black;
+    width: $gameWidth;
+
+    li {
+      height: $teamHeight;
+      font-size: 11px;
+      line-height: $teamHeight;
+      overflow: hidden;
+      padding: 0 5px;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+
+      &:last-child {
+        border-top: 1px solid black;
+      }
+    }
+  }
+
+  #regions {
+    margin: 0 auto;
+    width: $regionWidth * 2;
+  }
+
+  .region {
+    display: inline-block;
+    width: $regionWidth;
+
+    &#region_1, &#region_2 {
+      float: left;
+
+      .round {
+        float: left;
+
+        &.round_2 { margin: 0 25px 0 0; }
+        &.round_3 { margin: 0; }
+        &.round_4 { margin: 0 0 0 -15px; }
+        &.round_5 { margin: 0 0 0 -25px; }
+      }
+    }
+
+    &#region_3, &#region_4 {
+      float: right;
+
+      .round {
+        float: right;
+
+        &.round_2 { margin: 0 0 0 25px; }
+        &.round_3 { margin: 0; }
+        &.round_4 { margin: 0 -15px 0 0; }
+        &.round_5 { margin: 0 -25px 0 0; }
+      }
+    }
+
+    .round {
+      $round3TopPadding: ((($gameHeight * 2) + $spaceBetweenGames) - $gameHeight) / 2;
+      $round3MarginBottom: ($round3TopPadding * 2) + $spaceBetweenGames;
+
+      $round4TopPadding: $round3TopPadding + ((($gameHeight * 2) + $round3MarginBottom) - $gameHeight) / 2;
+      $round4MarginBottom: ($round4TopPadding * 2) + $spaceBetweenGames;
+
+      $round5TopPadding: $round4TopPadding + ((($gameHeight * 2) + $round4MarginBottom) - $gameHeight) / 2;
+      $round5MarginBottom: ($round5TopPadding * 2) + $spaceBetweenGames;
+
+      &.round_2 {
+
+        .game:not(:last-child) {
+          margin: 0 0 $spaceBetweenGames;
+        }
+      }
+
+      &.round_3 {
+        padding: $round3TopPadding 0 0;
+
+        .game:not(:last-child) {
+          margin: 0 0 $round3MarginBottom;
+        }
+      }
+
+      &.round_4 {
+        padding: $round4TopPadding 0 0;
+
+        .game:not(:last-child) {
+          margin: 0 0 $round4MarginBottom;
+        }
+      }
+
+      &.round_5 {
+        padding: $round5TopPadding 0 0;
+
+        .game:not(:last-child) {
+          margin: 0 0 $round5MarginBottom;
+        }
+      }
+    }
+  }
+
+  #semis_finals {
+    border: 1px solid black;
+    display: inline-block;
+    padding: 15px 20px;
+
+    .game {
+      display: inline-block;
+    }
+
+    .semi_final {
+
+    }
+
+    .championship {
+      margin: 0 25px;
+    }
+  }
+}

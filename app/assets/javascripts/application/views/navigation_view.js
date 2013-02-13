@@ -1,4 +1,4 @@
-MarchMadness.NavigationView = Ember.View.extend({
+App.NavigationView = Ember.View.extend({
   elementId: 'navigation',
   tagName: 'nav',
   templateName: 'navigation'
