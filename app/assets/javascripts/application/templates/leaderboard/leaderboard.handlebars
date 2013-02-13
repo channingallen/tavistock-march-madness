@@ -1,0 +1,25 @@
+{{view App.NavigationView}}
+
+<section id="leaderboard">
+  <nav>
+    <ul>
+      <li>{{#linkTo "leaderboard.you"}}You{{/linkTo}}</li>
+      <li>{{#linkTo "leaderboard.friends"}}Friends{{/linkTo}}</li>
+      <li>{{#linkTo "leaderboard.top"}}Top 100{{/linkTo}}</li>
+    </ul>
+  </nav>
+  {{ outlet }}
+</section>
+
+
+<div id="right">
+  <section id="restaurant">
+    <a href="www.google.com" target="_blank">Restaurant Logo</a>
+  </section>
+
+  <section id="info">
+    Info
+  </section>
+</div>
+
+<div class="clearboth"></div>
