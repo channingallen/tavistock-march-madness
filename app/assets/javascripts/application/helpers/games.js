@@ -6,8 +6,7 @@ App.helpers.gameHtml = function(game, extraClasses) {
     rawTeamOneName = teamOne ? teamOne.get('name') : '',
     rawTeamTwoName = teamTwo ? teamTwo.get('name') : '',
     teamOneName = App.helpers.abbreviateTeamName(rawTeamOneName),
-    teamTwoName = App.helpers.abbreviateTeamName(rawTeamTwoName),
-    score = game.get('score');
+    teamTwoName = App.helpers.abbreviateTeamName(rawTeamTwoName);
 
   // Set up classes for team one ("team_one", "chosen", and/or "winner").
   var teamOneClasses = ['team_one'];
@@ -27,9 +26,13 @@ App.helpers.gameHtml = function(game, extraClasses) {
     todoRound3Plus = (roundNumber > 2 && !winningTeam && teamOne && teamTwo);
   if (todoRound2 || todoRound3Plus) classes += ' todo';
 
+  // Mark games that the user correctly predicted.
+  var score = game.get('score');
+  if (score > 0) classes += ' points_awarded';
+
   return [
     '<div class="', classes, '" data-game-id="', game.get('id'), '">',
-      (score ? '<span class="score">+' + score + '</span>' : ''),
+      '<span class="score">+' + score + '</span>',
       '<ol>',
         '<li class="', teamOneClasses, '">',
           (teamOneName ? teamOneName : '...'),

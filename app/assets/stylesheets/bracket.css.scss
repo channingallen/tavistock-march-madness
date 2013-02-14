@@ -104,6 +104,8 @@
   }
 
   .game {
+    $darkGreen: #006400;
+    $lightGreen: #caff9c;
     @include border-radius(3px);
     border: 1px solid black;
     position: relative; // so we can absolutely-position the score
@@ -111,6 +113,18 @@
 
     &.todo {
       border: 1px solid red;
+    }
+
+    &.points_awarded {
+
+      .score {
+        display: block;
+      }
+
+      li.winner {
+        background-color: #d2ffb6;
+        color: $darkGreen;
+      }
     }
 
     li {
@@ -148,8 +162,11 @@
     .score {
       $dimensions: 32px;
       @include border-radius(50px);
-      background-color: #ffffff;
-      border: 1px solid black;
+      background-color: $lightGreen;
+      border-color: $darkGreen;
+      border-style: solid;
+      border-width: 1px 1px 2px;
+      display: none;
       font-weight: bold;
       height: $dimensions;
       line-height: $dimensions;
