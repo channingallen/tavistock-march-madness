@@ -3,12 +3,29 @@ class Game < ActiveRecord::Base
   attr_accessible :bracket_id, :team_one_id, :team_two_id, :winning_team_id,
                   :next_game_id, :score
 
+
+  #################
+  #   Constants   #
+  #################
+
+  POINTS_PER_WIN_BY_ROUND = {
+    1 => 0, # First Four (not supported, therefore 0 points)
+    2 => 1, # Round of 64
+    3 => 2, # Round of 32
+    4 => 3, # Sweet Sixteen
+    5 => 4, # Elite Eight
+    6 => 6, # Final Four
+    7 => 10, # Finals
+  }
+
+
   ####################
   #   Associations   #
   ####################
 
   belongs_to :bracket
   has_one :user, :through => :bracket
+
 
   ###################
   #   Validations   #
@@ -21,6 +38,8 @@ class Game < ActiveRecord::Base
   validate :validate_team_two_id
   validate :validate_winning_team_id
   validate :validate_next_game_id
+
+  private
 
   # Ensure the game's bracket_id attribute corresponds to an extant bracket.
   def validate_bracket_id
@@ -101,17 +120,71 @@ class Game < ActiveRecord::Base
     end
   end
 
+
   #################
   #   Callbacks   #
   #################
 
-  # TODO: put callbacks here
+  after_update :update_scores
+
+  private
+
+  def update_scores
+    return unless self.bracket[:is_offical]
+    return unless self[:winning_team_id]
+
+    Game.award_points_for_win({
+      :winning_team_id => self[:winning_team_id],
+      :round_number => self.round_number
+    })
+  end
 
 
   ###############
   #   Methods   #
   ###############
 
-  # TODO: put methods here
+  public
+
+  # Figures out which round the game belongs to. Note that we're counting the
+  # First Four as round #1, then the ro64 is round #2, etc, until the finals
+  # which is round #7.
+  def round_number
+    round_num = 2
+    previous_game = Game.first(:conditions => ["next_game_id = ?", self[:id]])
+    while previous_game
+      round_num += 1
+      conditions = ["next_game_id = ?", previous_game[:id]]
+      previous_game = Game.first(:conditions => conditions)
+    end
+
+    round_num
+  end
+
+  def self.award_points_for_win(options)
+    raise "invalid team" unless Team.exists?(options[:winning_team_id])
+    num_points = Game::POINTS_PER_WIN_BY_ROUND[options[:round_number]]
+
+    # For each user's bracket...
+    Bracket.all(:select => "id").each do |bracket|
+
+      # ...we find every game in which the appropriate team is the winner.
+      conditions = ["bracket_id = ? AND winning_team_id = ?",
+                    bracket[:id],
+                    options[:winning_team_id]]
+      potential_matching_games = Game.all(:conditions => conditions)
+
+      # We then narrow this list down to whichever game occurred in the
+      # appropriate round.
+      matching_game = potential_matching_games.detect do |game|
+        game.round_number == options[:round_number]
+      end
+
+      # If a matching game was found, we award the points.
+      if matching_game
+        matching_game.update_attributes! :score => num_points
+      end
+    end
+  end
 
 end
