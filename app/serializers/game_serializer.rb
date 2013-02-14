@@ -5,5 +5,10 @@ class GameSerializer < ActiveModel::Serializer
              :winning_team_id,
              :next_game_id,
              :bracket_id,
-             :score
+             :score,
+             :round_number
+
+  def round_number
+    object.round_number
+  end
 end

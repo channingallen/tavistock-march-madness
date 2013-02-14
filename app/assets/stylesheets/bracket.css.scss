@@ -1,44 +1,10 @@
 #bracket_page {
   $teamHeight: 25px;
-  $gameHeight: ($teamHeight * 2) + 3; // 3px for top + bottom + middle borders
+  $gameHeight: ($teamHeight * 2) + 2; // 2px for top + bottom borders
   $gameWidth: 100px;
   $spaceBetweenGames: 20px;
   $regionWidth: ($gameWidth * 4) + 8 + 20 - 15; // 8px game borders, 20px extra, -40px round margins,
   padding: 0 20px 50px;
-
-  .game {
-    border: 1px solid black;
-    position: relative; // so we can absolutely-position the score
-    width: $gameWidth;
-
-    li {
-      height: $teamHeight;
-      font-size: 11px;
-      line-height: $teamHeight;
-      overflow: hidden;
-      padding: 0 5px;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-
-      &:last-child {
-        border-top: 1px solid black;
-      }
-    }
-
-    .score {
-      $dimensions: 32px;
-      @include border-radius(50px);
-      background-color: #ffffff;
-      border: 1px solid black;
-      font-weight: bold;
-      height: $dimensions;
-      line-height: $dimensions;
-      right: -($dimensions / 2);
-      position: absolute;
-      top: -($dimensions / 2);
-      width: $dimensions;
-    }
-  }
 
   #regions {
     margin: 0 auto;
@@ -134,6 +100,63 @@
 
     .championship {
       margin: 0 $padding;
+    }
+  }
+
+  .game {
+    @include border-radius(3px);
+    border: 1px solid black;
+    position: relative; // so we can absolutely-position the score
+    width: $gameWidth;
+
+    &.todo {
+      border: 1px solid red;
+    }
+
+    li {
+      $extraPushTowardCenter: 3px;
+      height: $teamHeight - $extraPushTowardCenter;
+      font-size: 11px;
+      line-height: $teamHeight - $extraPushTowardCenter;
+      overflow: hidden;
+      padding: 0 5px;
+      text-align: left;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+
+      &.team_one {
+        padding-top: $extraPushTowardCenter;
+      }
+
+      &.team_two {
+        padding-bottom: $extraPushTowardCenter;
+      }
+
+      &.chosen {
+        cursor: pointer;
+
+        &:hover {
+          background-color: #f0f0f0;
+        }
+      }
+
+      &.winner {
+        font-weight: bold;
+      }
+    }
+
+    .score {
+      $dimensions: 32px;
+      @include border-radius(50px);
+      background-color: #ffffff;
+      border: 1px solid black;
+      font-weight: bold;
+      height: $dimensions;
+      line-height: $dimensions;
+      right: -($dimensions / 2);
+      position: absolute;
+      top: -($dimensions / 2);
+      width: $dimensions;
     }
   }
 }
