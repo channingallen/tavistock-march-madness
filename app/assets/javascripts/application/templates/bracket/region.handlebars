@@ -1,0 +1,7 @@
+{{#each round in view.rounds}}
+  <section {{bindAttr class="round.class :round"}}>
+    {{#each game in round.games}}
+      {{view App.GameView classBinding="game.todo game.pointsAwarded:points_awarded"}}
+    {{/each}}
+  </section>
+{{/each}}
