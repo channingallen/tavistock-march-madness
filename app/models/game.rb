@@ -130,7 +130,7 @@ class Game < ActiveRecord::Base
   private
 
   def update_scores
-    return unless self.bracket[:is_offical]
+    return unless self.bracket[:is_official]
     return unless self[:winning_team_id]
 
     Game.award_points_for_win({

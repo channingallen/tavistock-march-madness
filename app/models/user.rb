@@ -18,6 +18,7 @@ class User < ActiveRecord::Base
   validates :name, :presence => true
   validates :name, :length => { :maximum => 200, :minimum => 1 }
   validates :email, :length => { :maximum => 200, :minimum => 1 }, :allow_nil => true
+  validates :email, :uniqueness => true
 
 
   #################

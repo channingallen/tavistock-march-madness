@@ -354,6 +354,9 @@ Team.create([
   { :name => "Youngstown State University" }
 ])
 
+# Create the official bracket.
+Bracket.create({ :is_official => true })
+
 # Create some dummy users.
 # TODO: Delete this code. We don't want any dummy users on the actual server.
 i = 0

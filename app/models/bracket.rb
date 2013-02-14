@@ -22,13 +22,24 @@ class Bracket < ActiveRecord::Base
   ###################
 
   validate :validate_user_id
+  validate :validate_is_official, :on => :create
 
   # Ensure the user_id attribute corresponds to an existing user.
   def validate_user_id
-    user = User.first({ :conditions => "id = #{self[:user_id]}" })
 
-    if user == nil
-      errors.add(:user_id, "No such user exists.")
+    # The official bracket doesn't belong to anyone.
+    return if self[:is_official]
+
+    user = User.first({ :conditions => ["id = ?", self[:user_id]] })
+    if user.nil?
+      errors.add(:user_id, "must refer to existing record")
+    end
+  end
+
+  # Ensures there can only be one official bracket.
+  def validate_is_official
+    if Bracket.count(:conditions => "is_official = TRUE") > 0
+      errors.add(:is_official, "the offical bracket already exists")
     end
   end
 
