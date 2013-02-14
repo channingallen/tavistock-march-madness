@@ -1,27 +1,29 @@
 {{view App.NavigationView}}
 
-<div id="bracket">
-  <div>
-    <section id="region_1" class="region">
-      {{view App.RegionView roundsBinding="regionOneRounds"}}
+{{#if gamesLoaded}}
+  <div id="bracket">
+    <div>
+      <section id="region_1" class="region">
+        {{view App.RegionView roundsBinding="regionOneRounds"}}
+      </section>
+      <section id="region_3" class="region">
+        {{view App.RegionView roundsBinding="regionThreeRounds"}}
+      </section>
+      <div class="clearboth"></div>
+    </div>
+    <section id="semis_finals">
+      {{#each game in semisFinalsGames}}
+        {{view App.GameView classBinding="game.todo game.pointsAwarded:points_awarded"}}
+      {{/each}}
     </section>
-    <section id="region_3" class="region">
-      {{view App.RegionView roundsBinding="regionThreeRounds"}}
-    </section>
-    <div class="clearboth"></div>
+    <div>
+      <section id="region_2" class="region">
+        {{view App.RegionView roundsBinding="regionTwoRounds"}}
+      </section>
+      <section id="region_4" class="region">
+        {{view App.RegionView roundsBinding="regionFourRounds"}}
+      </section>
+      <div class="clearboth"></div>
+    </div>
   </div>
-  <section id="semis_finals">
-    {{#each game in semisFinalsGames}}
-      {{view App.GameView classBinding="game.todo game.pointsAwarded:points_awarded"}}
-    {{/each}}
-  </section>
-  <div>
-    <section id="region_2" class="region">
-      {{view App.RegionView roundsBinding="regionTwoRounds"}}
-    </section>
-    <section id="region_4" class="region">
-      {{view App.RegionView roundsBinding="regionFourRounds"}}
-    </section>
-    <div class="clearboth"></div>
-  </div>
-</div>
+{{/if}}
