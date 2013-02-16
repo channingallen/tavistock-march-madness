@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130213192855) do
+ActiveRecord::Schema.define(:version => 20130216220703) do
 
   create_table "brackets", :force => true do |t|
     t.boolean  "is_official", :default => false
@@ -44,8 +44,13 @@ ActiveRecord::Schema.define(:version => 20130213192855) do
   create_table "users", :force => true do |t|
     t.string   "name"
     t.string   "email"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+    t.string   "fb_id"
+    t.string   "gender"
+    t.string   "timezone"
+    t.string   "fb_username"
+    t.string   "fb_access_token"
   end
 
 end
