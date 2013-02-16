@@ -1,6 +1,10 @@
 class PagesController < ApplicationController
 
+  skip_before_filter :verify_authenticity_token, :only => [:index]
+
   def index
+    raise "Must be POST request." unless request.post?
+
     data = parse_signed_request(params["signed_request"])
     render :text => data
 
@@ -15,8 +19,10 @@ class PagesController < ApplicationController
       :games => ActiveModel::ArraySerializer.new(games).as_json,
       :teams => ActiveModel::ArraySerializer.new(teams).as_json
     }.to_json
+
   rescue Exception => e
-    render :text => "#{e.class} - #{e.message}"
+    logger.info "#{e.class} - #{e.message}"
+    redirect_to Constants::FB_APP_URL
   end
 
   # Called by Facebook for their Javascript SDK. More information here:
@@ -48,20 +54,19 @@ class PagesController < ApplicationController
 
     # Verify the request.
     sig = base64_url_decode(encoded_sig)
-    expected_sig = Digest::HMAC.hexdigest(payload, Constants::FB_APP_SECRET,
-                                          Digest::SHA1)
-    raise "Bad signed JSON signature." unless sig == expected_sig
+    expected_sig = Digest::HMAC.digest(payload, Constants::FB_APP_SECRET,
+                                       Digest::SHA256)
+    unless sig == expected_sig
+      logger.info "expected_sig: #{expected_sig}"
+      logger.info "         sig: #{sig}"
+      logger.info "        data: #{data.inspect}"
+      raise "Bad signed JSON signature."
+    end
 
     data
   end
 
   def base64_url_decode(str)
-    # Method 1:
-    #str = str.gsub('-','+').gsub('_','/')
-    #str += '=' while !(str.size % 4).zero?
-    #Base64.decode64(str)
-
-    # Method 2:
     str += '=' * (4 - str.length.modulo(4))
     Base64.decode64(str.tr('-_','+/'))
   end
