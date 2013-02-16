@@ -4,6 +4,7 @@ class PagesController < ApplicationController
 
   def index
     data = Rails.env.production? ? parse_signed_request : {}
+    logger.info "data: #{data.inspect}"
 
     user = User.first
     bracket = user.bracket
