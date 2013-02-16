@@ -60,6 +60,8 @@ MarchMadness::Application.routes.draw do
 
   root :to => 'pages#index'
 
+  match "/channel" => "pages#channel"
+
   namespace :api do
     resources :users, :only => [:index, :show, :create, :destroy]
     resources :brackets, :only => [:index, :show]

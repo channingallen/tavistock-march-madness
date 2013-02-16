@@ -14,4 +14,14 @@ class PagesController < ApplicationController
     }.to_json
   end
 
+  def channel
+    expires_in 1.year, :public => true
+    one_year = Time.now.advance(:years => 1)
+    response.headers["Expires"] = one_year.strftime("%a, %d %b %Y %H:%M:%S GMT")
+    response.headers["Pragma"] = "public"
+
+    text = "<script src=\"//connect.facebook.net/en_US/all.js\"></script>"
+    render :text => text
+  end
+
 end
