@@ -21,8 +21,8 @@ class Api::UsersController < ApplicationController
   # POST /users
   def create
     user = User.new
-    user[:name] = params[:name]
-    user[:email] = params[:email]
+    user[:name] = params[:user][:name]
+    user[:email] = params[:user][:email]
     user.save
 
     render :json =>  user

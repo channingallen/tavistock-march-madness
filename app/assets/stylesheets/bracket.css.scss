@@ -115,7 +115,6 @@
 
     &.todo {
       border: 1px solid red;
-      cursor: pointer;
     }
 
     &.points_awarded {
@@ -130,7 +129,7 @@
       }
     }
 
-    li {
+    .team {
       $extraPushTowardCenter: 3px;
       height: $teamHeight - $extraPushTowardCenter;
       font-size: 11px;
@@ -151,6 +150,14 @@
 
       &.winner {
         font-weight: bold;
+      }
+
+      &.chosen {
+        cursor: pointer;
+
+        &:hover {
+          background-color: #f0f0f0;
+        }
       }
     }
 

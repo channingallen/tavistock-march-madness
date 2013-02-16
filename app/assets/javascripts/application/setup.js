@@ -1,3 +1,9 @@
 window.App = Ember.Application.create({
-  helpers: {}
+
+  // An object containing helper functions.
+  helpers: {},
+
+  ready: function() {
+    App.bindings();
+  }
 });

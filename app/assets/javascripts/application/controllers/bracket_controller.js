@@ -1,28 +1,64 @@
 App.BracketController = Ember.ObjectController.extend({
 
   /**
-   * Properties for retrieving subsets of the bracket's games.
+   * Returns true if the games and bracket have finished loading, false
+   * otherwise.
    */
-
   gamesLoaded: function() {
-    return this.get('content.games').get('isLoaded');
-  }.property('content.games.isLoaded'),
+    var bracketLoaded = this.get('content.games').get('isLoaded'),
+      gamesLoaded = this.get('content.games').get('isLoaded');
+    return (bracketLoaded && gamesLoaded);
+  }.property('content.games.@each.isLoaded'),
+
+  /**
+   * Selects the team as the winner for its game.
+   */
+  selectTeam: function(game, team) {
+    if (game.get('isLoaded')) {
+      if (game.get('winningTeam') == team) {
+        game.set('winningTeam', null);
+      } else {
+        game.set('winningTeam', team);
+      }
+      game.updateNextGame();
+    } else {
+      alert('Unable to select to select team. Please wait a moment and try ' +
+            'again.');
+    }
+  },
+
+  /**
+   * The following functions retrieve different subsets of the games that make
+   * up the bracket.
+   */
 
   regionOneRounds: function() {
     return this.buildRegionRounds(this.buildRegionGames(1));
-  }.property('content.games.@each'),
+  }.property('content.games.@each.score',
+             'content.games.@each.winningTeam',
+             'content.games.@each.teamOne',
+             'content.games.@each.teamTwo'),
 
   regionTwoRounds: function() {
     return this.buildRegionRounds(this.buildRegionGames(2));
-  }.property('content.games.@each'),
+  }.property('content.games.@each.score',
+             'content.games.@each.winningTeam',
+             'content.games.@each.teamOne',
+             'content.games.@each.teamTwo'),
 
   regionThreeRounds: function() {
     return this.buildRegionRounds(this.buildRegionGames(3));
-  }.property('content.games.@each'),
+  }.property('content.games.@each.score',
+             'content.games.@each.winningTeam',
+             'content.games.@each.teamOne',
+             'content.games.@each.teamTwo'),
 
   regionFourRounds: function() {
     return this.buildRegionRounds(this.buildRegionGames(4));
-  }.property('content.games.@each'),
+  }.property('content.games.@each.score',
+             'content.games.@each.winningTeam',
+             'content.games.@each.teamOne',
+             'content.games.@each.teamTwo'),
 
   semisFinalsGames: function() {
     var games = this.get('content.games');
@@ -36,11 +72,10 @@ App.BracketController = Ember.ObjectController.extend({
         return (game.get('nextGame') == championship);
       });
     return [semiFinalGames[0], championship, semiFinalGames[1]];
-  }.property('content.games.@each'),
-
-  /**
-   * Helpers for the properties above.
-   */
+  }.property('content.games.@each.score',
+             'content.games.@each.winningTeam',
+             'content.games.@each.teamOne',
+             'content.games.@each.teamTwo'),
 
   buildRegionGames: function(regionNum) {
     var games = this.get('content.games');

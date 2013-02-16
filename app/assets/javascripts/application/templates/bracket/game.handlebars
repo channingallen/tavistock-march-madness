@@ -1,8 +1,8 @@
 <ol>
-  <li {{bindAttr class="game.teamOneWon:winner game.teamOne:chosen :team_one"}}>
+  <li {{action "selectTeam" game game.teamOne}} {{bindAttr class="game.teamOneWon:winner game.teamOne:chosen :team :team_one"}}>
     {{ formatTeamName game.teamOne }}
   </li>
-  <li {{bindAttr class="game.teamTwoWon:winner game.teamTwo:chosen :team_two"}}>
+  <li {{action "selectTeam" game game.teamTwo}} {{bindAttr class="game.teamTwoWon:winner game.teamTwo:chosen :team :team_two"}}>
     {{ formatTeamName game.teamTwo }}
   </li>
 </ol>
