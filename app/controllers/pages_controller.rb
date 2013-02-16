@@ -3,10 +3,7 @@ class PagesController < ApplicationController
   skip_before_filter :verify_authenticity_token, :only => [:index]
 
   def index
-    raise "Must be POST request." unless request.post?
-
-    data = parse_signed_request(params["signed_request"])
-    render :text => data
+    data = Rails.env.production? ? parse_signed_request : {}
 
     user = User.first
     bracket = user.bracket
@@ -39,33 +36,40 @@ class PagesController < ApplicationController
 
   private
 
-  # "uhzpEBgxkChn0b-hPU5hMLVF_Zq6yOVgMin4g4PeN28.eyJhbGdvcml0aG0iOiJITUFDLVNIQTI1NiIsImlzc3VlZF9hdCI6MTM2MTAxMDQ0OCwidXNlciI6eyJjb3VudHJ5IjoidXMiLCJsb2NhbGUiOiJlbl9VUyIsImFnZSI6eyJtaW4iOjIxfX19"
-  # {"algorithm"=>"HMAC-SHA256", "issued_at"=>1361010448, "user"=>{"country"=>"us", "locale"=>"en_US", "age"=>{"min"=>21}}}
-  def parse_signed_request(signed_request)
+  # Raises an error if the request wasn't made via the Facebook app canvas (i.e.
+  # a POST request with a valid "signed_request" parameter).
+  #
+  # Returns parameter data parsed from the "signed_request" parameter.
+  def parse_signed_request
+    raise "Must be POST request." unless request.post?
+
+    signed_request = params["signed_request"]
     encoded_sig, payload = signed_request.split('.')
 
-    # Decode the data.
     data = ActiveSupport::JSON.decode(base64_url_decode(payload))
-
-    # Ensure the expected algorithm was used.
-    unless data["algorithm"].upcase == "HMAC-SHA256"
-      raise "Unknown algorithm. Expected HMAC-SHA256."
-    end
-
-    # Verify the request.
-    sig = base64_url_decode(encoded_sig)
-    expected_sig = Digest::HMAC.digest(payload, Constants::FB_APP_SECRET,
-                                       Digest::SHA256)
-    unless sig == expected_sig
-      logger.info "expected_sig: #{expected_sig}"
-      logger.info "         sig: #{sig}"
-      logger.info "        data: #{data.inspect}"
-      raise "Bad signed JSON signature."
-    end
+    verify_signed_request(data, encoded_sig, payload)
 
     data
   end
 
+  # Helper method for parsing Facebook's "signed_request" parameter.
+  def verify_signed_request(data, encoded_sig, payload)
+    unless data["algorithm"].upcase == "HMAC-SHA256"
+      raise "Unknown algorithm. Expected HMAC-SHA256."
+    end
+
+    secret = Constants::FB_APP_SECRET
+    actual_signature = base64_url_decode(encoded_sig)
+    expected_signature = Digest::HMAC.digest(payload, secret, Digest::SHA256)
+    unless actual_signature == expected_signature
+      logger.info "expected_sig: #{expected_signature}"
+      logger.info "         sig: #{actual_signature}"
+      logger.info "        data: #{data.inspect}"
+      raise "Bad signed JSON signature."
+    end
+  end
+
+  # Helper method for parsing Facebook's "signed_request" parameter.
   def base64_url_decode(str)
     str += '=' * (4 - str.length.modulo(4))
     Base64.decode64(str.tr('-_','+/'))
