@@ -14,17 +14,23 @@ App.BracketController = Ember.ObjectController.extend({
    * Selects the team as the winner for its game.
    */
   selectTeam: function(game, team) {
-    if (game.get('isLoaded')) {
-      if (game.get('winningTeam') == team) {
-        game.set('winningTeam', null);
-      } else {
-        game.set('winningTeam', team);
-      }
-      game.updateNextGame();
-    } else {
+
+    // Ensure the game has been loaded.
+    if (!game.get('isLoaded')) {
       alert('Unable to select to select team. Please wait a moment and try ' +
             'again.');
+      return;
     }
+
+    // Ensure there's actually a team to select.
+    if (!team) return;
+
+    if (game.get('winningTeam') == team) {
+      game.set('winningTeam', null);
+    } else {
+      game.set('winningTeam', team);
+    }
+    game.updateNextGame();
   },
 
   /**
