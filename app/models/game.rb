@@ -168,8 +168,11 @@ class Game < ActiveRecord::Base
   # game and it itself updates games.
   def update_teams_for_later_games
     return unless self[:next_game_id]
+    
+    sibling_game = self.sibling_game
+    return unless sibling_game
 
-    team_attr = self[:id] < self.sibling_game[:id] ? :team_one_id : :team_two_id
+    team_attr = self[:id] < sibling_game[:id] ? :team_one_id : :team_two_id
     next_game = self.next_game
     unless (next_game[team_attr] == self[:winning_team_id])
       next_game.update_attributes!(team_attr => self[:winning_team_id])

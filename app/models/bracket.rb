@@ -38,7 +38,8 @@ class Bracket < ActiveRecord::Base
 
   # Ensures there can only be one official bracket.
   def validate_is_official
-    if Bracket.count(:conditions => "is_official = TRUE") > 0
+    if (self[:is_official] and 
+        Bracket.count(:conditions => "is_official = TRUE") > 0)
       errors.add(:is_official, "the offical bracket already exists")
     end
   end
