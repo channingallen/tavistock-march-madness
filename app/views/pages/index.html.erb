@@ -10,7 +10,7 @@
       App.store.loadMany(App.Game, initialData.games);
 
       // Set global so we know who the current user is.
-      App.set('currentUser', App.store.find(App.User, initialData.user.id));
+      App.set('currentUser', App.User.find(initialData.user.id));
 
     </script>
   <% end %>
