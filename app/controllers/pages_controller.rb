@@ -5,7 +5,16 @@ class PagesController < ApplicationController
   def index
 
     # Ensure the visitor has come to the app via Facebook.
-    data = Rails.env.production? ? parse_signed_request : {}
+    if Rails.env.production?
+      data = parse_signed_request
+    elsif params["no_user"]
+      data = {}
+    else
+      data = {
+        "user_id" => Constants::TEST_USER_FB_ID,
+        "oauth_token" => "1234567890"
+      }
+    end
     logger.info "data: #{data.inspect}"
 
 

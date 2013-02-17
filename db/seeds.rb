@@ -355,26 +355,23 @@ Team.create([
 ])
 
 # Create the official bracket.
+Bracket.destroy_all
 Bracket.create({ :is_official => true })
 
 # Create some dummy users.
-# TODO: Delete this code. We don't want any dummy users on the actual server.
-i = 0
 User.destroy_all
-User.create([
-  { :name => "Courtland Allen", :email => "asdf#{i += 1}@example.com" },
-  { :name => "Philip Garcia", :email => "asdf#{i += 1}@example.com" },
-  { :name => "Aaron Rosado", :email => "asdf#{i += 1}@example.com" },
-  { :name => "Adrian Adames", :email => "asdf#{i += 1}@example.com" },
-  { :name => "Antoinne Machal-Cajigas", :email => "asdf#{i += 1}@example.com" },
-  { :name => "Carlos Ilizaliturri", :email => "asdf#{i += 1}@example.com" },
-  { :name => "Steve Nunez", :email => "asdf#{i += 1}@example.com" },
-  { :name => "Geraldine Lim", :email => "asdf#{i += 1}@example.com" },
-  { :name => "Susan Hessenthaler", :email => "asdf#{i += 1}@example.com" },
-  { :name => "Channing Allen", :email => "asdf#{i += 1}@example.com" },
-  { :name => "Eva Allen", :email => "asdf#{i += 1}@example.com" },
-  { :name => "Michael Kim", :email => "asdf#{i += 1}@example.com" },
-  { :name => "Cristian Derr", :email => "asdf#{i += 1}@example.com" },
-  { :name => "Phillip Pinto", :email => "asdf#{i += 1}@example.com" },
-  { :name => "Tyco Skinner", :email => "asdf#{i += 1}@example.com" }
-])
+unless Rails.env.production?
+  User.create([
+    { :name => "Courtland Allen", :fb_id => Constants::TEST_USER_FB_ID },
+    { :name => "Channing Allen" },
+    { :name => "Philip Garcia" },
+    { :name => "Cristian Derr" },
+    { :name => "Adrian Adames" },
+    { :name => "Aaron Rosado" },
+    { :name => "Luis Sura" },
+    { :name => "Lynne Tye" },
+    { :name => "Geraldine Lim" },
+    { :name => "Angela Holloman" },
+    { :name => "Dan Shively" }
+  ])
+end

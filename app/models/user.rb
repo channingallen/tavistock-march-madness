@@ -15,9 +15,17 @@ class User < ActiveRecord::Base
   #   Validations   #
   ###################
 
-  validates :name, :length => { :maximum => 200, :minimum => 1 }, :allow_nil => true
-  validates :email, :length => { :maximum => 200, :minimum => 1 }, :allow_nil => true
-  validates :email, :uniqueness => true
+  validates :email, :uniqueness => true, :allow_nil => true
+  validates :fb_id, :uniqueness => true, :allow_nil => true
+  validates :fb_username, :uniqueness => true, :allow_nil => true
+  validates :fb_access_token, :uniqueness => true, :allow_nil => true
+  validates :email, :length => { :maximum => Constants::MAX_DB_STRING_LENGTH, :minimum => 1 }, :allow_nil => true
+  validates :name, :length => { :maximum => Constants::MAX_DB_STRING_LENGTH, :minimum => 1 }, :allow_nil => true
+  validates :fb_id, :length => { :maximum => Constants::MAX_DB_STRING_LENGTH, :minimum => 1 }, :allow_nil => true
+  validates :gender, :length => { :maximum => Constants::MAX_DB_STRING_LENGTH, :minimum => 1 }, :allow_nil => true
+  validates :time_zone, :length => { :maximum => Constants::MAX_DB_STRING_LENGTH, :minimum => 1 }, :allow_nil => true
+  validates :fb_username, :length => { :maximum => Constants::MAX_DB_STRING_LENGTH, :minimum => 1 }, :allow_nil => true
+  validates :fb_access_token, :length => { :maximum => Constants::MAX_DB_STRING_LENGTH, :minimum => 1 }, :allow_nil => true
 
 
   #################
