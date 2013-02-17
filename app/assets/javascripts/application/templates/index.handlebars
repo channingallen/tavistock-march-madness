@@ -1,6 +1,10 @@
 <nav>
   <ul>
-    <li>{{#linkTo "bracket" model.bracket}}Bracket{{/linkTo}}</li>
+    {{#if model}}
+      <li>{{#linkTo "bracket" model.bracket}}Bracket{{/linkTo}}</li>
+    {{else}}
+      <li><a href="#" {{action "login"}}>Bracket</a></li>
+    {{/if}}
     <li>{{#linkTo "leaderboard.you"}}Leaderboard{{/linkTo}}</li>
     <li>{{#linkTo "leaderboard.friends"}}Friends{{/linkTo}}</li>
     <li>{{#linkTo "prizes"}}Prizes{{/linkTo}}</li>
@@ -13,10 +17,14 @@
   </section>
 
   <section id="info">
-    {{ model.id }}<br/><br/>
-    {{ model.name }}<br/><br/>
-    {{ model.email }}<br/><br/>
+    {{#if model}}
+      {{ model.id }}<br/><br/>
+      {{ model.name }}<br/><br/>
+      {{ model.email }}<br/><br/>
     Bracket ID: {{ model.bracket.id }}
+    {{else}}
+      ...
+    {{/if}}
   </section>
 </div>
 
