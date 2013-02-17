@@ -51,7 +51,15 @@ class PagesController < ApplicationController
 
   rescue Exception => e
     logger.info "#{e.class} - #{e.message}"
-    redirect_to Constants::FB_APP_URL
+
+    redirect_error_messages = [
+      "Must be POST request.",
+      "Unknown algorithm. Expected HMAC-SHA256.",
+      "Bad signed JSON signature.",
+    ]
+    if redirect_error_messages.include?(e.message) and Rails.env.production?
+      redirect_to Constants::FB_APP_URL
+    end
   end
 
   # Called by Facebook for their Javascript SDK. More information here:
