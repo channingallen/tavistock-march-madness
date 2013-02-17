@@ -13,7 +13,7 @@ App.ApplicationRoute = Ember.Route.extend({
             window.infoResponse = response;
           });
         }
-      }, { scope: '' });
+      }, { scope: 'user_likes' });
     }
   }
 });
