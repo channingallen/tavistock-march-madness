@@ -6,10 +6,27 @@
   $regionWidth: ($gameWidth * 4) + 8 + 20 - 15; // 8px game borders, 20px extra, -40px round margins,
   padding: 0 20px 50px;
 
-  #regions {
-    margin: 0 auto;
-    width: $regionWidth * 2;
+  /******************/
+  /*   First Four   */
+  /******************/
+
+  #first_four {
+    display: inline-block;
+    margin: 0 0 20px;
+
+    .game {
+      display: inline-block;
+      margin: 0 7px 0 0;
+
+      &:last-of-type {
+        margin: 0;
+      }
+    }
   }
+
+  /***************/
+  /*   Regions   */
+  /***************/
 
   .region {
     display: inline-block;
@@ -84,6 +101,10 @@
     }
   }
 
+  /******************************/
+  /*   Finals and Semi-Finals   */
+  /******************************/
+
   #semis_finals {
     $padding: 20px;
     border: 1px solid black;
@@ -104,6 +125,10 @@
       }
     }
   }
+
+  /***********************/
+  /*   Individual Game   */
+  /***********************/
 
   .game {
     $darkGreen: #006400;

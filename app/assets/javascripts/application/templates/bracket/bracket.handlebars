@@ -2,6 +2,15 @@
 
 {{#if gamesLoaded}}
   <div id="bracket">
+
+    <!-- first four -->
+    <section id="first_four">
+      {{#each game in firstFourGames}}
+        {{view App.GameView classBinding="game.todo game.pointsAwarded:points_awarded"}}
+      {{/each}}
+    </section>
+
+    <!-- regions 1 (top left) and 3 (top right) -->
     <div>
       <section id="region_1" class="region">
         {{view App.RegionView roundsBinding="regionOneRounds"}}
@@ -11,11 +20,15 @@
       </section>
       <div class="clearboth"></div>
     </div>
+
+    <!-- finals and semi-finals -->
     <section id="semis_finals">
       {{#each game in semisFinalsGames}}
         {{view App.GameView classBinding="game.todo game.pointsAwarded:points_awarded"}}
       {{/each}}
     </section>
+
+    <!-- regions 2 (bottom left) and 4 (bottom right) -->
     <div>
       <section id="region_2" class="region">
         {{view App.RegionView roundsBinding="regionTwoRounds"}}

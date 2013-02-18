@@ -38,6 +38,20 @@ App.BracketController = Ember.ObjectController.extend({
    * up the bracket.
    */
 
+  firstFourGames: function() {
+    var games = this.get('content.games');
+    if (!games.get('isLoaded')) return [];
+
+    var gamesArr = games.toArray();
+    return [gamesArr[gamesArr.length - 4],
+            gamesArr[gamesArr.length - 3],
+            gamesArr[gamesArr.length - 2],
+            gamesArr[gamesArr.length - 1]];
+  }.property('content.games.@each.score',
+             'content.games.@each.winningTeam',
+             'content.games.@each.teamOne',
+             'content.games.@each.teamTwo'),
+
   regionOneRounds: function() {
     return this.buildRegionRounds(this.buildRegionGames(1));
   }.property('content.games.@each.score',
