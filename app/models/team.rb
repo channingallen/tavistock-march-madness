@@ -11,7 +11,6 @@ class Team < ActiveRecord::Base
   validates :name, :length => { :maximum => 200, :minimum => 1 }
   validates :name, :uniqueness => true
   validates :rank, :presence => true
-  validates :rank, :uniqueness => true
 
 
   #################

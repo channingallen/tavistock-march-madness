@@ -8,7 +8,7 @@ class Bracket < ActiveRecord::Base
   #################
 
   NUM_TEAMS = 64
-  NUM_GAMES = 63
+  NUM_GAMES = 67
 
   ####################
   #   Associations   #
@@ -55,53 +55,85 @@ class Bracket < ActiveRecord::Base
   def set_up_bracket
 
     # Create the games.
-    game_ids = []
-    Bracket::NUM_GAMES.times do
-      game = Game.new
-      game[:bracket_id] = self[:id]
-      game.save
-      game_ids.push(game[:id])
-    end
+    games = create_bracket_games
 
     # Organize the games into rounds.
+    game_ids = games.collect { |game| game[:id] }
     rounds = create_rounds(game_ids)
 
     # Set the next_game_id attributes.
     set_next_game_ids(rounds)
   end
 
+  # Creates games for the brackets, and sets their team id attrs.
+  def create_bracket_games
+    official_games = []
+    unless self[:is_official]
+      official_bracket_id = Bracket.first({
+        :conditions => "is_official IS TRUE",
+        :select => "id"
+      })[:id]
+      official_games = Game.all({
+        :conditions => ["bracket_id = ?", official_bracket_id],
+        :select => "team_one_id, team_two_id",
+        :order => "id ASC"
+      })
+    end
+
+    games = []
+    Bracket::NUM_GAMES.times do |index|
+      game = Game.new
+      game[:bracket_id] = self[:id]
+      unless official_games.empty?
+        game[:team_one_id] = official_games[index][:team_one_id]
+        game[:team_two_id] = official_games[index][:team_two_id]
+      end
+      game.save
+      games.push(game)
+    end
+
+    games
+  end
+
   # Organize the games into rounds.
   def create_rounds(game_ids)
-    rounds = []
-    round = []
+    rounds = [[game_ids[game_ids.length - 4],
+               game_ids[game_ids.length - 3],
+               game_ids[game_ids.length - 2],
+               game_ids[game_ids.length - 1]]]
+
     current_game_index = 0
-    num_games_in_round = (Bracket::NUM_TEAMS / 2) 
+    num_games_in_round = Bracket::NUM_TEAMS / 2
     final_game_index = current_game_index + (num_games_in_round - 1)
-       
     while num_games_in_round >= 1
+      rounds.push([])
       current_game_index.upto(final_game_index) do |game_index|
-        round.push(game_ids[game_index])
+        rounds.last.push(game_ids[game_index])
       end
-      rounds.push(round)
-      round = []
       num_games_in_round /= 2
       current_game_index = final_game_index + 1
       final_game_index = current_game_index + (num_games_in_round - 1)
     end
+
     rounds
   end
 
   # Set the set_next_game_id attributes.
   def set_next_game_ids(rounds)
+    rounds[0].each_with_index do |game_id, index|
+      game = Game.first({ :conditions => ["id = ?", game_id] })
+      game.update_attributes! :next_game_id => rounds[1][index * 8]
+    end
+
     rounds.each_with_index do |round, round_index|
+      next if round_index == 0
       unless round.length == 1
         next_round = rounds[round_index + 1]
         num_iterations = 0
         next_game_index = 0
-        round.each_with_index do |game_id, game_id_index|
+        round.each do |game_id|
           game = Game.first({ :conditions => "id = #{game_id}" })
-          game[:next_game_id] = next_round[next_game_index]
-          game.save
+          game.update_attributes! :next_game_id => next_round[next_game_index]
           num_iterations += 1
           if num_iterations == 2
             next_game_index += 1

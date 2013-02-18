@@ -9,7 +9,7 @@ class Game < ActiveRecord::Base
   #################
 
   POINTS_PER_WIN_BY_ROUND = {
-    1 => 0, # First Four (not supported, therefore 0 points)
+    1 => 1, # First Four
     2 => 1, # Round of 64
     3 => 2, # Round of 32
     4 => 3, # Sweet Sixteen
@@ -52,17 +52,19 @@ class Game < ActiveRecord::Base
     end
   end
 
-  # Ensure the team_one_id attribute corresponds to an existing team, and that
-  # that team won one of the previous games.
   def validate_team_one_id
+    return if self.new_record?
     return if self[:team_one_id].nil?
 
+    # Ensure that the team_one_id points to a valid team object.
     team = Team.first({ :conditions => ["id = ?", self[:team_one_id]] })
     if team.nil?
       errors.add(:team_one_id, "must refer to existing record")
     end
 
-    unless self[:team_one_id].nil?
+    # Ensure that games in rounds 3-7 have a team_one_id attribute that matches
+    # the winner of a previous game.
+    unless self.round_number <= 2
       previous_games = Game.all(:conditions => ["next_game_id = ?", self[:id]])
       unless previous_games.empty?
         matching_game = previous_games.detect do |previous_game|
@@ -75,9 +77,8 @@ class Game < ActiveRecord::Base
     end
   end
 
-  # Ensure the team_two_id attribute corresponds to an existing team, and that
-  # that team won one of the previous games.
   def validate_team_two_id
+    return if self.new_record?
     return if self[:team_two_id].nil?
 
     team = Team.first({ :conditions => ["id = ?", self[:team_two_id]] })
@@ -196,15 +197,16 @@ class Game < ActiveRecord::Base
   end
 
   # Figures out which round the game belongs to. Note that we're counting the
-  # First Four as round #1, then the ro64 is round #2, etc, until the finals
+  # First Four as round #1, then the ro64 is round #2, etc, until the finals,
   # which is round #7.
   def round_number
-    round_num = 2
-    previous_game = Game.first(:conditions => ["next_game_id = ?", self[:id]])
-    while previous_game
-      round_num += 1
-      conditions = ["next_game_id = ?", previous_game[:id]]
-      previous_game = Game.first(:conditions => conditions)
+    round_num = 7
+    next_game = Game.first(:conditions => ["id = ?", self[:next_game_id]])
+    while next_game
+      round_num -= 1
+      break unless next_game[:next_game_id]
+      conditions = ["id = ?", next_game[:next_game_id]]
+      next_game = Game.first(:conditions => conditions)
     end
 
     round_num
