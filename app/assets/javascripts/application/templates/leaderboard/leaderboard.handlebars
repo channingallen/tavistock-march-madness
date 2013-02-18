@@ -3,8 +3,10 @@
 <section id="leaderboard">
   <nav>
     <ul>
-      <li>{{#linkTo "leaderboard.you"}}You{{/linkTo}}</li>
-      <li>{{#linkTo "leaderboard.friends"}}Friends{{/linkTo}}</li>
+      {{#if currentUser}}
+        <li>{{#linkTo "leaderboard.you"}}You{{/linkTo}}</li>
+        <li>{{#linkTo "leaderboard.friends"}}Friends{{/linkTo}}</li>
+      {{/if}}
       <li>{{#linkTo "leaderboard.top"}}Top 100{{/linkTo}}</li>
     </ul>
   </nav>
@@ -18,7 +20,11 @@
   </section>
 
   <section id="info">
-    Info
+    {{#if currentUser}}
+      user is logged in
+    {{else}}
+      user is NOT logged in
+    {{/if}}
   </section>
 </div>
 
