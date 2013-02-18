@@ -34,13 +34,4 @@ class Api::UsersController < ApplicationController
 
     render :json =>  user
   end
-
-  # DELETE /users/:id
-  def destroy
-    user = User.find_by_id(params[:id])
-    user.destroy
-
-    render :json => user
-  end
-
 end

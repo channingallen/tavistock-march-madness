@@ -19,6 +19,8 @@ class Api::GamesController < ApplicationController
   end
 
   # PUT /games/:id
+  # TODO: ensure users can only update games belonging to their own bracket
+  # TODO: allow certain users to update the official bracket
   def update
     game = Game.find_by_id(params[:id])
     game[:team_one_id] = params[:game][:team_one_id]

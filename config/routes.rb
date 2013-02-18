@@ -63,7 +63,7 @@ MarchMadness::Application.routes.draw do
   match "/channel" => "pages#channel"
 
   namespace :api do
-    resources :users, :only => [:index, :show, :create, :destroy]
+    resources :users, :only => [:index, :show, :create]
     resources :brackets, :only => [:index, :show]
     resources :teams, :only => [:index, :show]
     resources :games, :only => [:index, :show, :update]
