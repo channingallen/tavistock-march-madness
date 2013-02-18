@@ -49,10 +49,16 @@ App.Game = DS.Model.extend({
    */
   updateNextGame: function() {
     var nextGame = this.get('nextGame'),
-      sibling = this.get('siblingGame');
-    if (nextGame && sibling) {
-      var teamAttr = this.get('id') < sibling.get('id') ? 'teamOne' : 'teamTwo',
-        winningTeam = this.get('winningTeam');
+      sibling = this.get('siblingGame'),
+      roundNumber = this.get('roundNumber');
+    if (nextGame && (sibling || roundNumber == 1)) {
+      var winningTeam = this.get('winningTeam'),
+        teamAttr;
+      if (sibling) {
+        teamAttr = this.get('id') < sibling.get('id') ? 'teamOne' : 'teamTwo';
+      } else {
+        teamAttr = 'teamTwo';
+      }
       if (nextGame.get(teamAttr) != winningTeam) {
         if (nextGame.get('winningTeam') == nextGame.get(teamAttr)) {
           nextGame.set('winningTeam', null);

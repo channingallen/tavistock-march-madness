@@ -142,9 +142,11 @@ class Game < ActiveRecord::Base
     return unless self[:next_game_id]
     
     sibling_game = self.sibling_game
-    return unless sibling_game
+    return unless (sibling_game or self.round_number == 1)
 
-    team_attr = self[:id] < sibling_game[:id] ? :team_one_id : :team_two_id
+    team_attr = sibling_game ?
+                (self[:id] < sibling_game[:id] ? :team_one_id : :team_two_id) :
+                :team_two_id
     next_game = self.next_game
     unless (next_game[team_attr] == self[:winning_team_id])
       next_game.update_attributes!(team_attr => self[:winning_team_id])
