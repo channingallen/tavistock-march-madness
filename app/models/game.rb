@@ -53,49 +53,20 @@ class Game < ActiveRecord::Base
   end
 
   def validate_team_one_id
-    return if self.new_record?
     return if self[:team_one_id].nil?
 
-    # Ensure that the team_one_id points to a valid team object.
     team = Team.first({ :conditions => ["id = ?", self[:team_one_id]] })
     if team.nil?
       errors.add(:team_one_id, "must refer to existing record")
     end
-
-    # Ensure that games in rounds 3-7 have a team_one_id attribute that matches
-    # the winner of a previous game.
-    unless self.round_number <= 2
-      previous_games = Game.all(:conditions => ["next_game_id = ?", self[:id]])
-      unless previous_games.empty?
-        matching_game = previous_games.detect do |previous_game|
-          previous_game[:winning_team_id] == self[:team_one_id]
-        end
-        unless matching_game
-          errors.add(:team_one_id, "must have won one of the previous games")
-        end
-      end
-    end
   end
 
   def validate_team_two_id
-    return if self.new_record?
     return if self[:team_two_id].nil?
 
     team = Team.first({ :conditions => ["id = ?", self[:team_two_id]] })
     if team.nil?
       errors.add(:team_two_id, "must refer to existing record")
-    end
-
-    unless self[:team_two_id].nil?
-      previous_games = Game.all(:conditions => ["next_game_id = ?", self[:id]])
-      unless previous_games.empty?
-        matching_game = previous_games.detect do |previous_game|
-          previous_game[:winning_team_id] == self[:team_two_id]
-        end
-        unless matching_game
-          errors.add(:team_two_id, "must have won one of the previous games")
-        end
-      end
     end
   end
 

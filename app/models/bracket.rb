@@ -88,7 +88,7 @@ class Bracket < ActiveRecord::Base
         game[:team_one_id] = official_games[index][:team_one_id]
         game[:team_two_id] = official_games[index][:team_two_id]
       end
-      game.save
+      game.save!
       games.push(game)
     end
 
@@ -132,7 +132,7 @@ class Bracket < ActiveRecord::Base
         num_iterations = 0
         next_game_index = 0
         round.each do |game_id|
-          game = Game.first({ :conditions => "id = #{game_id}" })
+          game = Game.first({ :conditions => ["id = ?", game_id] })
           game.update_attributes! :next_game_id => next_round[next_game_index]
           num_iterations += 1
           if num_iterations == 2
