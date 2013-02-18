@@ -5,5 +5,5 @@ App.NavigationView = Ember.View.extend({
 
   currentUser: function() {
     return App.get('currentUser');
-  }.property()
+  }.property('App.currentUser')
 });
