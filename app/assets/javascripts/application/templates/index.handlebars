@@ -1,7 +1,7 @@
 <nav>
   <ul>
-    {{#if model}}
-      <li>{{#linkTo "bracket" model.bracket}}Bracket{{/linkTo}}</li>
+    {{#if currentUser}}
+      <li>{{#linkTo "bracket" currentUser.bracket}}Bracket{{/linkTo}}</li>
     {{else}}
       <li><a href="#" {{action "login"}}>Bracket</a></li>
     {{/if}}
@@ -17,15 +17,20 @@
   </section>
 
   <section id="info">
-    {{#if model}}
-      {{ model.id }}<br/><br/>
-      {{ model.name }}<br/><br/>
-      {{ model.email }}<br/><br/>
-    Bracket ID: {{ model.bracket.id }}
+    {{#if currentUser}}
+      {{ currentUser.id }}<br/><br/>
+      {{ currentUser.name }}<br/><br/>
+      {{ currentUser.email }}<br/><br/>
+      Bracket ID: {{ currentUser.bracket.id }}
     {{else}}
-      ...
+      <p>
+        Fill out a March Madness bracket for a shot at thousands of dollars in
+        prizes!
+      </p>
+      <button {{action "login"}}>Sign Up</button>
     {{/if}}
   </section>
 </div>
 
 <div class="clearboth"></div>
+
