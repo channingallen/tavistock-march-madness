@@ -1,6 +1,6 @@
 class Team < ActiveRecord::Base
 
-  attr_accessible :name
+  attr_accessible :name, :rank
 
 
   ###################
@@ -10,6 +10,8 @@ class Team < ActiveRecord::Base
   validates :name, :presence => true
   validates :name, :length => { :maximum => 200, :minimum => 1 }
   validates :name, :uniqueness => true
+  validates :rank, :presence => true
+  validates :rank, :uniqueness => true
 
 
   #################
