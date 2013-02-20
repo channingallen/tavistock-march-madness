@@ -1,6 +1,5 @@
 #navigation {
   $height: 50px;
-  margin: 0 0 $height;
 
   ul {
     display: inline-block; // so it won't be 100% width
@@ -10,8 +9,12 @@
     li {
       float: left;
 
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.35);
+      }
+
       a {
-        border: 1px solid black;
+        border: 1px solid #ffffff;
         display: inline-block;
         font-size: 13px;
         height: $height;

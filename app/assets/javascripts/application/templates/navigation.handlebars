@@ -1,11 +1,11 @@
 <ul>
-  <li>{{#linkTo "index"}}Home{{/linkTo}}</li>
+  <li>{{#linkTo "index"}}HOME{{/linkTo}}</li>
   {{#if view.currentUser}}
-    <li>{{#linkTo "bracket" view.currentUser.bracket}}Bracket{{/linkTo}}</li>
+    <li>{{#linkTo "bracket" view.currentUser.bracket}}BRACKET{{/linkTo}}</li>
   {{else}}
-    <li><a href="#" {{action "login"}}>Bracket</a></li>
+    <li><a href="#" {{action "login"}}>BRACKET</a></li>
   {{/if}}
-  <li>{{#linkTo "leaderboard.you"}}Leaderboard{{/linkTo}}</li>
-  <li>{{#linkTo "leaderboard.friends"}}Friends{{/linkTo}}</li>
-  <li>{{#linkTo "prizes"}}Prizes{{/linkTo}}</li>
+  <li>{{#linkTo "leaderboard.you"}}LEADERBOARD{{/linkTo}}</li>
+  <li>{{#linkTo "leaderboard.friends"}}FRIENDS{{/linkTo}}</li>
+  <li>{{#linkTo "prizes"}}PRIZES{{/linkTo}}</li>
 </ul>

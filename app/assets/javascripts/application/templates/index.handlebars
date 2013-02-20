@@ -1,21 +1,24 @@
+<header xmlns="http://www.w3.org/1999/html">
+  <img id="logo" src="/assets/raw_logos/tav_logo.png" />
+  <h1>BRACKET CHALLENGE</h1>
+</header>
+
 <nav>
   <ul>
     {{#if currentUser}}
-      <li>{{#linkTo "bracket" currentUser.bracket}}Bracket{{/linkTo}}</li>
+      <li id="bracket_link">{{#linkTo "bracket" currentUser.bracket}}BRACKET{{/linkTo}}</li>
     {{else}}
-      <li><a href="#" {{action "login"}}>Bracket</a></li>
+      <li id="bracket_link"><a href="#" {{action "login"}}>BRACKET</a></li>
     {{/if}}
-    <li>{{#linkTo "leaderboard.you"}}Leaderboard{{/linkTo}}</li>
-    <li>{{#linkTo "leaderboard.friends"}}Friends{{/linkTo}}</li>
-    <li>{{#linkTo "prizes"}}Prizes{{/linkTo}}</li>
+    <li id="leaderboard_link">{{#linkTo "leaderboard.you"}}STANDINGS{{/linkTo}}</li>
+    <li id="prizes_link">{{#linkTo "prizes"}}PRIZES{{/linkTo}}</li>
   </ul>
 </nav>
 
-<div id="right">
-  <section id="restaurant">
-    <a href="https://www.google.com" target="_blank">Restaurant Logo</a>
+<div id="news">
+  <section id="bubble">
+    <p>NEWS</p>
   </section>
-
   <section id="info">
     {{#if currentUser}}
       {{ currentUser.id }}<br/><br/>
@@ -25,7 +28,7 @@
     {{else}}
       <p>
         Fill out a March Madness bracket for a shot at thousands of dollars in
-        prizes!
+        prizes! <br/><br/>
       </p>
       <button {{action "login"}}>Sign Up</button>
     {{/if}}
@@ -33,4 +36,3 @@
 </div>
 
 <div class="clearboth"></div>
-

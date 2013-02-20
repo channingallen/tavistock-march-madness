@@ -1,40 +1,88 @@
 #index_page {
-  padding: 50px;
+  padding: 80px;
+
+  header {
+    #logo {
+      height: 30px;
+      margin-right: 20px;
+    }
+
+    h1 {
+      display: inline-block;
+      font-size: 30px;
+    }
+  }
 
   nav {
-    float: left;
+    display: inline-block;
+    margin: 80px 0 0 0;
 
     li {
-      margin: 0 0 25px;
+      display: inline-block;
+      margin: 0 10px 0 0;
+
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.35);
+      }
 
       &:last-child {
         margin: 0;
       }
 
+      &#bracket_link {
+        background-image: image-url("backgrounds/icon_bracket.png");
+        background-position: center 37px;
+        background-repeat: no-repeat;
+      }
+
+      &#leaderboard_link {
+        background-image: image-url("backgrounds/icon_leaderboard.png");
+        background-position: center 37px;
+        background-repeat: no-repeat;
+      }
+
+      &#prizes_link {
+        background-image: image-url("backgrounds/icon_prizes.png");
+        background-position: center 37px;
+        background-repeat: no-repeat;
+      }
+
       a {
-        border: 1px solid black;
+        border: 2px solid #ffffff;
         display: block;
-        height: 75px;
-        line-height: 75px;
-        width: 250px;
+        font-size: 16px;
+        height: 48px;
+        padding: 142px 0 0;
+        width: 190px;
       }
     }
   }
 
-  #right {
-    float: right;
+  #news {
+    display: inline-block;
+    margin: 20px 0 0 0;
+    width: 610px;
 
-    #restaurant {
-      border: 1px solid black;
-      height: 100px;
-      margin: 0 0 35px;
-      width: 300px;
+    #bubble {
+      background-image: image-url("backgrounds/icon_news.png");
+      background-position: center center;
+      background-repeat: no-repeat;
+      color: black;
+      height: 33px;
+      margin: 30px 0 0 0;
+      text-align: left;
+      width: 50px;
+
+      p {
+        font-family: 'Lucida Sans Unicode', Arial, Helvetica, sans-serif;
+        padding: 8px 0 0 7px;
+      }
     }
 
     #info {
-      border: 1px solid black;
       height: 250px;
-      width: 300px;
+      margin: 15px 0 0 0;
+      text-align: left;
     }
   }
 }

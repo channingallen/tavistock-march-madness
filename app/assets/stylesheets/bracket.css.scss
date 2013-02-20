@@ -1,6 +1,6 @@
 #bracket_page {
   $teamHeight: 25px;
-  $gameHeight: ($teamHeight * 2) + 2; // 2px for top + bottom borders
+  $gameHeight: ($teamHeight * 2) + 4 + 2; // 4px for borders + 2px for gap between games
   $gameWidth: 100px;
   $spaceBetweenGames: 20px;
   $regionWidth: ($gameWidth * 4) + 8 + 20 - 15; // 8px game borders, 20px extra, -40px round margins,
@@ -12,7 +12,7 @@
 
   #first_four {
     display: inline-block;
-    margin: 0 0 20px;
+    margin: 30px 0 20px;
 
     .game {
       display: inline-block;
@@ -31,6 +31,30 @@
   .region {
     display: inline-block;
     width: $regionWidth;
+
+    &#region_1 {
+      background-image: url("/assets/backgrounds/bracket_lines_left.png");
+      background-position: 102px 27px;
+      background-repeat: no-repeat;
+    }
+
+    &#region_2 {
+      background-image: url("/assets/backgrounds/bracket_lines_left.png");
+      background-position: 102px 27px;
+      background-repeat: no-repeat;
+    }
+
+    &#region_3 {
+      background-image: url("/assets/backgrounds/bracket_lines_right.png");
+      background-position: 78px 27px;
+      background-repeat: no-repeat;
+    }
+
+    &#region_4 {
+      background-image: url("/assets/backgrounds/bracket_lines_right.png");
+      background-position: 78px 27px;
+      background-repeat: no-repeat;
+    }
 
     &#region_1, &#region_2 {
       float: left;
@@ -107,7 +131,7 @@
 
   #semis_finals {
     $padding: 20px;
-    border: 1px solid black;
+    background-color: rgba(0, 0, 0, 0.30);
     display: inline-block;
     padding: 15px $padding;
 
@@ -116,7 +140,6 @@
 
       // semi-finals
       &:nth-of-type(1), &:nth-of-type(3) {
-
       }
 
       // championship
@@ -133,17 +156,16 @@
   .game {
     $darkGreen: #006400;
     $lightGreen: #caff9c;
-    @include border-radius(3px);
-    border: 1px solid black;
+    border: 2px solid transparent;
+    color: #ffffff;
     position: relative; // so we can absolutely-position the score
     width: $gameWidth;
 
     &.todo {
-      border: 1px solid red;
+      border: 2px solid $darkRed;
     }
 
     &.points_awarded {
-
       .score {
         display: block;
       }
@@ -155,34 +177,34 @@
     }
 
     .team {
-      $extraPushTowardCenter: 3px;
-      height: $teamHeight - $extraPushTowardCenter;
+      background-color: rgba(0, 0, 0, 0.6);
+      border-left: 3px solid transparent;
+      color: rgba(255,255,255,0.7);
+      height: $teamHeight;
       font-size: 11px;
-      line-height: $teamHeight - $extraPushTowardCenter;
+      line-height: $teamHeight;
       overflow: hidden;
       padding: 0 5px;
       text-align: left;
       text-overflow: ellipsis;
       white-space: nowrap;
 
-      &.team_one {
-        padding-top: $extraPushTowardCenter;
-      }
-
-      &.team_two {
-        padding-bottom: $extraPushTowardCenter;
-      }
-
       &.winner {
-        font-weight: bold;
+        border-left: 3px solid $darkRed;
+        color: white;
+        text-shadow: 0 0 5px rgba(255,255,255,0.7);
       }
 
       &.chosen {
         cursor: pointer;
 
         &:hover {
-          background-color: #f0f0f0;
+          background-color: $darkRed;
         }
+      }
+
+      &.team_one {
+        margin: 0 0 2px 0;
       }
     }
 

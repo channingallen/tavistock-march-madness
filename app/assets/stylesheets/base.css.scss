@@ -3,7 +3,12 @@ $baseFontSize: 13px;
 
 html {
   background-color: #f0f0f0;
-  font-family: "Helvetica Neue",Helvetica,Arial,Verdana,sans-serif;
+  background-image: url("/assets/backgrounds/courtside.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  color: #ffffff;
+  font-family: 'Lucida Sans Unicode', Arial, Helvetica, sans-serif;
   font-size: $baseFontSize;
   height: 100%;
   overflow-x: hidden;
@@ -11,7 +16,8 @@ html {
   text-align: center;
 
   body {
-    background-color: #ffffff;
+    background: rgb(0, 0, 0);
+    background: rgba(0, 0, 0, 0);
     margin: 0 auto;
     width: 866px;
 
