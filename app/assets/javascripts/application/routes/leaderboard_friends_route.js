@@ -17,9 +17,5 @@ App.LeaderboardFriendsRoute = Ember.Route.extend({
 
   setupController: function(controller, model) {
     controller.set('content', model);
-  }.observes('App.friendIds'),
-
-  renderTemplate: function() {
-    this.render('leaderboard/leaderboard_rankings');
-  }
+  }.observes('App.friendIds')
 });

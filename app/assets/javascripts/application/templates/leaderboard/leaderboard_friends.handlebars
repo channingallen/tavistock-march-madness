@@ -1,0 +1,13 @@
+{{#each users}}
+  <li {{ bindAttr data-user-id="id" }}>
+    <span class="score">{{ score }}</span>
+    <span class="name">{{ name }}</span>
+    <div class="clearboth"></div>
+  </li>
+{{/each}}
+<li>
+  <p>
+    Compete against your friends to see who can score the most points!
+  </p>
+  <button>Invite Friends</button>
+</li>

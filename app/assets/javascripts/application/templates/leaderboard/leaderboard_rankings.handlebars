@@ -1,8 +1,7 @@
-<ul>
+<ul class="rankings">
   {{#each users}}
     <li {{ bindAttr data-user-id="id" }}>
       <span class="score">{{ score }}</span>
-      <div class="photo"></div>
       <span class="name">{{ name }}</span>
       <div class="clearboth"></div>
     </li>

@@ -1,6 +1,10 @@
 #leaderboard_page {
   padding: 0 50px 50px;
 
+  #navigation {
+    margin-bottom: 40px;
+  }
+
   #leaderboard {
     float: left;
 
@@ -17,12 +21,18 @@
             border: 1px solid black;
             display: inline-block;
             padding: 10px 20px;
+
+            &.active {
+              background-color: $red;
+              color: #ffffff;
+            }
           }
         }
       }
     }
 
-    > ul {
+    .rankings {
+      width: 360px;
 
       li {
         $rowHeight: 50px;
@@ -35,16 +45,6 @@
           font-weight: bold;
           line-height: inherit;
           width: 40px;
-        }
-
-        .photo {
-          $photoPadding: 4px;
-          background-color: #dddddd;
-          float: left;
-          height: $rowHeight - ($photoPadding * 2);
-          line-height: inherit;
-          margin: $photoPadding 0 0 0;
-          width: $rowHeight - ($photoPadding * 2);
         }
 
         .name {
