@@ -5,6 +5,5 @@ window.App = Ember.Application.create({
 
   ready: function() {
     App.bindings();
-    App.helpers.facebook.checkLogin();
   }
 });
