@@ -42,9 +42,10 @@ App.helpers.facebook = {
 
       if (!friendsResponse.data || !friendsResponse.data.length) return;
 
-      var friendIds = [];
+      var friendIds;
       for (var i = 0; i < friendsResponse.data.length; i++) {
-        App.get('friendIds').push(friendsResponse.data[i].id);
+        friendIds = App.get('friendIds').concat([friendsResponse.data[i].id]);
+        App.set('friendIds', friendIds);
       }
     });
   },

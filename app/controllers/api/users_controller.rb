@@ -8,7 +8,11 @@ class Api::UsersController < ApplicationController
     if params[:ids] and params[:ids].class == Array
       conditions = ["id IN (?)", params[:ids].collect { |id| id.to_i }]
     elsif params[:fb_id]
-      conditions = ["fb_id = ?", params[:fb_id]]
+      if params[:fb_id].class == String
+        conditions = ["fb_id = ?", params[:fb_id]]
+      elsif params[:fb_id].class == Array
+        conditions = ["fb_id IN (?)", params[:fb_id]]
+      end
     end
     users = User.where(conditions).to_a
 
