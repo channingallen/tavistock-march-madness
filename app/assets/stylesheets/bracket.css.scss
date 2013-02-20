@@ -5,12 +5,18 @@
   $spaceBetweenGames: 20px;
   $regionWidth: ($gameWidth * 4) + 8 + 20 - 15; // 8px game borders, 20px extra, -40px round margins,
   padding: 0 20px 50px;
-  background-image: url("/assets/backgrounds/bracket_lines.png");
-  background-position: 122px 191px;
-  background-repeat: no-repeat;
 
+  /******************/
+  /*   First Four   */
+  /******************/
 
-/******************/
+  #bracket {
+    background-image: url("/assets/backgrounds/bracket_lines.png");
+    background-position: 102px 133px;
+    background-repeat: no-repeat;
+  }
+
+  /******************/
   /*   First Four   */
   /******************/
 
