@@ -32,6 +32,21 @@ class Api::UsersController < ApplicationController
     user[:timezone] = params[:user][:timezone]
     user.save
 
-    render :json =>  user
+    render :json => user
+  end
+
+  # PUT /users/:id
+  def update
+    user = User.find_by_id(params[:id])
+    user[:fb_id] = params[:user][:fb_id]
+    user[:fb_username] = params[:user][:fb_username]
+    user[:fb_access_token] = params[:user][:fb_access_token]
+    user[:name] = params[:user][:name]
+    user[:email] = params[:user][:email]
+    user[:gender] = params[:user][:gender]
+    user[:timezone] = params[:user][:timezone]
+    user.save
+
+    render :json => user
   end
 end
