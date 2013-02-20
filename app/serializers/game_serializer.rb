@@ -17,4 +17,6 @@ class GameSerializer < ActiveModel::Serializer
     sibling_game = object.sibling_game
     sibling_game ? sibling_game[:id] : nil
   end
+
+  has_many :previous_games, :embed => :ids
 end

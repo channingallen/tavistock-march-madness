@@ -11,6 +11,7 @@ App.Game = DS.Model.extend({
   nextGame: DS.belongsTo('App.Game'),
   siblingGame: DS.belongsTo('App.Game'),
   bracket: DS.belongsTo('App.Bracket'),
+  previousGames: DS.hasMany('App.Game'),
 
   /**
    * Helpers for building the classes for game elements.
@@ -21,9 +22,13 @@ App.Game = DS.Model.extend({
       teamTwo = this.get('teamTwo'),
       winningTeam = this.get('winningTeam'),
       roundNum = this.get('roundNumber'),
-      todoRound2 = (roundNum == 2 && (!teamOne || !teamTwo || !winningTeam)),
+      hasPreviousGames = this.get('previousGames'),
+      todoRound2Top = (roundNum == 2 && hasPreviousGames && teamTwo &&
+                       !winningTeam),
+      todoRound2Normal = (roundNum == 2 && !hasPreviousGames &&
+                          (!teamOne || !teamTwo || !winningTeam)),
       todoRound3Plus = (roundNum > 2 && !winningTeam && (teamOne || teamTwo));
-    return !!(todoRound2 || todoRound3Plus);
+    return !!(todoRound2Top || todoRound2Normal || todoRound3Plus);
   }.property('teamOne', 'teamTwo', 'winningTeam', 'roundNum'),
 
   teamOneWon: function() {
