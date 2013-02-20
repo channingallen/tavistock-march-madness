@@ -7,16 +7,20 @@ App.helpers.facebook = {
     if (!currentUser) return;
     FB.getLoginStatus(function(response) {
       if (response.status != 'connected') return;
-      if (!response.userID) return;
-      if (response.userID != currentUser.get('fb_id')) return;
+      if (!response.authResponse) return;
+      if (!response.authResponse.userID) return;
+      if (response.authResponse.userID != currentUser.get('fb_id')) return;
 
       // Update the user in our DB and in our front-end data with the most
       // recent data from the Graph API.
-      var accessToken = response.accessToken;
+      var accessToken = response.authResponse.accessToken;
       FB.api('/me', function(meResponse) {
         App.helpers.facebook.updateUserFromMeResponse(currentUser, accessToken,
                                                       meResponse);
       });
+
+      // Also, store the user's friend IDs.
+      App.helpers.facebook.updateFriends();
     });
   },
 
@@ -32,6 +36,19 @@ App.helpers.facebook = {
     App.store.commit();
   },
 
+  updateFriends: function() {
+    FB.api('/me/friends?fields=id', function(friendsResponse) {
+      App.set('friendIds', []);
+
+      if (!friendsResponse.data || !friendsResponse.data.length) return;
+
+      var friendIds = [];
+      for (var i = 0; i < friendsResponse.data.length; i++) {
+        App.get('friendIds').push(friendsResponse.data[i].id);
+      }
+    });
+  },
+
   promptForAuthorization: function() {
 
     // Prompt the user to authorize our app with permission to access Likes.
@@ -42,7 +59,7 @@ App.helpers.facebook = {
       if (loginResponse.authResponse) {
         var accessToken = loginResponse.authResponse.accessToken;
 
-        // ...retrieve his basic info from Facebook.
+        // ...retrieve his basic info from Facebook..
         FB.api('/me', function(meResponse) {
 
           // Use this info to find an existing account for the user (or to
@@ -72,6 +89,8 @@ App.helpers.facebook = {
             }
           });
         });
+
+        // ...and
       }
     }, scopeObj);
   }
