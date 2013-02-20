@@ -23,12 +23,13 @@ App.Game = DS.Model.extend({
       winningTeam = this.get('winningTeam'),
       roundNum = this.get('roundNumber'),
       hasPreviousGames = this.get('previousGames'),
+      todoRound1 = (roundNum == 1 && !winningTeam),
       todoRound2Top = (roundNum == 2 && hasPreviousGames && teamTwo &&
                        !winningTeam),
-      todoRound2Normal = (roundNum == 2 && !hasPreviousGames &&
-                          (!teamOne || !teamTwo || !winningTeam)),
+      todoRound2Norm = (roundNum == 2 && !hasPreviousGames &&
+                        (!teamOne || !teamTwo || !winningTeam)),
       todoRound3Plus = (roundNum > 2 && !winningTeam && (teamOne || teamTwo));
-    return !!(todoRound2Top || todoRound2Normal || todoRound3Plus);
+    return !!(todoRound1 || todoRound2Top || todoRound2Norm || todoRound3Plus);
   }.property('teamOne', 'teamTwo', 'winningTeam', 'roundNum'),
 
   teamOneWon: function() {
