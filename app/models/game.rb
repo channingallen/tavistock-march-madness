@@ -35,7 +35,7 @@ class Game < ActiveRecord::Base
   #   Validations   #
   ###################
 
-  validates :score, :length => { :minimum => 0 }
+  validates :score, :numericality => { :greater_than_or_equal_to => 0 }
   validates :bracket_id, :presence => true
   validate :validate_bracket_id
   validate :validate_team_one_id
@@ -185,6 +185,7 @@ class Game < ActiveRecord::Base
     round_num
   end
 
+  # Updates the scores of every single user's games.
   def self.award_points_for_win(options)
     raise "invalid team" unless Team.exists?(options[:winning_team_id])
     num_points = Game::POINTS_PER_WIN_BY_ROUND[options[:round_number]]
@@ -208,6 +209,11 @@ class Game < ActiveRecord::Base
       if matching_game
         matching_game.update_attributes! :score => num_points
       end
+
+      # Update the bracket's user's score.
+      user = bracket.user
+      total_score = bracket.games.sum(:score)
+      user.update_attributes! :score => total_score
     end
   end
 

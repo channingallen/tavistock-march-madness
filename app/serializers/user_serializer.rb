@@ -9,8 +9,4 @@ class UserSerializer < ActiveModel::Serializer
              :fb_id
 
   has_one :bracket, :embed => :ids, :key => :bracket_id
-
-  def score
-    object.games.sum(:score)
-  end
 end

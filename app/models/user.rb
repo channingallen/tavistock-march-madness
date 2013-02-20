@@ -17,6 +17,7 @@ class User < ActiveRecord::Base
   ###################
 
   validates :email, :uniqueness => true, :allow_nil => true
+  validates :score, :numericality => { :greater_than_or_equal_to => 0 }
   validates :fb_id, :uniqueness => true, :allow_nil => true
   validates :fb_username, :uniqueness => true, :allow_nil => true
   validates :fb_access_token, :uniqueness => true, :allow_nil => true
