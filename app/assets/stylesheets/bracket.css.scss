@@ -158,14 +158,25 @@
     $lightGreen: #caff9c;
     border: 2px solid transparent;
     color: #ffffff;
+    font-family: $robotoFontFamily;
+    font-size: 14px;
     position: relative; // so we can absolutely-position the score
     width: $gameWidth;
 
     &.todo {
-      border: 2px solid $darkRed;
+      border: 2px solid transparentize($red, 0.1);
+
+      .team {
+
+        &.team_one {
+          border-bottom: 2px solid transparentize($red, 0.1);
+          margin: 0;
+        }
+      }
     }
 
     &.points_awarded {
+
       .score {
         display: block;
       }
@@ -178,20 +189,19 @@
 
     .team {
       background-color: rgba(0, 0, 0, 0.6);
-      border-left: 3px solid transparent;
       color: rgba(255,255,255,0.7);
       height: $teamHeight;
-      font-size: 11px;
       line-height: $teamHeight;
       overflow: hidden;
-      padding: 0 5px;
+      padding: 0 5px 0 8px;
       text-align: left;
       text-overflow: ellipsis;
       white-space: nowrap;
 
       &.winner {
-        border-left: 3px solid $darkRed;
-        color: white;
+        border-left: 3px solid $red;
+        color: #ffffff;
+        padding: 0 5px;
         text-shadow: 0 0 5px rgba(255,255,255,0.7);
       }
 
@@ -199,7 +209,8 @@
         cursor: pointer;
 
         &:hover {
-          background-color: $darkRed;
+          background-color: $red;
+          color: #ffffff;
         }
       }
 

@@ -9,12 +9,14 @@
 
     h1 {
       display: inline-block;
+      font-family: $robotoFontFamily;
       font-size: 30px;
     }
   }
 
   nav {
     display: inline-block;
+    font-family: $robotoFontFamily;
     margin: 80px 0 0 0;
 
     li {
