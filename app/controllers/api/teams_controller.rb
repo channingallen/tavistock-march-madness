@@ -1,5 +1,7 @@
 class Api::TeamsController < ApplicationController
 
+  skip_before_filter :verify_authenticity_token
+
   # GET /teams
   def index
     conditions = []

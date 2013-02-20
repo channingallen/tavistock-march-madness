@@ -1,5 +1,7 @@
 class Api::GamesController < ApplicationController
 
+  skip_before_filter :verify_authenticity_token
+
   # GET /game
   def index
     conditions = []

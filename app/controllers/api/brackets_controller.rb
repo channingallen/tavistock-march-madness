@@ -1,5 +1,7 @@
 class Api::BracketsController < ApplicationController
 
+  skip_before_filter :verify_authenticity_token
+
   # GET /brackets
   def index
     conditions = []

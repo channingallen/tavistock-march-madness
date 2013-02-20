@@ -1,5 +1,7 @@
 class Api::UsersController < ApplicationController
 
+  skip_before_filter :verify_authenticity_token
+
   # GET /users
   def index
     conditions = []
