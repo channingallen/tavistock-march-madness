@@ -35,9 +35,6 @@
       vertical-align: top;
     }
 
-    .round_1 {
-    }
-
     .game {
       display: inline-block;
       margin: 0 7px 0 0;
@@ -168,6 +165,16 @@
     background-color: rgba(0, 0, 0, 0.30);
     display: inline-block;
     padding: 15px $padding;
+    position: relative;
+
+    h2 {
+      bottom: 125px;
+      color: rgba(255,255,255,0.7);
+      font-family: $robotoFontFamily;
+      font-size: 23px;
+      left: 133px;
+      position: absolute;
+    }
 
     .game {
       display: inline-block;

@@ -26,6 +26,7 @@
 
     <!-- finals and semi-finals -->
     <section id="semis_finals">
+      <h2 id="finals">SEMIS/FINALS</h2>
       {{#each game in semisFinalsGames}}
         {{view App.GameView classBinding="game.todo game.pointsAwarded:points_awarded"}}
       {{/each}}
