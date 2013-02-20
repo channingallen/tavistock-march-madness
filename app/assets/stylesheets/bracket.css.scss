@@ -203,6 +203,15 @@
       &.team_one {
         margin: 0 0 2px 0;
       }
+
+      .rank {
+        display: inline-block;
+        font-size: 9px;
+        margin: 0 3px 0 0;
+        position: relative;
+        border-top-left-radius: 1px;
+        vertical-align: top;
+      }
     }
 
     .score {
