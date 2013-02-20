@@ -5,10 +5,13 @@ App.LeaderboardYouRoute = Ember.Route.extend({
   },
 
   model: function() {
-    return App.User.find(); // TODO:
+    var currentUser = App.get('currentUser');
+    return App.User.find({ near_user: currentUser.get('id') });
   },
 
-  // TODO: Don't we need a setupController fn?
+  setupController: function(controller, model) {
+    controller.set('content', model);
+  },
 
   renderTemplate: function() {
     this.render('leaderboard/leaderboard_rankings');
