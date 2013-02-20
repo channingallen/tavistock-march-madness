@@ -7,12 +7,13 @@ App.helpers.facebook = {
     if (!currentUser) return;
     FB.getLoginStatus(function(response) {
       if (response.status != 'connected') return;
-      if (!response.userID) return;
-      if (response.userID != currentUser.get('fb_id')) return;
+      if (!response.authResponse) return;
+      if (!response.authResponse.userID) return;
+      if (response.authResponse.userID != currentUser.get('fb_id')) return;
 
       // Update the user in our DB and in our front-end data with the most
       // recent data from the Graph API.
-      var accessToken = response.accessToken;
+      var accessToken = response.authResponse.accessToken;
       FB.api('/me', function(meResponse) {
         App.helpers.facebook.updateUserFromMeResponse(currentUser, accessToken,
                                                       meResponse);
