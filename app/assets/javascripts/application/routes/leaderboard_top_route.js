@@ -1,10 +1,12 @@
 App.LeaderboardTopRoute = Ember.Route.extend({
 
   model: function() {
-    return App.User.find();
+    return App.User.find({ sort: 'score', order: 'DESC', limit: 100 });
   },
 
-  // TODO: Don't we need a setupController fn?
+  setupController: function(controller, model) {
+    controller.set('content', model);
+  },
 
   renderTemplate: function() {
     this.render('leaderboard/leaderboard_rankings');
