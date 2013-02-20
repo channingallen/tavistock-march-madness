@@ -6,7 +6,9 @@ App.LeaderboardYouRoute = Ember.Route.extend({
 
   model: function() {
     var currentUser = App.get('currentUser');
-    return App.User.find({ near_user: currentUser.get('id') });
+    return currentUser ?
+           App.User.find({ near_user: currentUser.get('id') }) :
+           [];
   },
 
   setupController: function(controller, model) {
