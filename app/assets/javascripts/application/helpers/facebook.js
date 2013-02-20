@@ -43,7 +43,7 @@ App.helpers.facebook = {
 
       var friendIds = [];
       for (var i = 0; i < friendsResponse.data.length; i++) {
-        App.get('friendIds').push(friendsResponse.data[i]);
+        App.get('friendIds').push(friendsResponse.data[i].id);
       }
     });
   },
