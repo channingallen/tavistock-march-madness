@@ -4,6 +4,7 @@ App.User = DS.Model.extend({
   score: DS.attr('number'),
   gender: DS.attr('string'),
   timezone: DS.attr('string'),
+  rank: DS.attr('number'),
   fbUsername: DS.attr('string'),
   fbAccessToken: DS.attr('string'),
   fbId: DS.attr('string'),

@@ -39,12 +39,21 @@
         border: 1px solid black;
         line-height: $rowHeight;
 
-        .score {
+        .rank {
           float: left;
           font-size: 11px;
           font-weight: bold;
           line-height: inherit;
-          width: 40px;
+          width: 50px;
+        }
+
+        .score {
+          color: $red;
+          float: left;
+          font-size: 14px;
+          font-weight: bold;
+          line-height: inherit;
+          width: 45px;
         }
 
         .name {

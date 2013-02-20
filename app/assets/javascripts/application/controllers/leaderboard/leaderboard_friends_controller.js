@@ -1,6 +1,6 @@
 App.LeaderboardFriendsController = Ember.ArrayController.extend({
-  sortProperties: ['score'],
-  sortAscending: false,
+  sortProperties: ['rank'],
+  sortAscending: true,
 
   users: function() {
     return this.get('arrangedContent');

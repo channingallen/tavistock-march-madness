@@ -1,6 +1,7 @@
 <ul class="rankings">
   {{#each users}}
     <li {{ bindAttr data-user-id="id" }}>
+      <span class="rank">#{{ rank }}</span>
       <span class="score">{{ score }}</span>
       <span class="name">{{ name }}</span>
       <div class="clearboth"></div>
