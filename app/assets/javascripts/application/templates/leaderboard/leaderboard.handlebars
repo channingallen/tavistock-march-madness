@@ -13,25 +13,4 @@
   {{ outlet }}
 </section>
 
-
-<div id="right">
-  <section id="restaurant">
-    <a href="https://www.google.com" target="_blank">Restaurant Logo</a>
-  </section>
-
-  <section id="info">
-    {{#if currentUser}}
-      <p>
-        The first-place winner will receive thousands of dollars in prizes!
-      </p>
-    {{else}}
-      <p>
-        Fill out a March Madness bracket for a shot at thousands of dollars in
-        prizes!
-      </p>
-      <button {{action "login"}}>Sign Up</button>
-    {{/if}}
-  </section>
-</div>
-
 <div class="clearboth"></div>
