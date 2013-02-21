@@ -62,6 +62,10 @@ class PagesController < ApplicationController
     end
   end
 
+  def page_tab
+    render :layout => "page_tab"
+  end
+
   # Called by Facebook for their Javascript SDK. More information here:
   # http://developers.facebook.com/docs/reference/javascript/
   def channel
