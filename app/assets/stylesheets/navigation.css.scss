@@ -1,25 +1,38 @@
 #navigation {
   $height: 50px;
+  background-color: rgba(0, 0, 0, 0.6);
+  margin: 0 0 75px 0;
+  width: 100%;
 
   ul {
-    display: inline-block; // so it won't be 100% width
+    display: block; // so it won't be 100% width
     margin: 0 auto;
     overflow: hidden; // to clear floated <li> children
 
     li {
-      float: left;
+      display: inline-block;
 
-      &:hover {
-        background-color: rgba(0, 0, 0, 0.35);
-      }
+      //&:hover {
+        //background-color: $red;
+      //}
 
       a {
-        border: 1px solid #ffffff;
+        color: rgba(255,255,255,0.7);
         display: inline-block;
-        font-size: 13px;
+        font-family: $robotoFontFamily;
+        font-size: 18px;
         height: $height;
         line-height: 50px;
         padding: 0 30px;
+
+        &:hover {
+          background-color: $red;
+          color: #ffffff;
+        }
+
+        &.active {
+          color: #ffffff;
+        }
       }
     }
   }

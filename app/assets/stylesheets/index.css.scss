@@ -62,22 +62,20 @@
 
   #news {
     display: inline-block;
+    font-family: $robotoFontFamily;
     margin: 20px 0 0 0;
     width: 610px;
 
-    #bubble {
-      background-image: image-url("backgrounds/icon_news.png");
-      background-position: center center;
-      background-repeat: no-repeat;
-      color: black;
-      height: 33px;
+    #head {
       margin: 30px 0 0 0;
       text-align: left;
       width: 50px;
 
-      p {
-        font-family: 'Lucida Sans Unicode', Arial, Helvetica, sans-serif;
-        padding: 8px 0 0 7px;
+      h2 {
+        background-color: $red;
+        color: #ffffff;
+        font-size: 15px;
+        padding: 10px 0 10px 7px;
       }
     }
 

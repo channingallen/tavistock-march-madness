@@ -60,6 +60,7 @@ MarchMadness::Application.routes.draw do
 
   root :to => 'pages#index'
 
+  match "/page_tab" => "pages#page_tab"
   match "/channel" => "pages#channel"
 
   namespace :api do

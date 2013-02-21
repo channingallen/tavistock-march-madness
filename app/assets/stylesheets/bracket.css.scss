@@ -4,7 +4,7 @@
   $gameWidth: 100px;
   $spaceBetweenGames: 20px;
   $regionWidth: ($gameWidth * 4) + 8 + 20 - 15; // 8px game borders, 20px extra, -40px round margins,
-  padding: 0 20px 50px;
+  padding: 0 0 50px;
 
   /***************/
   /*   Bracket   */
@@ -12,8 +12,10 @@
 
   #bracket {
     background-image: url("/assets/backgrounds/bracket_lines.png");
-    background-position: 102px 196px;
+    background-position: 102px 122px;
     background-repeat: no-repeat;
+    margin: 0 auto;
+    width: 826px;
   }
 
   /******************/
@@ -22,7 +24,7 @@
 
   #first_four {
     display: inline-block;
-    margin: 75px 0 40px;
+    margin: 0 0 40px;
     position: relative;
 
     h2 {
