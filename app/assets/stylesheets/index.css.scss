@@ -15,7 +15,7 @@
   }
 
   nav {
-    display: inline-block;
+    display: block;
     font-family: $robotoFontFamily;
     margin: 80px 0 0 0;
 
@@ -24,7 +24,7 @@
       margin: 0 10px 0 0;
 
       &:hover {
-        background-color: rgba(0, 0, 0, 0.35);
+        background-color: rgba(0, 0, 0, 0.4);
       }
 
       &:last-child {
@@ -69,13 +69,13 @@
     #head {
       margin: 30px 0 0 0;
       text-align: left;
-      width: 50px;
 
       h2 {
         background-color: $red;
+        display: inline-block;
         color: #ffffff;
         font-size: 15px;
-        padding: 10px 0 10px 7px;
+        padding: 7px 12px;
       }
     }
 
