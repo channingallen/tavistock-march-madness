@@ -9,7 +9,7 @@ App.helpers.facebook = {
       if (response.status != 'connected') return;
       if (!response.authResponse) return;
       if (!response.authResponse.userID) return;
-      if (response.authResponse.userID != currentUser.get('fb_id')) return;
+      if (response.authResponse.userID != currentUser.get('fbId')) return;
 
       // Update the user in our DB and in our front-end data with the most
       // recent data from the Graph API.
