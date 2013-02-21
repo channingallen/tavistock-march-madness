@@ -15,8 +15,6 @@ class PagesController < ApplicationController
         "oauth_token" => "1234567890"
       }
     end
-    logger.info "data: #{data.inspect}"
-
 
     # If the visitor has authenticated our app, retrieve his account (or create
     # one if he doesn't already have one) and pass its data to the view.
@@ -63,7 +61,21 @@ class PagesController < ApplicationController
   end
 
   def page_tab
+
+    # Verify the signed request and gather data.
+    if Rails.env.production?
+      data = parse_signed_request
+      @liked = data["page"]["liked"]
+      @page_id = data["page"]["id"]
+    else
+      @liked = params["liked"]
+      @page_id = params["page_id"]
+    end
+
     render :layout => "page_tab"
+
+  rescue Exception => e
+    render :text => "Unsupported page."
   end
 
   # Called by Facebook for their Javascript SDK. More information here:
