@@ -6,7 +6,13 @@ App.LeaderboardTopRoute = Ember.Route.extend({
   },
 
   model: function() {
-    return App.User.find({ sort: 'score', order: 'DESC', limit: 10 });
+    var currentUser = App.get('currentUser');
+    return App.User.find({
+      sort: 'score',
+      order: 'DESC',
+      limit: 10,
+      restaurant_id: currentUser.get('restaurantId')
+    });
   },
 
   setupController: function(controller, model) {

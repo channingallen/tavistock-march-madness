@@ -13,7 +13,8 @@ App.LeaderboardFriendsRoute = Ember.Route.extend({
       friendIds = App.get('friendIds'),
       friends = [currentUser];
     users.forEach(function(user) {
-      if (_.contains(friendIds, user.get('fbId'))) {
+      if (user.get('restaurantId') == currentUser.get('restaurantId') &&
+          _.contains(friendIds, user.get('fbId'))) {
         friends.push(user);
       }
     });
