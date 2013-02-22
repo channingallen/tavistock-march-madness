@@ -8,4 +8,5 @@ App.Router.map(function() {
     this.route('top');
   });
   this.resource('prizes');
+  this.route('rules');
 });

@@ -1,0 +1,1 @@
+App.RulesRoute = Ember.Route.extend({});

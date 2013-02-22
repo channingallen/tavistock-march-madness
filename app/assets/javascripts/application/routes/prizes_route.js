@@ -1,3 +1,1 @@
-App.PrizesRoute = Ember.Route.extend({
-  setupController: function(controller, model) {}
-});
+App.PrizesRoute = Ember.Route.extend({});
