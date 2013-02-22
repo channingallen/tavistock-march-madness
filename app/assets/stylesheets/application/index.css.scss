@@ -17,7 +17,6 @@
     margin: 80px 0 0 0;
 
     li {
-      display: inline-block;
       margin: 0 10px 0 0;
 
       &:hover {
@@ -25,7 +24,7 @@
       }
 
       &:last-child {
-        margin: 0;
+        margin: 0 3.5px 0 0;
       }
 
       &.link {
@@ -35,16 +34,30 @@
 
       &#bracket_link {
         background-image: image-url("backgrounds/icon_bracket.png");
+        display: inline-block;
+        margin: 0 0 10px;
+
+        a {
+          border: 2px solid #ffffff;
+          display: block;
+          font-size: 16px;
+          height: 48px;
+          margin: 0 auto;
+          padding: 142px 0 0;
+          width: 396px;
+        }
       }
 
       &#leaderboard_link {
         background-image: image-url("backgrounds/icon_leaderboard.png");
         background-position: center 37px;
+        display: inline-block;
       }
 
       &#prizes_link {
         background-image: image-url("backgrounds/icon_prizes.png");
         background-position: center 37px;
+        display: inline-block;
       }
 
       a {
@@ -62,7 +75,7 @@
     display: inline-block;
     font-family: $robotoFontFamily;
     margin: 20px 0 0 0;
-    width: 610px;
+    width: 403px;
 
     #head {
       margin: 30px 0 0 0;
