@@ -1,25 +1,6 @@
-<% if @page_id == "265297633509254" %>
-  <img id="logo" src="/assets/like_gates/like_gate_joes.png" />
-<% elsif @page_id == "171824636186609" or @page_id == "58761811526" %>
-  <img id="logo" src="/assets/like_gates/like_gate_napa.png" />
-<% elsif @page_id == "181834148524304" %>
-  <img id="logo" src="/assets/like_gates/like_gate_alcatraz.png" />
-<% elsif @page_id == "347993055268" %>
-  <img id="logo" src="/assets/like_gates/like_gate_blackhawk.png" />
-<% elsif @page_id == "92945941516" or @page_id == "52194381546" %>
-  <img id="logo" src="/assets/like_gates/like_gate_california.png" />
-<% elsif @page_id == "130416646986919" %>
-  <img id="logo" src="/assets/like_gates/like_gate_sapporo.png" />
-<% elsif @page_id == "41150308569" %>
-  <img id="logo" src="/assets/like_gates/like_gate_zed.png" />
-<% elsif ["71191159109", "92682632632", "74800812234", "79529882826"].include?(@page_id) %>
-  <img id="logo" src="/assets/like_gates/like_gate_timpano.png" />
-<% elsif @page_id == "190166997684083" %>
-  <img id="logo" src="/assets/like_gates/like_gate_abe.png" />
-<% elsif @page_id == "120870517924902" %>
-  <img id="logo" src="/assets/like_gates/like_gate_atlantic.png" />
-<% elsif @page_id == "486859618037849" %>
-  <img id="logo" src="/assets/like_gates/like_gate_atlantic.png" />
+<% restaurant = Constants::RESTAURANTS[@page_id] %>
+<% if restaurant %>
+  <img id="logo" src="/assets/<%= restaurant[:image] %>" />
 <% else %>
   Unsupported Page
 <% end %>

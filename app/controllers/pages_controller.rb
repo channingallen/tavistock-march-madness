@@ -60,7 +60,7 @@ class PagesController < ApplicationController
 
   rescue Exception => e
     logger.info "#{e.class} - #{e.message}"
-    render :text => "An error occurred."
+    render :text => "An error occurred.<br/>#{e.class} - #{e.message}"
   end
 
   # Called by Facebook for their Javascript SDK. More information here:
