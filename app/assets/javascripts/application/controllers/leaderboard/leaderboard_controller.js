@@ -4,5 +4,9 @@ App.LeaderboardController = Ember.ArrayController.extend({
 
   currentUser: function() {
     return App.get('currentUser');
-  }.property('App.currentUser')
+  }.property('App.currentUser'),
+
+  isActive: function() {
+    return true;
+  }
 });

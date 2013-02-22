@@ -12,9 +12,9 @@
     li {
       display: inline-block;
 
-      //&:hover {
-        //background-color: $red;
-      //}
+      &.active a {
+        color: #ffffff;
+      }
 
       a {
         color: rgba(255,255,255,0.7);
