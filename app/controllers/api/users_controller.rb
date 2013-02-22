@@ -22,7 +22,9 @@ class Api::UsersController < ApplicationController
       end
     end
     if params[:restaurant_id]
-      if params[:restaurant_id].class == String
+      if params[:restaurant_id].blank?
+        str_arr.push("restaurant_id IS NULL")
+      elsif params[:restaurant_id].class == String
         str_arr.push("restaurant_id = ?")
         conditions.push(params[:restaurant_id])
       elsif params[:restaurant_id].class == Array
@@ -31,7 +33,9 @@ class Api::UsersController < ApplicationController
       end
     end
     if params[:restaurant_location]
-      if params[:restaurant_location].class == String
+      if params[:restaurant_location].blank?
+        str_arr.push("restaurant_location IS NULL")
+      elsif params[:restaurant_location].class == String
         str_arr.push("restaurant_location = ?")
         conditions.push(params[:restaurant_location])
       elsif params[:restaurant_location].class == Array
@@ -122,17 +126,28 @@ class Api::UsersController < ApplicationController
   # PUT /users/:id
   def update
     user = User.find_by_id(params[:id])
-    user[:fb_id] = params[:user][:fb_id]
-    user[:fb_username] = params[:user][:fb_username]
-    user[:fb_access_token] = params[:user][:fb_access_token]
-    user[:name] = params[:user][:name]
-    user[:email] = params[:user][:email]
-    user[:gender] = params[:user][:gender]
-    user[:timezone] = params[:user][:timezone]
-    user[:phone] = params[:user][:phone]
-    user[:restaurant_id] = params[:user][:restaurant_id]
-    user[:restaurant_location] = params[:user][:restaurant_location]
-    user[:contact_allowed] = params[:user][:contact_allowed]
+    user[:fb_id] = params[:user][:fb_id].blank? ?
+                   nil : params[:user][:fb_id]
+    user[:fb_username] = params[:user][:fb_username].blank? ?
+                         nil : params[:user][:fb_username]
+    user[:fb_access_token] = params[:user][:fb_access_token].blank? ?
+                             nil : params[:user][:fb_access_token]
+    user[:name] = params[:user][:name].blank? ?
+                  nil : params[:user][:name]
+    user[:email] = params[:user][:email].blank? ?
+                   nil : params[:user][:email]
+    user[:gender] = params[:user][:gender].blank? ?
+                    nil : params[:user][:gender]
+    user[:timezone] = params[:user][:timezone].blank? ?
+                      nil : params[:user][:timezone]
+    user[:phone] = params[:user][:phone].blank? ?
+                   nil : params[:user][:phone]
+    user[:restaurant_id] = params[:user][:restaurant_id].blank? ?
+                           nil : params[:user][:restaurant_id]
+    user[:restaurant_location] = params[:user][:restaurant_location].blank? ?
+                                 nil : params[:user][:restaurant_location]
+    user[:contact_allowed] = params[:user][:contact_allowed].blank? ?
+                             nil : params[:user][:contact_allowed]
     user.save
 
     render :json => user
