@@ -31,22 +31,23 @@
         margin: 0;
       }
 
-      &#bracket_link {
-        background-image: image-url("backgrounds/icon_bracket.png");
+      &.link {
         background-position: center 37px;
         background-repeat: no-repeat;
+      }
+
+      &#bracket_link {
+        background-image: image-url("backgrounds/icon_bracket.png");
       }
 
       &#leaderboard_link {
         background-image: image-url("backgrounds/icon_leaderboard.png");
         background-position: center 37px;
-        background-repeat: no-repeat;
       }
 
       &#prizes_link {
         background-image: image-url("backgrounds/icon_prizes.png");
         background-position: center 37px;
-        background-repeat: no-repeat;
       }
 
       a {

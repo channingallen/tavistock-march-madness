@@ -1,15 +1,7 @@
 <ul>
   <li>{{#linkTo "index"}}HOME{{/linkTo}}</li>
-
-  {{#if view.currentUser}}
-    <li>{{#linkTo "bracket" view.currentUser.bracket}}BRACKET{{/linkTo}}</li>
-  {{else}}
-    <li><a href="#" {{action "login"}}>BRACKET</a></li>
-  {{/if}}
-
+  <li>{{#linkTo "bracket" view.currentUser.bracket}}BRACKET{{/linkTo}}</li>
   <li {{bindAttr class="isActive:active"}}>{{#linkTo "leaderboard.you"}}STANDINGS{{/linkTo}}</li>
-
   <li>{{#linkTo "prizes"}}PRIZES{{/linkTo}}</li>
-
   <li>{{#linkTo "rules"}}RULES{{/linkTo}}</li>
 </ul>

@@ -12,6 +12,9 @@
       // Set global so we know who the current user is.
       App.set('currentUser', App.User.find(initialData.user.id));
 
+      // Set global for restaurant data.
+      App.set('restaurants', <%= Constants::RESTAURANTS.to_json.to_s.html_safe %>);
+
     </script>
   <% end %>
 <% end %>

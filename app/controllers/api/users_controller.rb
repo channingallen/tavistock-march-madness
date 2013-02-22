@@ -70,6 +70,9 @@ class Api::UsersController < ApplicationController
     user[:email] = params[:user][:email]
     user[:gender] = params[:user][:gender]
     user[:timezone] = params[:user][:timezone]
+    user[:phone] = params[:user][:phone]
+    user[:restaurant_id] = params[:user][:restaurant_id]
+    user[:contact_allowed] = params[:user][:contact_allowed]
     user.save
 
     render :json => user
@@ -85,6 +88,9 @@ class Api::UsersController < ApplicationController
     user[:email] = params[:user][:email]
     user[:gender] = params[:user][:gender]
     user[:timezone] = params[:user][:timezone]
+    user[:phone] = params[:user][:phone]
+    user[:restaurant_id] = params[:user][:restaurant_id]
+    user[:contact_allowed] = params[:user][:contact_allowed]
     user.save
 
     render :json => user
