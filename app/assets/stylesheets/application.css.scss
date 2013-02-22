@@ -1,10 +1,10 @@
-@import "reset";
-@import "common";
-@import "base";
+@import "common/reset";
+@import "common/common";
 
-@import "index";
-@import "navigation";
-@import "bracket";
-@import "leaderboard";
-@import "prizes";
-@import "rules";
+@import "application/base";
+@import "application/index";
+@import "application/navigation";
+@import "application/bracket";
+@import "application/leaderboard";
+@import "application/prizes";
+@import "application/rules";
