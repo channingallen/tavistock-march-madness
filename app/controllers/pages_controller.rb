@@ -4,16 +4,23 @@ class PagesController < ApplicationController
 
   def index
 
-    # Ensure the visitor has come to the app via Facebook.
+    # Verify the signed request, and gather basic data.
     if Rails.env.production?
       data = parse_signed_request
-    elsif params["no_user"]
-      data = {}
+      liked = data["page"]["liked"]
+      @page_id = data["page"]["id"]
     else
-      data = {
-        "user_id" => Constants::TEST_USER_FB_ID,
-        "oauth_token" => "1234567890"
-      }
+      data = params["no_user"] ?
+             {} :
+             { "user_id" => Constants::TEST_USER_FB_ID,
+               "oauth_token" => "1234567890" }
+      liked = !!params["liked"]
+      @page_id = params["page_id"]
+    end
+
+    if !liked
+      render :layout => "like_gate", :template => "pages/like_gate"
+      return
     end
 
     # If the visitor has authenticated our app, retrieve his account (or create
@@ -49,33 +56,7 @@ class PagesController < ApplicationController
 
   rescue Exception => e
     logger.info "#{e.class} - #{e.message}"
-
-    redirect_error_messages = [
-      "Must be POST request.",
-      "Unknown algorithm. Expected HMAC-SHA256.",
-      "Bad signed JSON signature.",
-    ]
-    if redirect_error_messages.include?(e.message) and Rails.env.production?
-      redirect_to Constants::FB_APP_URL
-    end
-  end
-
-  def page_tab
-
-    # Verify the signed request and gather data.
-    if Rails.env.production?
-      data = parse_signed_request
-      @liked = data["page"]["liked"]
-      @page_id = data["page"]["id"]
-    else
-      @liked = params["liked"]
-      @page_id = params["page_id"]
-    end
-
-    render :layout => "page_tab"
-
-  rescue Exception => e
-    render :text => "Unsupported page."
+    render :text => "An error occurred."
   end
 
   # Called by Facebook for their Javascript SDK. More information here:

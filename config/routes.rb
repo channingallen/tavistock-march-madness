@@ -60,7 +60,6 @@ MarchMadness::Application.routes.draw do
 
   root :to => 'pages#index'
 
-  match "/page_tab" => "pages#page_tab"
   match "/channel" => "pages#channel"
 
   namespace :api do
@@ -69,13 +68,5 @@ MarchMadness::Application.routes.draw do
     resources :teams, :only => [:index, :show]
     resources :games, :only => [:index, :show, :update]
   end
-
-  match "/create_user" => "users#create_user"
-  match "/retrieve_user" => "users#retrieve_user"
-  match "/update_user" => "users#update_user"
-  match "/destroy_user" => "users#destroy_user"
-  match "/retrieve_bracket" => "users#retrieve_bracket"
-  match "/retrieve_game" => "users#retrieve_game"
-  match "/retrieve_team" => "users#retrieve_team"
 
 end

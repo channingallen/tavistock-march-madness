@@ -1,0 +1,88 @@
+#leaderboard_page {
+  padding: 0 0 50px;
+
+  #navigation {
+    margin-bottom: 40px;
+  }
+
+  #leaderboard {
+    width: 360px;
+    margin: 0 auto;
+
+    nav {
+      margin: 0 0 10px;
+
+      ul {
+        overflow: hidden; // to clear floated <li> children
+
+        li {
+          background-color: rgba(0, 0, 0, 0.6);
+          float: left;
+          margin: 0 5px 0 0;
+
+          a {
+            color: rgba(255, 255, 255, 0.7);
+            display: inline-block;
+            padding: 10px 20px;
+            
+            &:hover {
+              color: #ffffff;
+            }
+
+            &.active {
+              background-color: $red;
+              color: #ffffff;
+            }
+          }
+        }
+      }
+    }
+
+    .rankings {
+      width: 360px;
+
+      li {
+        $rowHeight: 50px;
+        background-color: rgba(0, 0, 0, 0.6);
+        line-height: $rowHeight;
+        margin: 0 0 5px;
+
+        .name {
+          float: left;
+          line-height: inherit;
+          padding: 0 10px
+        }
+
+        .rank {
+          float: left;
+          font-size: 11px;
+          font-weight: bold;
+          line-height: inherit;
+          width: 50px;
+        }
+
+        .score {
+          color: $red;
+          float: left;
+          font-size: 14px;
+          font-weight: bold;
+          line-height: inherit;
+          width: 45px;
+        }
+        
+        p {
+          line-height: 15px;
+          padding: 30px 10px 0;
+          vertical-align: top;
+        }
+
+        button {
+          background-color: $red;
+          color: #ffffff;
+          margin: 25px 0;
+          padding: 4px 5px;
+        }
+      }
+    }
+  }
+}
