@@ -18,7 +18,11 @@ class PagesController < ApplicationController
       @page_id = params["page_id"]
     end
 
-    if !liked
+    unless @page_id
+      raise "Must specify a page ID."
+    end
+
+    unless liked
       render :layout => "like_gate", :template => "pages/like_gate"
       return
     end
@@ -26,18 +30,18 @@ class PagesController < ApplicationController
     # If the visitor has authenticated our app, retrieve his account (or create
     # one if he doesn't already have one) and pass its data to the view.
     if data["user_id"] and data["oauth_token"]
+
+      # Update/create the user.
       user = User.find_by_fb_id(data["user_id"])
       unless user
         user = User.new
         user[:fb_id] = data["user_id"]
-        user[:fb_access_token] = data["oauth_token"]
-        user[:name] = nil
-        user[:email] = nil
-        user[:gender] = nil
-        user[:timezone] = nil
-        user[:fb_username] = nil
-        user.save!
       end
+      user[:fb_access_token] = data["oauth_token"]
+      user[:restaurant_id] = @page_id
+      user.save!
+
+      # Build data.
       bracket = user.bracket
       games = bracket.games
       teams = Team.all
@@ -56,7 +60,7 @@ class PagesController < ApplicationController
 
   rescue Exception => e
     logger.info "#{e.class} - #{e.message}"
-    render :text => "An error occurred."
+    render :text => "An error occurred.<br/>#{e.class} - #{e.message}"
   end
 
   # Called by Facebook for their Javascript SDK. More information here:
