@@ -10,21 +10,40 @@ module Constants
   RESTAURANTS = {
     "265297633509254" => {
       :id => "265297633509254",
-      :id => "265297633509254",
       :name => "Joe's American Bar and Grille",
-      :image => "like_gates/like_gate_joes.png"
+      :image => "like_gates/like_gate_joes.png",
+      :locations => [
+        "Boston, MA (Newbury)", # default
+        "Boston, MA (Waterfront)",
+        "Braintree, MA",
+        "Dedham, MA",
+        "Framingham, MA",
+        "Franklin, MA",
+        "Peabody, MA",
+        "Woburn, MA",
+        "Nashua, NH",
+        "Providence, RI",
+        "Fairfield, CT",
+        "Paramus, NJ"
+      ]
     },
     "171824636186609" => {
       :id => "171824636186609",
       :name => "Napa Valley Grille",
       :image => "like_gates/like_gate_napa.png",
-      :location => "Bloomington, MN"
+      :locations => [
+        "Bloomington, MN", # default
+        "Los Angeles, CA"
+      ]
     },
     "58761811526" => {
       :id => "58761811526",
       :name => "Napa Valley Grille",
       :image => "like_gates/like_gate_napa.png",
-      :location => "Los Angeles, CA"
+      :locations => [
+        "Los Angeles, CA", # default
+        "Bloomington, MN"
+      ]
     },
     "181834148524304" => {
       :id => "181834148524304",
@@ -40,13 +59,19 @@ module Constants
       :id => "92945941516",
       :name => "California Cafe",
       :image => "like_gates/like_gate_california.png",
-      :location => "Los Gatos, CA"
+      :locations => [
+        "Los Gatos, CA", # default
+        "Palo Alto, CA"
+      ]
     },
     "52194381546" => {
       :id => "52194381546",
       :name => "California Cafe",
       :image => "like_gates/like_gate_california.png",
-      :location => "Palo Alto, CA"
+      :locations => [
+        "Palo Alto, CA", # default
+        "Los Gatos, CA"
+      ]
     },
     "130416646986919" => {
       :id => "130416646986919",
@@ -62,25 +87,31 @@ module Constants
       :id => "71191159109",
       :name => "Timpano",
       :image => "like_gates/like_gate_timpano.png",
-      :location => "Rockville, MD"
+      :locations => [
+        "Rockville, MD", # default
+        "Fort Lauderdale, FL",
+        "Tampa, FL"
+      ]
     },
     "92682632632" => {
       :id => "92682632632",
       :name => "Timpano",
       :image => "like_gates/like_gate_timpano.png",
-      :location => "Fort Lauderdale, FL"
-    },
-    "74800812234" => {
-      :id => "74800812234",
-      :name => "Timpano",
-      :image => "like_gates/like_gate_timpano.png",
-      :location => "Orlando, FL"
+      :locations => [
+        "Fort Lauderdale, FL", # default
+        "Tampa, FL",
+        "Rockville, MD"
+      ]
     },
     "79529882826" => {
       :id => "79529882826",
       :name => "Timpano",
       :image => "like_gates/like_gate_timpano.png",
-      :location => "Tampa, FL"
+      :locations => [
+        "Tampa, FL", # default
+        "Fort Lauderdale, FL",
+        "Rockville, MD"
+      ]
     },
     "190166997684083" => {
       :id => "190166997684083",

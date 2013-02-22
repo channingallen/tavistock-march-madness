@@ -16,15 +16,15 @@
     <div class="clearboth"></div>
   </section>
 
-  {{#if branches}}
+  {{#if locations}}
     <hr>
 
     <section>
-      <label>Branch</label>
+      <label>Location</label>
       <div class="field">
-        <select id="branch">
-          {{#each branches}}
-            <option {{bindAttr value="id" selected="selected"}}>{{name}} ({{location}})</option>
+        <select id="location">
+          {{#each locations}}
+            <option {{bindAttr value="name" selected="selected"}}>{{name}}</option>
           {{/each}}
         </select>
       </div>

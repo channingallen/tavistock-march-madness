@@ -10,7 +10,8 @@ class UserSerializer < ActiveModel::Serializer
              :rank,
              :fb_username,
              :fb_id,
-             :restaurant_id
+             :restaurant_id,
+             :restaurant_location
 
   def rank
     str = "(score < ? OR (score = ? AND created_at < ?)) AND restaurant_id "

@@ -5,6 +5,7 @@ App.User = DS.Model.extend({
   score: DS.attr('number'),
   gender: DS.attr('string'),
   restaurantId: DS.attr('string'),
+  restaurantLocation: DS.attr('string'),
   contactAllowed: DS.attr('boolean'),
   timezone: DS.attr('string'),
   rank: DS.attr('number'),

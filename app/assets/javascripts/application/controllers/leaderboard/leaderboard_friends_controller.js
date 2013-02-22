@@ -15,6 +15,7 @@ App.LeaderboardFriendsController = Ember.ArrayController.extend({
       friends = [currentUser];
     users.forEach(function(user) {
       if (user.get('restaurantId') == currentUser.get('restaurantId') &&
+          user.get('restaurantLocation') == currentUser.get('restaurantLocation') &&
           _.contains(friendIds, user.get('fbId'))) {
         friends.push(user);
       }
