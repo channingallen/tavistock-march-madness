@@ -3,7 +3,8 @@
   $gameHeight: ($teamHeight * 2) + 4 + 2; // 4px for borders + 2px for gap between games
   $gameWidth: 100px;
   $spaceBetweenGames: 20px;
-  $regionWidth: ($gameWidth * 4) + 8 + 20 - 15; // 8px game borders, 20px extra, -40px round margins,
+  $regionWidth: (($gameWidth + 4) * 4) + 20 - 15 - 45 + 8; // game width w/ borders + 20px round 3 margin,
+                                                           // - 15px round 4 margin - 45px round 5 margin + 8px safety
   padding: 0 0 50px;
 
   /***************/
@@ -11,11 +12,8 @@
   /***************/
 
   #bracket {
-    background-image: url("/assets/backgrounds/bracket_lines.png");
-    background-position: 102px 122px;
-    background-repeat: no-repeat;
     margin: 0 auto;
-    width: 826px;
+    width: 770px;
   }
 
   #loading_bracket {
@@ -76,6 +74,7 @@
   /***************/
 
   .region {
+    background-repeat: no-repeat;
     display: inline-block;
     position: relative;
     width: $regionWidth;
@@ -89,53 +88,39 @@
       top: 50%;
     }
 
-    &#region_1 {
-      #region_south {
-        left: 170px;
-      }
-    }
-
-    &#region_2 {
-      #region_west {
-        left: 176px;
-      }
-    }
-
-    &#region_3 {
-      #region_east {
-        right: 180px;
-      }
-    }
-
-    &#region_4 {
-      #region_midwest {
-        right: 160px;
-      }
-    }
+    &#region_1 #region_south { left: 170px; }
+    &#region_2 #region_west { left: 176px; }
+    &#region_3 #region_east { right: 180px; }
+    &#region_4 #region_midwest { right: 160px; }
 
     &#region_1, &#region_2 {
+      background-image: image-url("bracket_lines/bracket_lines_left.png");
+      background-position: top left;
+
       float: left;
 
       .round {
         float: left;
 
-        &.round_2 { margin: 0 25px 0 0; }
-        &.round_3 { margin: 0; }
+        &.round_2 { margin: 0; }
+        &.round_3 { margin: 0 0 0 20px; }
         &.round_4 { margin: 0 0 0 -15px; }
-        &.round_5 { margin: 0 0 0 -25px; }
+        &.round_5 { margin: 0 0 0 -45px; }
       }
     }
 
     &#region_3, &#region_4 {
+      background-image: image-url("bracket_lines/bracket_lines_right.png");
+      background-position: top right;
       float: right;
 
       .round {
         float: right;
 
-        &.round_2 { margin: 0 0 0 25px; }
-        &.round_3 { margin: 0; }
+        &.round_2 { margin: 0; }
+        &.round_3 { margin: 0 20px 0 0; }
         &.round_4 { margin: 0 -15px 0 0; }
-        &.round_5 { margin: 0 -25px 0 0; }
+        &.round_5 { margin: 0 -45px 0 0; }
       }
     }
 

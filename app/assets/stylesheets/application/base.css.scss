@@ -3,10 +3,6 @@ $baseFontSize: 13px;
 
 html {
   background-color: #f0f0f0;
-  background-image: url("/assets/backgrounds/courtside.png");
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-attachment: fixed;
   color: #ffffff;
   font-family: 'Lucida Sans Unicode', Arial, Helvetica, sans-serif;
   font-size: $baseFontSize;
@@ -16,9 +12,13 @@ html {
   text-align: center;
 
   body {
-    background: rgb(0, 0, 0);
-    background: rgba(0, 0, 0, 0);
-    width: 100%;
+    background-image: url("/assets/backgrounds/courtside.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    margin: 0 auto;
+    min-height: 810px;
+    width: 810px;
 
     a {
       color: inherit;

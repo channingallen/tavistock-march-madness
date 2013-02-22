@@ -1,7 +1,8 @@
 App.LeaderboardYouRoute = Ember.Route.extend({
 
   redirect: function() {
-    if (!App.get('currentUser')) this.transitionTo('leaderboard.top');
+    var currentUser = App.get('currentUser');
+    if (!currentUser.get('email')) this.transitionTo('form');
   },
 
   model: function() {

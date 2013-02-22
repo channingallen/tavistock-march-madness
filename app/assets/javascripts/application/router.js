@@ -1,12 +1,11 @@
 App.Router.map(function() {
-  this.resource('bracket', { path: '/bracket/:bracket_id' }, function() {
-
-  });
+  this.route('form');
+  this.route('prizes');
+  this.route('rules');
+  this.resource('bracket', { path: '/bracket/:bracket_id' });
   this.resource('leaderboard', function() {
     this.route('you', { path: '/' });
     this.route('friends');
     this.route('top');
   });
-  this.resource('prizes');
-  this.route('rules');
 });

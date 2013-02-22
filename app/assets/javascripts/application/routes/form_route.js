@@ -1,0 +1,1 @@
+App.FormRoute = Ember.Route.extend({});
