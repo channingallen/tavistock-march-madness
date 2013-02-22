@@ -10,11 +10,12 @@
       xfbml      : true  // parse XFBML tags on this page?
     });
 
-    // Set the canvas to automatially grow to the appropriate height.
-    FB.Canvas.setAutoGrow();
-
-    // Additional initialization code such as adding Event Listeners goes here
-    if (window.App) App.helpers.facebook.checkLogin();
+    if (window.App) {
+      App.helpers.facebook.checkLogin();
+      App.helpers.facebook.enableAutoResizing();
+    } else {
+      FB.Canvas.setAutoGrow();
+    }
   };
 
   // Load the SDK's source Asynchronously

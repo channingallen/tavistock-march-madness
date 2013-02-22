@@ -94,5 +94,16 @@ App.helpers.facebook = {
         // ...and
       }
     }, scopeObj);
+  },
+
+  enableAutoResizing: function(time) {
+    if (!time) time = 100;
+    App.helpers.facebook.autoResizeInterval = setInterval(function() {
+      FB.Canvas.setSize({ height: $('body').height() });
+    }, 100);
+  },
+
+  disableAutoResizing: function() {
+    clearTimeout(App.helpers.facebook.autoResizeInterval);
   }
 };
