@@ -5,14 +5,19 @@ App.LeaderboardFriendsRoute = Ember.Route.extend({
   },
 
   model: function() {
-    var fbIds = [App.get('currentUser').get('fbId')],
-      friendIds = App.get('friendIds');
-    if (friendIds) {
-      for (var i = 0; i < friendIds.length; i++) {
-        fbIds.push(friendIds[i]);
+    var currentUser = App.get('currentUser');
+    if (!currentUser) return [];
+
+    var users = App.User.find(),
+      friendIds = App.get('friendIds'),
+      friends = [currentUser];
+    users.forEach(function(user) {
+      if (_.contains(friendIds, user.get('fbId'))) {
+        friends.push(user);
       }
-    }
-    return App.User.find({ fb_id: fbIds});
+    });
+
+    return friends;
   }.observes('App.friendIds'),
 
   setupController: function(controller, model) {
