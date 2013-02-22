@@ -11,7 +11,8 @@ App.LeaderboardTopRoute = Ember.Route.extend({
       sort: 'score',
       order: 'DESC',
       limit: 10,
-      restaurant_id: currentUser.get('restaurantId')
+      restaurant_id: currentUser.get('restaurantId'),
+      restaurant_location: currentUser.get('restaurantLocation')
     });
   },
 

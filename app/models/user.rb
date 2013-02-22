@@ -1,7 +1,8 @@
 class User < ActiveRecord::Base
 
   attr_accessible :name, :email, :fb_id, :gender, :timezone, :fb_username,
-                  :fb_access_token, :phone, :restaurant_id, :contact_allowed
+                  :fb_access_token, :phone, :restaurant_id, :contact_allowed,
+                  :restaurant_location
 
 
   ####################
@@ -30,6 +31,7 @@ class User < ActiveRecord::Base
   validates :fb_username, :length => { :maximum => Constants::MAX_DB_STRING_LENGTH, :minimum => 1 }, :allow_nil => true
   validates :restaurant_id, :length => { :maximum => Constants::MAX_DB_STRING_LENGTH, :minimum => 1 }, :allow_nil => true
   validates :fb_access_token, :length => { :maximum => Constants::MAX_DB_STRING_LENGTH, :minimum => 1 }, :allow_nil => true
+  validates :restaurant_location, :length => { :maximum => Constants::MAX_DB_STRING_LENGTH, :minimum => 1 }, :allow_nil => true
 
   #################
   #   Callbacks   #
