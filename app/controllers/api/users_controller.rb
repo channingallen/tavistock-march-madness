@@ -36,12 +36,14 @@ class Api::UsersController < ApplicationController
       user = User.find_by_id(params[:near_user])
       users = []
       users += User.
-        where(["id <> ? AND score <= ?", user[:id], user[:score]]).
+        where(["id <> ? AND score <= ? AND restaurant_id = ?", user[:id],
+               user[:score], user[:restaurant_id]]).
         order("score DESC").
         limit(6)
       users.push(user)
       users += User.
-        where(["id <> ? AND score > ?", user[:id], user[:score]]).
+        where(["id <> ? AND score > ? AND restaurant_id = ?", user[:id],
+               user[:score], user[:restaurant_id]]).
         order("score ASC").
         limit(9)
 

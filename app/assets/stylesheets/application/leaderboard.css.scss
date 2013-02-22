@@ -1,4 +1,6 @@
 #leaderboard_page {
+  font-family: $robotoFontFamily;
+  font-size: 14px;
   padding: 0 0 50px;
 
   #navigation {
@@ -21,7 +23,7 @@
           margin: 0 5px 0 0;
 
           a {
-            color: rgba(255, 255, 255, 0.7);
+            color: rgba(255, 255, 255, 0.8);
             display: inline-block;
             padding: 10px 20px;
             
@@ -55,7 +57,7 @@
 
         .rank {
           float: left;
-          font-size: 11px;
+          font-size: 12px;
           font-weight: bold;
           line-height: inherit;
           width: 50px;
@@ -64,23 +66,44 @@
         .score {
           color: $red;
           float: left;
-          font-size: 14px;
+          font-size: 15px;
           font-weight: bold;
           line-height: inherit;
           width: 45px;
         }
-        
-        p {
-          line-height: 15px;
-          padding: 30px 10px 0;
-          vertical-align: top;
-        }
 
-        button {
-          background-color: $red;
-          color: #ffffff;
-          margin: 25px 0;
-          padding: 4px 5px;
+        &#invite_friends {
+          background-color: rgba(255, 255, 255, 0.1);
+          border: 6px solid rgba(0, 0, 0, 0.7);
+          padding: 15px;
+
+          p {
+            font-size: 18px;
+            line-height: 1.4em;
+            margin: 0 0 15px;
+            vertical-align: top;
+          }
+
+          button {
+            @include box-shadow(5px 5px 10px rgba(0,0,0,0.5));
+            background-color: $red;
+            color: #ffffff;
+            font-size: 18px;
+            height: 42px;
+            line-height: 42px;
+            padding: 0 15px;
+
+            &:hover {
+              background-color: darken($red, 2%);
+            }
+
+            &:active {
+              @include box-shadow(2px 2px 15px rgba(0,0,0,0.6));
+              left: 1px;
+              position: relative;
+              top: 1px;
+            }
+          }
         }
       }
     }
