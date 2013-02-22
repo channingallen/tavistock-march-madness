@@ -1,7 +1,9 @@
 App.FormRoute = Ember.Route.extend({
 
   model: function() {
-    return App.get('currentUser');
+    var currentUser = App.get('currentUser');
+    if (!currentUser) App.helpers.facebook.promptForAuthorization();
+    return currentUser;
   },
 
   setupController: function(controller, model) {
