@@ -5,15 +5,11 @@
   header {
     margin: 0 0 70px;
 
-    #logo {
-      height: 30px;
-      margin-right: 20px;
-    }
-
-    h1 {
+    h1, h2 {
       display: inline-block;
       font-family: $robotoFontFamily;
       font-size: 30px;
+      line-height: 1.2em;
     }
   }
 
