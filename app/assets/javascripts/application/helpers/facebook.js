@@ -6,8 +6,10 @@ App.helpers.facebook = {
     var currentUser = App.get('currentUser');
     if (!currentUser) return;
     FB.getLoginStatus(function(response) {
-      if (response.status != 'connected') return;
-      if (!response.authResponse) return;
+      if (response.status != 'connected' || !response.authResponse) {
+        App.helpers.facebook.promptForAuthorization();
+        return;
+      }
       if (!response.authResponse.userID) return;
       if (response.authResponse.userID != currentUser.get('fbId')) return;
 
@@ -50,7 +52,7 @@ App.helpers.facebook = {
     });
   },
 
-  promptForAuthorization: function() {
+  promptForAuthorization: function(callback) {
 
     // Prompt the user to authorize our app with permission to access Likes.
     var scopeObj = { scope: 'user_likes' };
@@ -60,7 +62,7 @@ App.helpers.facebook = {
       if (loginResponse.authResponse) {
         var accessToken = loginResponse.authResponse.accessToken;
 
-        // ...retrieve his basic info from Facebook..
+        // ...retrieve his basic info from Facebook...
         FB.api('/me', function(meResponse) {
 
           // Use this info to find an existing account for the user (or to
@@ -88,10 +90,14 @@ App.helpers.facebook = {
               });
               App.store.commit();
             }
+
+            // Run the callback function if one was provided.
+            if (callback && typeof callback == 'function') callback();
           });
         });
 
-        // ...and
+        // ...and update the user's friends.
+        App.helpers.facebook.updateFriends();
       }
     }, scopeObj);
   },

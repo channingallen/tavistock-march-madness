@@ -22,7 +22,7 @@ App.FormController = Ember.ObjectController.extend({
 
     // Ensure the user has authenticated.
     if (!App.get('currentUser')) {
-      App.helpers.facebook.promptForAuthorization();
+      App.helpers.facebook.promptForAuthorization(this.submitForm);
       return;
     }
 
