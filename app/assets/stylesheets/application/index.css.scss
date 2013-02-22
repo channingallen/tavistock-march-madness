@@ -2,15 +2,12 @@
   padding: 80px;
 
   header {
-    #logo {
-      height: 30px;
-      margin-right: 20px;
-    }
 
-    h1 {
+    h1, h2 {
       display: inline-block;
       font-family: $robotoFontFamily;
       font-size: 30px;
+      line-height: 1.2em;
     }
   }
 
@@ -31,22 +28,23 @@
         margin: 0;
       }
 
-      &#bracket_link {
-        background-image: image-url("backgrounds/icon_bracket.png");
+      &.link {
         background-position: center 37px;
         background-repeat: no-repeat;
+      }
+
+      &#bracket_link {
+        background-image: image-url("backgrounds/icon_bracket.png");
       }
 
       &#leaderboard_link {
         background-image: image-url("backgrounds/icon_leaderboard.png");
         background-position: center 37px;
-        background-repeat: no-repeat;
       }
 
       &#prizes_link {
         background-image: image-url("backgrounds/icon_prizes.png");
         background-position: center 37px;
-        background-repeat: no-repeat;
       }
 
       a {

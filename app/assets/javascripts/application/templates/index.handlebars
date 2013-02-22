@@ -1,17 +1,13 @@
-<header xmlns="http://www.w3.org/1999/html">
-  <img id="logo" src="/assets/raw_logos/tav_logo.png" />
-  <h1>BRACKET CHALLENGE</h1>
+<header>
+  <h1>{{upcase model.restaurant.name}}</h1>
+  <h2>BRACKET CHALLENGE</h2>
 </header>
 
 <nav>
   <ul>
-    {{#if currentUser}}
-      <li id="bracket_link">{{#linkTo "bracket" currentUser.bracket}}BRACKET{{/linkTo}}</li>
-    {{else}}
-      <li id="bracket_link"><a href="#" {{action "login"}}>BRACKET</a></li>
-    {{/if}}
-    <li id="leaderboard_link">{{#linkTo "leaderboard.you"}}STANDINGS{{/linkTo}}</li>
-    <li id="prizes_link">{{#linkTo "prizes"}}PRIZES{{/linkTo}}</li>
+    <li class="link" id="leaderboard_link">{{#linkTo "leaderboard.you"}}STANDINGS{{/linkTo}}</li>
+    <li class="link" id="bracket_link">{{#linkTo "bracket" currentUser.bracket}}BRACKET{{/linkTo}}</li>
+    <li class="link" id="prizes_link">{{#linkTo "prizes"}}PRIZES{{/linkTo}}</li>
   </ul>
 </nav>
 
@@ -20,18 +16,10 @@
     <h2>NEWS</h2>
   </section>
   <section id="info">
-    {{#if currentUser}}
-      {{ currentUser.id }}<br/><br/>
-      {{ currentUser.name }}<br/><br/>
-      {{ currentUser.email }}<br/><br/>
-      Bracket ID: {{ currentUser.bracket.id }}
-    {{else}}
-      <p>
-        Fill out a March Madness bracket for a shot at thousands of dollars in
-        prizes! <br/><br/>
-      </p>
-      <button {{action "login"}}>Sign Up</button>
-    {{/if}}
+    {{ currentUser.id }}<br/><br/>
+    {{ currentUser.name }}<br/><br/>
+    {{ currentUser.email }}<br/><br/>
+    Bracket ID: {{ currentUser.bracket.id }}
   </section>
 </div>
 

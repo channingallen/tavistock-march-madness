@@ -1,1 +1,83 @@
-<p>This is the form page.</p>
+<header>
+  <h1>{{upcase model.restaurant.name}}</h1>
+  <h2>BRACKET CHALLENGE</h2>
+</header>
+
+<div id="form">
+  <section>
+    <label>First Name</label>
+    <input type="text" id="first_name" class="field" {{bindAttr value="model.firstName"}} />
+    <div class="clearboth"></div>
+  </section>
+
+  <section>
+    <label>Last Name</label>
+    <input type="text" id="last_name" class="field" {{bindAttr value="model.lastName"}} />
+    <div class="clearboth"></div>
+  </section>
+
+  {{#if branches}}
+    <hr>
+
+    <section>
+      <label>Branch</label>
+      <div class="field">
+        <select id="branch">
+          {{#each branches}}
+            <option {{bindAttr value="id" selected="selected"}}>{{name}} ({{location}})</option>
+          {{/each}}
+        </select>
+      </div>
+      <div class="clearboth"></div>
+    </section>
+  {{/if}}
+
+  <hr>
+
+  <section>
+    <label>Email</label>
+    <input type="email" id="email" class="field" {{bindAttr value="model.email"}} maxlength="254" />
+    <div class="clearboth"></div>
+  </section>
+
+  <section>
+    <label>Confirm Email</label>
+    <input type="text" id="confirm_email" class="field" {{bindAttr value="model.email"}} maxlength="254" />
+    <div class="clearboth"></div>
+  </section>
+
+  <section>
+    <label>Phone</label>
+    <input type="text" id="phone" class="field" {{bindAttr value="model.phone"}} maxlength="254" />
+    <div class="clearboth"></div>
+  </section>
+
+  <section>
+    <div class="field">
+      <p>
+        Winners will be notified by email and/or phone.
+      </p>
+    </div>
+    <div class="clearboth"></div>
+  </section>
+
+  <section>
+    <div class="field">
+      <p>
+        <input type="checkbox" id="contact_allowed" {{bindAttr checked="model.contactAllowed"}} />
+        I would like to receive exclusive access to news, events, and specials
+        deals from {{model.restaurant.name}}.
+      </p>
+    </div>
+    <div class="clearboth"></div>
+  </section>
+
+  <hr><hr>
+
+  <section>
+    <div class="field">
+      <button {{action "submitForm"}}>Enter the Bracket Challenge &raquo;</button>
+    </div>
+    <div class="clearboth"></div>
+  </section>
+</div>

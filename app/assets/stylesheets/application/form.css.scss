@@ -1,3 +1,112 @@
 #form_page {
-  padding: 0 0 50px;
+  $translucentBlack: rgba(0, 0, 0, 0.45);
+  padding: 80px;
+
+  header {
+    margin: 0 0 70px;
+
+    h1, h2 {
+      display: inline-block;
+      font-family: $robotoFontFamily;
+      font-size: 30px;
+      line-height: 1.2em;
+    }
+  }
+
+  #form {
+    $formWidth: 500px;
+    $labelWidth: 150px;
+    $fieldWidth: $formWidth - $labelWidth;
+    $rowHeight: 35px;
+    font-size: 16px;
+    margin: 0 auto;
+    text-align: left;
+    width: $formWidth;
+
+    section {
+      margin: 0 0 10px;
+
+      label {
+        $sidePadding: 10px;
+        $marginRight: 15px;
+        background-color: $translucentBlack;
+        float: left;
+        font-family: $robotoFontFamily;
+        font-weight: bold;
+        height: $rowHeight;
+        line-height: $rowHeight;
+        margin: 0 $marginRight 0 0;
+        padding: 0 $sidePadding;
+        width: $labelWidth - ($sidePadding * 2) - $marginRight;
+      }
+
+      .field {
+        float: right;
+        line-height: $rowHeight;
+        width: $fieldWidth;
+
+        input[type="text"],
+        input[type="email"] {
+          width: 100%;
+        }
+      }
+
+      input[type="text"],
+      input[type="email"] {
+        @include box-sizing(border-box);
+        background-color: rgba(255, 255, 255, 0.9);
+        border: 0 none;
+        height: $rowHeight;
+        line-height: $rowHeight;
+        padding: 0 8px;
+
+        &:focus {
+          background-color: #ffffff;
+        }
+      }
+
+      input[type="checkbox"] {
+        margin: 0 5px 0 0;
+      }
+
+      p {
+        background-color: $translucentBlack;
+        font-family: $robotoFontFamily;
+        line-height: 1.6em;
+        padding: 6px 8px;
+      }
+
+      button {
+        @include box-shadow(5px 5px 10px rgba(0,0,0,0.5));
+        background-color: $red;
+        color: #ffffff;
+        font-family: $robotoFontFamily;
+        font-size: 18px;
+        height: $rowHeight * 1.2;
+        line-height: $rowHeight * 1.2;
+        padding: 0 15px;
+
+        &:hover {
+          background-color: darken($red, 2%);
+        }
+
+        &:active {
+          @include box-shadow(2px 2px 15px rgba(0,0,0,0.6));
+          left: 1px;
+          position: relative;
+          top: 1px;
+        }
+      }
+
+      select {
+        width: 100%;
+      }
+    }
+
+    hr {
+      background-color: transparent;
+      border-color: transparent;
+      margin: 0 0 16px;
+    }
+  }
 }
