@@ -3,17 +3,23 @@ class UserSerializer < ActiveModel::Serializer
              :name,
              :email,
              :score,
+             :phone,
+             :contact_allowed,
              :gender,
              :timezone,
              :rank,
              :fb_username,
-             :fb_id
+             :fb_id,
+             :restaurant_id
 
   def rank
-    conds = ["score < ? OR (score = ? AND created_at < ?)",
+    str = "(score < ? OR (score = ? AND created_at < ?)) AND restaurant_id "
+    str += object[:restaurant_id] ? "= ?" : "IS NULL"
+    conds = [str,
              object[:score],
              object[:score],
              object[:created_at]]
+    conds.push(object[:restaurant_id]) if object[:restaurant_id]
     User.count(:conditions => conds) + 1
   end
 
