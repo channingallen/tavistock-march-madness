@@ -69,8 +69,8 @@ module Constants
       :image => "like_gates/like_gate_atlantic.png"
     },
     "486859618037849" => {
-      :name => "Bracket Challenge Community",
-      :image => "backgrounds/courtside.png"
+      :name => "Fake Example Restaurant",
+      :image => "like_gates/like_gate_joes.png"
     }
   }
 

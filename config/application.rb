@@ -64,6 +64,9 @@ module MarchMadness
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
 
+    # Custom asset files to precompile.
+    config.assets.precompile += ["like_gate.css"]
+
     # Set up Ember and Handlebars
     config.ember.variant = :production
     config.handlebars.templates_root = 'application/templates/'
