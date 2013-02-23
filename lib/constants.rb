@@ -1,5 +1,12 @@
 module Constants
 
+  # Phase
+  PHASE = "testing" # "testing"     - all brackets are editable
+                    # "preparation" - no brackets are editable
+                    # "selection"   - individual brackets are editable, but the official bracket is not
+                    # "tournament"  - the official bracket is editable, but individual brackets are not; signups disabled
+
+  # Database
   MAX_DB_STRING_LENGTH = 254
 
   # Facebook
