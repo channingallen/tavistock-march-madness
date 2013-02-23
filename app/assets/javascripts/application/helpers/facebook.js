@@ -2,9 +2,14 @@ App.helpers.facebook = {
 
   checkLogin: function() {
 
-    // Ensure the (correct) user is logged-in and authenticated.
+    // Ensure the user hasn't logged in, he needs to auth.
     var currentUser = App.get('currentUser');
-    if (!currentUser) return;
+    if (!currentUser) {
+      App.helpers.facebook.promptForAuthorization();
+      return;
+    }
+
+    // Otherwise, check for authorization.
     FB.getLoginStatus(function(response) {
       if (response.status != 'connected' || !response.authResponse) {
         App.helpers.facebook.promptForAuthorization();
@@ -26,7 +31,7 @@ App.helpers.facebook = {
     });
   },
 
-  updateUserFromMeResponse: function(user, accessToken, meResponse) {
+  updateUserFromMeResponse: function(user, accessToken, meResponse, callback) {
     user.set('name', meResponse.name);
     user.set('gender', meResponse.gender);
     user.set('timezone', meResponse.timezone);
@@ -34,6 +39,7 @@ App.helpers.facebook = {
     user.set('fbAccessToken', accessToken);
     user.on('didUpdate', function() {
       App.set('currentUser', App.User.find(user.get('id')));
+      if (callback && typeof callback == 'function') callback();
     });
     App.store.commit();
   },
@@ -55,7 +61,6 @@ App.helpers.facebook = {
   promptForAuthorization: function(callback) {
 
     // Prompt the user to authorize our app with permission to access Likes.
-    var scopeObj = { scope: 'user_likes' };
     FB.login(function(loginResponse) {
 
       // If the user authorizes our app...
@@ -74,7 +79,8 @@ App.helpers.facebook = {
               var existingUser = App.User.find(existingUserDetails.id);
               App.helpers.facebook.updateUserFromMeResponse(existingUser,
                                                             accessToken,
-                                                            meResponse);
+                                                            meResponse,
+                                                            callback);
             } else {
               var newUser = App.User.createRecord({
                 name: meResponse.name,
@@ -87,19 +93,17 @@ App.helpers.facebook = {
               });
               newUser.on('didCreate', function() {
                 App.set('currentUser', this);
+                if (callback && typeof callback == 'function') callback();
               });
               App.store.commit();
             }
-
-            // Run the callback function if one was provided.
-            if (callback && typeof callback == 'function') callback();
           });
         });
 
         // ...and update the user's friends.
         App.helpers.facebook.updateFriends();
       }
-    }, scopeObj);
+    });
   },
 
   enableAutoResizing: function(time) {

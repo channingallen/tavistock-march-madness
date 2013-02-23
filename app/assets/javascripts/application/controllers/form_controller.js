@@ -1,12 +1,13 @@
 App.FormController = Ember.ObjectController.extend({
 
   locations: function() {
-    var restaurant = this.get('content').get('restaurant');
-    console.log(restaurant);
+    var user = this.get('content');
+    if (!user) return false;
+
+    var restaurant = user.get('restaurant');
     if (!restaurant.locations) return false;
 
-    var user = App.get('currentUser'),
-      locations = [],
+    var locations = [],
       thisLocation; // remember to avoid using window.location
     for (var i = 0; i < restaurant.locations.length; i++) {
       thisLocation = { name: restaurant.locations[i] };
