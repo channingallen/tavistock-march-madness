@@ -1,5 +1,5 @@
 #index_page {
-  padding: 80px;
+  padding: 80px 80px 220px;
 
   header {
 
@@ -14,9 +14,13 @@
   nav {
     display: block;
     font-family: $robotoFontFamily;
-    margin: 80px 0 0 0;
+    margin: 80px 0 30px 0;
 
-    li {
+    .link {
+      background-position: center 37px;
+      background-repeat: no-repeat;
+      border: 2px solid #ffffff;
+      font-size: 18px;
       margin: 0 10px 0 0;
 
       &:hover {
@@ -27,23 +31,25 @@
         margin: 0 3.5px 0 0;
       }
 
-      &.link {
-        background-position: center 37px;
-        background-repeat: no-repeat;
-      }
-
       &#bracket_link {
         background-image: image-url("icons/icon_bracket.png");
         display: inline-block;
         margin: 0 0 10px;
 
         a {
-          border: 2px solid #ffffff;
-          display: block;
-          font-size: 16px;
-          height: 48px;
           margin: 0 auto;
-          padding: 142px 0 0;
+          width: 396px;
+        }
+      }
+
+      &#official_bracket_link {
+        display: inline-block;
+        margin: 0 0 10px;
+
+        a {
+          line-height: 40px;
+          height: 40px;
+          padding: 0;
           width: 396px;
         }
       }
@@ -61,9 +67,7 @@
       }
 
       a {
-        border: 2px solid #ffffff;
         display: block;
-        font-size: 16px;
         height: 48px;
         padding: 142px 0 0;
         width: 190px;
@@ -74,26 +78,22 @@
   #news {
     display: inline-block;
     font-family: $robotoFontFamily;
+    font-size: 18px;
     margin: 20px 0 0 0;
+    text-align: left;
     width: 403px;
 
-    #head {
-      margin: 30px 0 0 0;
-      text-align: left;
-
-      h2 {
-        background-color: $red;
-        display: inline-block;
-        color: #ffffff;
-        font-size: 15px;
-        padding: 7px 12px;
-      }
+    h2 {
+      background-color: $red;
+      display: inline-block;
+      color: #ffffff;
+      font-size: 15px;
+      margin: 0 0 10px;
+      padding: 7px 12px;
     }
 
-    #info {
-      height: 250px;
-      margin: 15px 0 0 0;
-      text-align: left;
+    p {
+      line-height: 1.3em;
     }
   }
 }
