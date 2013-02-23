@@ -15,6 +15,17 @@ App.BracketController = Ember.ObjectController.extend({
     return gamesLoaded;
   }.property('content.isLoaded', 'content.games.@each.isLoaded'),
 
+  totalScore: function() {
+    var bracket = this.get('content');
+    if (bracket.get('isOfficial')) return false;
+
+    var score = 0;
+    bracket.get('games').forEach(function(game) {
+      score += game.get('score');
+    });
+    return score;
+  }.property('content.games.@each.score'),
+
   /**
    * Selects the team as the winner for its game.
    */

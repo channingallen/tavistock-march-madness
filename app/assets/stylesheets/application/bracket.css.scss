@@ -7,9 +7,9 @@
                                                            // - 15px round 4 margin - 45px round 5 margin + 8px safety
   padding: 0 0 50px;
 
-  /**************/
-  /*   Status   */
-  /**************/
+  /************/
+  /*   Info   */
+  /************/
 
   #status {
     line-height: 1.4em;
@@ -19,6 +19,22 @@
     overflow: visible;
     position: relative;
     top: -5px;
+  }
+
+  #total_score {
+    line-height: 1.4em;
+    font-family: $robotoFontFamily;
+    font-size: 18px;
+    height: 0;
+    overflow: visible;
+    position: relative;
+    top: -5px;
+
+    em {
+      display: inline-block;
+      font-size: 50px;
+      margin: 5px 0 0;
+    }
   }
 
   /***************/
