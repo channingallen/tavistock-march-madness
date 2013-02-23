@@ -12,7 +12,7 @@
       // Set globals.
       App.set('currentUser', App.User.find(initialData.user.id));
       App.set('restaurants', <%= Constants::RESTAURANTS.to_json.to_s.html_safe %>);
-      App.set('phase', <%= Constants::PHASE %>);
+      App.set('phase', <%= Constants::PHASE.to_json.to_s.html_safe %>);
 
     </script>
   <% end %>

@@ -1,5 +1,13 @@
 App.BracketController = Ember.ObjectController.extend({
 
+  preparationPhase: function() {
+    return App.get('phase') == 'preparation';
+  }.property('App.phase'),
+
+  phase: function() {
+    return App.get('phase');
+  }.property('App.phase'),
+
   /**
    * Returns true if the games and bracket have finished loading, false
    * otherwise.
@@ -40,6 +48,34 @@ App.BracketController = Ember.ObjectController.extend({
 
     // Ensure there's actually a team to select.
     if (!team) return;
+
+    // Abide by rules depending on the phase and the bracket type.
+    var bracket = this.get('content'),
+      phase = App.get('phase');
+    switch(phase) {
+
+      // Anything is allowed during the testing phase.
+      case 'testing':
+        break;
+
+      // No editing of any bracket during the preparation phase.
+      case 'preparation':
+        return;
+        break;
+
+      // No editing of the official bracket during the selection phase.
+      case 'selection':
+        if (bracket.get('isOfficial')) {
+          alert('Changes blocked until the tournament begins');
+          return;
+        }
+        break;
+
+      // No editing your individual bracket during the tournament phase.
+      case 'tournament':
+        if (!bracket.get('isOfficial')) return;
+        break;
+    }
 
     if (game.get('winningTeam') == team) {
       game.set('winningTeam', null);
