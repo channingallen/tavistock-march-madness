@@ -20,6 +20,12 @@ App.FormController = Ember.ObjectController.extend({
 
   submitForm: function() {
 
+    // Ensure the user has authenticated.
+    if (!App.get('currentUser')) {
+      App.helpers.facebook.promptForAuthorization(this.submitForm);
+      return;
+    }
+
     // Validate fields.
 
     var $form = $('#form'),
