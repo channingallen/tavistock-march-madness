@@ -5,7 +5,7 @@
 
     <!-- first four -->
     <section id="first_four">
-      <h2 class="region_name">ROUND 1</h2>
+      <h2 class="region_title">ROUND 1</h2>
       {{#each game in firstFourGames}}
         {{view App.GameView classBinding="game.todo game.pointsAwarded:points_awarded"}}
       {{/each}}
@@ -21,11 +21,11 @@
     <!-- regions 1 (top left) and 3 (top right) -->
     <div>
       <section id="region_1" class="region">
-        <h2 class="region_name" id="region_south">SOUTH</h2>
+        <h2 class="region_title" id="region_south">SOUTH</h2>
         {{view App.RegionView roundsBinding="regionOneRounds"}}
       </section>
       <section id="region_3" class="region">
-        <h2 class="region_name" id="region_east">EAST</h2>
+        <h2 class="region_title" id="region_east">EAST</h2>
         {{view App.RegionView roundsBinding="regionThreeRounds"}}
       </section>
       <div class="clearboth"></div>
@@ -33,7 +33,7 @@
 
     <!-- finals and semi-finals -->
     <section id="semis_finals">
-      <h2 id="finals">SEMIS/FINALS</h2>
+      <h2 id="finals" class="region_title">SEMIS/FINALS</h2>
       {{#each game in semisFinalsGames}}
         {{view App.GameView classBinding="game.todo game.pointsAwarded:points_awarded"}}
       {{/each}}
@@ -42,11 +42,11 @@
     <!-- regions 2 (bottom left) and 4 (bottom right) -->
     <div>
       <section id="region_2" class="region">
-        <h2 class="region_name" id="region_west">WEST</h2>
+        <h2 class="region_title" id="region_west">WEST</h2>
         {{view App.RegionView roundsBinding="regionTwoRounds"}}
       </section>
       <section id="region_4" class="region">
-        <h2 class="region_name" id="region_midwest">MIDWEST</h2>
+        <h2 class="region_title" id="region_midwest">MIDWEST</h2>
         {{view App.RegionView roundsBinding="regionFourRounds"}}
       </section>
       <div class="clearboth"></div>

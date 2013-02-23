@@ -55,6 +55,16 @@
     }
   }
 
+  /*********************/
+  /*   Region Titles   */
+  /*********************/
+
+  .region_title {
+    color: rgba(255, 255, 255, 1);
+    font-family: $robotoFontFamily;
+    font-size: 23px;
+  }
+
   /******************/
   /*   First Four   */
   /******************/
@@ -64,11 +74,8 @@
     margin: 0 0 40px;
     position: relative;
 
-    h2 {
-      color: rgba(255, 255, 255, 0.7);
+    .region_title {
       display: inline-block;
-      font-family: $robotoFontFamily;
-      font-size: 23px;
       line-height: 56px;
       margin: 0 20px 0 0;
       vertical-align: top;
@@ -94,12 +101,9 @@
     position: relative;
     width: $regionWidth;
 
-    .region_name {
-      color: rgba(255, 255, 255, 0.7);
-      font-family: $robotoFontFamily;
-      font-size: 23px;
-      position: absolute;
+    .region_title {
       margin-top: -15px;
+      position: absolute;
       top: 50%;
     }
 
@@ -193,11 +197,8 @@
     padding: 15px $padding;
     position: relative;
 
-    h2 {
-      bottom: 125px;
-      color: rgba(255, 255, 255, 0.7);
-      font-family: $robotoFontFamily;
-      font-size: 23px;
+    .region_title {
+      bottom: 105px;
       left: 133px;
       position: absolute;
     }
@@ -296,12 +297,9 @@
     }
 
     .score {
-      $dimensions: 32px;
-      @include border-radius(50px);
+      $dimensions: 24px;
       background-color: $lightGreen;
-      border-color: $darkGreen;
-      border-style: solid;
-      border-width: 1px 1px 2px;
+      color: black;
       display: none;
       font-weight: bold;
       height: $dimensions;
