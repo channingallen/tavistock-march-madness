@@ -191,7 +191,7 @@ class Game < ActiveRecord::Base
     num_points = Game::POINTS_PER_WIN_BY_ROUND[options[:round_number]]
 
     # For each user's bracket...
-    Bracket.all(:select => "id").each do |bracket|
+    Bracket.all(:conditions => "is_official = FALSE").each do |bracket|
 
       # ...we find every game in which the appropriate team is the winner.
       conditions = ["bracket_id = ? AND winning_team_id = ?",

@@ -2,7 +2,7 @@ class User < ActiveRecord::Base
 
   attr_accessible :name, :email, :fb_id, :gender, :timezone, :fb_username,
                   :fb_access_token, :phone, :restaurant_id, :contact_allowed,
-                  :restaurant_location
+                  :restaurant_location, :score
 
 
   ####################
