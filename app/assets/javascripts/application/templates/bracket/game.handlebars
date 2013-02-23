@@ -8,3 +8,6 @@
     {{ formatTeamName game.teamTwo }}
   </li>
 </ol>
+{{#if game.pointsAwarded}}
+  <div class="score">+{{ game.score }}</div>
+{{/if}}
