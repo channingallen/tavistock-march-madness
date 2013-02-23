@@ -47,6 +47,32 @@
     width: 770px;
   }
 
+  #before_selection_sunday {
+    display: inline-block;
+    font-family: $robotoFontFamily;
+    margin: 0 auto;
+    padding: 50px 0;
+    text-align: left;
+    width: 460px;
+
+    h2 {
+      background-color: $red;
+      display: inline-block;
+      font-size: 28px;
+      margin: 0 0 10px;
+      padding: 12px 14px;
+    }
+
+    p {
+      background-color: rgba(0, 0, 0, 0.3);
+      display: inline-block;
+      font-size: 20px;
+      line-height: 1.4em;
+      margin: 0 0 10px;
+      padding: 12px 14px;
+    }
+  }
+
   #loading_bracket {
     display: inline-block;
     font-family: $robotoFontFamily;
@@ -237,7 +263,7 @@
   /*   Individual Game   */
   /***********************/
 
-  .game {
+  #bracket .game {
     $darkGreen: #006400;
     $lightGreen: #caff9c;
     $brightGreen: #00FF00;
@@ -279,6 +305,20 @@
       }
     }
 
+    .score {
+      $dimensions: 24px;
+      background-color: $lightGreen;
+      color: black;
+      display: none;
+      font-weight: bold;
+      height: $dimensions;
+      line-height: $dimensions;
+      right: -($dimensions / 2);
+      position: absolute;
+      top: -($dimensions / 2);
+      width: $dimensions;
+    }
+
     .team {
       background-color: rgba(0, 0, 0, 0.6);
       color: rgba(255, 255, 255, 0.7);
@@ -297,15 +337,6 @@
         text-shadow: 0 0 5px rgba(255, 255, 255, 0.7);
       }
 
-      &.chosen {
-        cursor: pointer;
-
-        &:hover {
-          background-color: $red;
-          color: #ffffff;
-        }
-      }
-
       &.team_one {
         margin: 0 0 2px 0;
       }
@@ -319,7 +350,9 @@
         vertical-align: top;
       }
     }
+  }
 
+<<<<<<< HEAD
     .score {
       $dimensions: 24px;
       background-color: $brightGreen;
@@ -332,6 +365,26 @@
       position: absolute;
       top: -($dimensions / 2);
       width: $dimensions;
+=======
+  #bracket.testing .game,
+  #bracket.selection:not(.official) .game,
+  #bracket.tournament.official .game {
+
+    .team {
+
+      &.chosen {
+        cursor: pointer;
+
+        &:hover {
+          background-color: $red;
+          color: #ffffff;
+        }
+      }
+>>>>>>> cc0e90023d38b38f88f5a8bba52d156654b3749b
     }
+  }
+
+  #bracket.tournament.official .game {
+
   }
 }

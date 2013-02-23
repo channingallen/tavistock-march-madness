@@ -24,7 +24,18 @@ class Api::GamesController < ApplicationController
   # TODO: ensure users can only update games belonging to their own bracket
   # TODO: allow certain users to update the official bracket
   def update
+    return if Constants::PHASE == "preparation"
+
     game = Game.find_by_id(params[:id])
+    bracket = game.bracket
+    bad_official_edit = (Constants::PHASE != "tournament" and
+                         Constants::PHASE != "testing" and
+                         bracket[:is_official])
+    bad_unofficial_edit = (Constants::PHASE != "selection" and
+                           Constants::PHASE != "testing" and
+                           !bracket[:is_official])
+    return if (bad_official_edit or bad_unofficial_edit)
+
     game[:team_one_id] = params[:game][:team_one_id]
     game[:team_two_id] = params[:game][:team_two_id]
     game[:winning_team_id] = params[:game][:winning_team_id]

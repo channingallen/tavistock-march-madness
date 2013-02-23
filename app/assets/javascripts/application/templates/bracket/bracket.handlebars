@@ -1,66 +1,74 @@
 {{view App.NavigationView}}
 
-{{#if bracketDoneLoading}}
-  <div id="bracket">
-
-    <!-- first four -->
-    <section id="first_four">
-      <h2 class="region_title">ROUND 1</h2>
-      {{#each game in firstFourGames}}
-        {{view App.GameView classBinding="game.todo game.pointsAwarded:points_awarded"}}
-      {{/each}}
-    </section>
-
-    {{#if content.isOfficial}}
-      <p id="status">
-        This is the official bracket. Any changes here<br/>
-        will affect everybody's score.
-      </p>
-    {{/if}}
-    {{#if totalScore}}
-      <p id="total_score">
-        Total Score:<br/>
-        <em>{{ totalScore }}</em>
-      </p>
-    {{/if}}
-
-    <!-- regions 1 (top left) and 3 (top right) -->
-    <div>
-      <section id="region_1" class="region">
-        <h2 class="region_title" id="region_south">SOUTH</h2>
-        {{view App.RegionView roundsBinding="regionOneRounds"}}
-      </section>
-      <section id="region_3" class="region">
-        <h2 class="region_title" id="region_east">EAST</h2>
-        {{view App.RegionView roundsBinding="regionThreeRounds"}}
-      </section>
-      <div class="clearboth"></div>
-    </div>
-
-    <!-- finals and semi-finals -->
-    <section id="semis_finals">
-      <h2 id="finals" class="region_title">SEMIS/FINALS</h2>
-      {{#each game in semisFinalsGames}}
-        {{view App.GameView classBinding="game.todo game.pointsAwarded:points_awarded"}}
-      {{/each}}
-    </section>
-
-    <!-- regions 2 (bottom left) and 4 (bottom right) -->
-    <div>
-      <section id="region_2" class="region">
-        <h2 class="region_title" id="region_west">WEST</h2>
-        {{view App.RegionView roundsBinding="regionTwoRounds"}}
-      </section>
-      <section id="region_4" class="region">
-        <h2 class="region_title" id="region_midwest">MIDWEST</h2>
-        {{view App.RegionView roundsBinding="regionFourRounds"}}
-      </section>
-      <div class="clearboth"></div>
-    </div>
+{{#if preparationPhase}}
+  <div id="before_selection_sunday">
+    <h2>Get ready for March Madness!</h2>
+    <p>Don't forget to come back and fill out your bracket between Sunday, March 17th and Monday, March 18th.</p>
+    <p>In the meantime, enjoy the games!</p>
   </div>
 {{else}}
-  <div id="loading_bracket">
-    <h2>One moment please.</h2>
-    <h3>Loading the bracket...</h3>
-  </div>
+  {{#if bracketDoneLoading}}
+    <div id="bracket" {{bindAttr class="phase content.isOfficial:official"}}>
+
+      <!-- first four -->
+      <section id="first_four">
+        <h2 class="region_title">ROUND 1</h2>
+        {{#each game in firstFourGames}}
+          {{view App.GameView classBinding="game.todo game.pointsAwarded:points_awarded"}}
+        {{/each}}
+      </section>
+
+      {{#if content.isOfficial}}
+        <p id="status">
+          This is the official bracket. Any changes here<br/>
+          will affect everybody's score.
+        </p>
+      {{/if}}
+      {{#if totalScore}}
+        <p id="total_score">
+          Total Score:<br/>
+          <em>{{ totalScore }}</em>
+        </p>
+      {{/if}}
+
+      <!-- regions 1 (top left) and 3 (top right) -->
+      <div>
+        <section id="region_1" class="region">
+          <h2 class="region_title" id="region_south">SOUTH</h2>
+          {{view App.RegionView roundsBinding="regionOneRounds"}}
+        </section>
+        <section id="region_3" class="region">
+          <h2 class="region_title" id="region_east">EAST</h2>
+          {{view App.RegionView roundsBinding="regionThreeRounds"}}
+        </section>
+        <div class="clearboth"></div>
+      </div>
+
+      <!-- finals and semi-finals -->
+      <section id="semis_finals">
+        <h2 id="finals" class="region_title">SEMIS/FINALS</h2>
+        {{#each game in semisFinalsGames}}
+          {{view App.GameView classBinding="game.todo game.pointsAwarded:points_awarded"}}
+        {{/each}}
+      </section>
+
+      <!-- regions 2 (bottom left) and 4 (bottom right) -->
+      <div>
+        <section id="region_2" class="region">
+          <h2 class="region_title" id="region_west">WEST</h2>
+          {{view App.RegionView roundsBinding="regionTwoRounds"}}
+        </section>
+        <section id="region_4" class="region">
+          <h2 class="region_title" id="region_midwest">MIDWEST</h2>
+          {{view App.RegionView roundsBinding="regionFourRounds"}}
+        </section>
+        <div class="clearboth"></div>
+      </div>
+    </div>
+  {{else}}
+    <div id="loading_bracket">
+      <h2>One moment please.</h2>
+      <h3>Loading the bracket...</h3>
+    </div>
+  {{/if}}
 {{/if}}
