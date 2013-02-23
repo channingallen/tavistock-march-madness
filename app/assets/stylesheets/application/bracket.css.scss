@@ -307,7 +307,7 @@
 
     .score {
       $dimensions: 24px;
-      background-color: $lightGreen;
+      background-color: $brightGreen;
       color: black;
       display: none;
       font-weight: bold;
@@ -352,20 +352,6 @@
     }
   }
 
-<<<<<<< HEAD
-    .score {
-      $dimensions: 24px;
-      background-color: $brightGreen;
-      color: black;
-      display: none;
-      font-weight: bold;
-      height: $dimensions;
-      line-height: $dimensions;
-      right: -($dimensions / 2);
-      position: absolute;
-      top: -($dimensions / 2);
-      width: $dimensions;
-=======
   #bracket.testing .game,
   #bracket.selection:not(.official) .game,
   #bracket.tournament.official .game {
@@ -380,11 +366,6 @@
           color: #ffffff;
         }
       }
->>>>>>> cc0e90023d38b38f88f5a8bba52d156654b3749b
     }
-  }
-
-  #bracket.tournament.official .game {
-
   }
 }
