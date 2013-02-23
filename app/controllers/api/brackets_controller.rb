@@ -4,10 +4,19 @@ class Api::BracketsController < ApplicationController
 
   # GET /brackets
   def index
+
+    # custom conditions
+    str_arr = []
     conditions = []
     if params[:ids] and params[:ids].class == Array
-      conditions = ["id IN (?)", params[:ids].collect { |id| id.to_i }]
+      str_arr.push("id IN (?)")
+      conditions.push(params[:ids].collect { |id| id.to_i })
     end
+    if params[:is_official]
+      str_arr.push("is_official = TRUE")
+    end
+    conditions.prepend(str_arr.join(" AND "))
+
     brackets = Bracket.where(conditions)
 
     render :json => brackets

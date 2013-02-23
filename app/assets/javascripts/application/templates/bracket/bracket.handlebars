@@ -1,6 +1,6 @@
 {{view App.NavigationView}}
 
-{{#if gamesLoaded}}
+{{#if bracketDoneLoading}}
   <div id="bracket">
 
     <!-- first four -->
@@ -10,6 +10,13 @@
         {{view App.GameView classBinding="game.todo game.pointsAwarded:points_awarded"}}
       {{/each}}
     </section>
+
+    {{#if content.isOfficial}}
+      <p id="status">
+        This is the official bracket. Any changes here<br/>
+        will affect everybody's score.
+      </p>
+    {{/if}}
 
     <!-- regions 1 (top left) and 3 (top right) -->
     <div>
@@ -48,6 +55,6 @@
 {{else}}
   <div id="loading_bracket">
     <h2>One moment please.</h2>
-    <h3>Setting up your bracket...</h3>
+    <h3>Loading the bracket...</h3>
   </div>
 {{/if}}

@@ -4,11 +4,16 @@ App.BracketController = Ember.ObjectController.extend({
    * Returns true if the games and bracket have finished loading, false
    * otherwise.
    */
-  gamesLoaded: function() {
-    var bracketLoaded = this.get('content.games').get('isLoaded'),
-      gamesLoaded = this.get('content.games').get('isLoaded');
-    return (bracketLoaded && gamesLoaded);
-  }.property('content.games.@each.isLoaded'),
+  bracketDoneLoading: function() {
+    var bracket = this.get('content');
+    if (!bracket.get('isLoaded')) return false;
+
+    var gamesLoaded = true;
+    this.get('content.games').forEach(function(game) {
+      if (!game.get('isLoaded')) gamesLoaded = false;
+    });
+    return gamesLoaded;
+  }.property('content.isLoaded', 'content.games.@each.isLoaded'),
 
   /**
    * Selects the team as the winner for its game.
