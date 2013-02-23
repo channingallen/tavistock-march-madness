@@ -106,6 +106,8 @@ class Api::UsersController < ApplicationController
 
   # POST /users
   def create
+    return false if Constants::PHASE == "tournament"
+
     user = User.new
     user[:fb_id] = params[:user][:fb_id]
     user[:fb_username] = params[:user][:fb_username]
