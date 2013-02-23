@@ -9,7 +9,11 @@
     <br />
     {{#if isAdmin}}
       <li class="link" id="official_bracket_link">
-        {{#linkTo "bracket" controller.officialBracket}}OFFICIAL BRACKET{{/linkTo}}
+        {{#if officialBracket}}
+          {{#linkTo "bracket" controller.officialBracket}}OFFICIAL BRACKET{{/linkTo}}
+        {{else}}
+          <a href="#"></a>
+        {{/if}}
       </li>
       <br/>
     {{/if}}

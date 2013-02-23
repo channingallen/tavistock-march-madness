@@ -11,7 +11,17 @@ App.IndexController = Ember.Controller.extend({
   }.property('content.fbId'),
 
   officialBracket: function() {
-    return App.Bracket.find(1);
-  }.property('content')
+    var officialBracketId = this.get('officialBracketId');
+    if (officialBracketId) {
+      return App.Bracket.find(officialBracketId);
+    } else {
+      var results = App.Bracket.find({ is_official: true }),
+        controller = this;
+      results.on('didLoad', function() {
+        controller.set('officialBracketId', this.get('content')[0].id);
+      });
+      return false;
+    }
+  }.property('officialBracketId')
 
 });
