@@ -240,6 +240,7 @@
   .game {
     $darkGreen: #006400;
     $lightGreen: #caff9c;
+    $brightGreen: #00FF00;
     border: 2px solid transparent;
     color: #ffffff;
     font-family: $robotoFontFamily;
@@ -266,8 +267,15 @@
       }
 
       li.winner {
-        background-color: #d2ffb6;
-        color: $darkGreen;
+        border-left: 3px solid $brightGreen;
+        color: #ffffff;
+
+        &:hover {
+          background-color: $brightGreen;
+          border-left: 3px solid $brightGreen;
+          color: black;
+          text-shadow: 0 0 1px rgba(0, 0, 0, 0.7);
+        }
       }
     }
 
@@ -314,7 +322,7 @@
 
     .score {
       $dimensions: 24px;
-      background-color: $lightGreen;
+      background-color: $brightGreen;
       color: black;
       display: none;
       font-weight: bold;
