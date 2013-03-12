@@ -7,8 +7,20 @@ class PagesController < ApplicationController
     # Verify the signed request, and gather basic data.
     if Rails.env.production?
       data = parse_signed_request
-      liked = data["page"]["liked"]
-      @page_id = data["page"]["id"]
+
+      # Are we on a page? Great.
+      if data["page"]
+        liked = data["page"]["liked"]
+        @page_id = data["page"]["id"]
+
+      # No page? Redirect to the app within a page (specifically, the page the
+      # user signed up with if we can find the user).
+      else
+        user = User.find_by_fb_id(data["user_id"])
+        @page_id = user ? user.restaurant_id : "486859618037849"
+        render :layout => "redirect_to_page", :template => "pages/redirect_to_page"
+        return
+      end
     else
       data = params["no_user"] ?
              {} :
