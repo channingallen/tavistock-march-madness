@@ -1,43 +1,64 @@
 #rules_page {
-  padding: 0 0 50px;
+  padding: 0 0 150px;
 
   #rules_list {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    margin: 0 auto;
+    text-align: left;
+    width: 500px;
 
-    /**************/
-    /*   header   */
-    /**************/
-
-    h2 {
-      background-color: #ea411f;
-      display: inline-block;
-      color: #ffffff;
+    h1, h2, h3, h4, h5 {
       font-family: $robotoFontFamily;
-      font-size: 20px;
-      margin: 0 0 20px;
-      padding: 10px 0;
-      width: 400px;
     }
 
-    /************/
-    /*   body   */
-    /************/
+    h1 {
+      background-color: $red;
+      display: inline-block;
+      font-size: 20px;
+      margin: 0 0 15px;
+      padding: 10px 12px;
+    }
 
     li {
       display: block;
+      line-height: 1.4em;
+    }
+
+    h2 {
+      background-color: #2a2a2a;
+      color: $red;
+      font-size: 20px;
+      margin: 20px 0 15px;
+      padding: 6px 8px;
+    }
+
+    h3 {
+      background-color: #2a2a2a;
+      display: inline-block;
+      font-size: 16px;
+      padding: 6px 8px;
     }
 
     p {
-      color: #ffffff;
+      line-height: 1.4em;
+      margin: 10px 0;
+    }
+    
+    table {
       display: inline-block;
-      font-family: $robotoFontFamily;
-      font-size: 18px;
-      padding: 10px 0 10px;
-      text-align: left;
-      width: 400px;
+      margin: 10px 0 10px;
 
-      .italicize {
-        font-style: italic;
+      td {
+        border: 1px solid white;
+        padding: 10px;
+        vertical-align: top;
       }
+    }
+
+    .bold_underline {
+      font-weight: bold;
+      text-decoration: underline;
     }
   }
 }
