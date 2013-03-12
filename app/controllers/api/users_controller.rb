@@ -121,6 +121,7 @@ class Api::UsersController < ApplicationController
     user[:restaurant_location] = params[:user][:restaurant_location]
     user[:contact_allowed] = params[:user][:contact_allowed]
     user.save
+    user.extend_access_token
 
     render :json => user
   end
@@ -128,6 +129,7 @@ class Api::UsersController < ApplicationController
   # PUT /users/:id
   def update
     user = User.find_by_id(params[:id])
+    og_access_token = user[:fb_access_token]
     user[:fb_id] = params[:user][:fb_id].blank? ?
                    nil : params[:user][:fb_id]
     user[:fb_username] = params[:user][:fb_username].blank? ?
@@ -151,6 +153,10 @@ class Api::UsersController < ApplicationController
     user[:contact_allowed] = params[:user][:contact_allowed].blank? ?
                              nil : params[:user][:contact_allowed]
     user.save
+
+    unless user.fb_access_token == og_access_token
+      user.extend_access_token
+    end
 
     render :json => user
   end
