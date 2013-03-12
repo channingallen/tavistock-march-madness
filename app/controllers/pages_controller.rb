@@ -148,6 +148,7 @@ class PagesController < ApplicationController
     "#{json["link"]}/app_#{Constants::FB_APP_ID}"
 
   rescue Exception => e
+    logger.info "\n\n#{e.class} - #{e.message}\n\n"
     "http://www.facebook.com"
   end
 
