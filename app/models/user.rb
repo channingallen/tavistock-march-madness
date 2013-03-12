@@ -1,3 +1,6 @@
+require 'net/http'
+require 'net/https'
+
 class User < ActiveRecord::Base
 
   attr_accessible :name, :email, :fb_id, :gender, :timezone, :fb_username,
@@ -50,7 +53,37 @@ class User < ActiveRecord::Base
   #   Methods   #
   ###############
 
-  # TODO: put methods here
+  def extend_access_token
+    params = {
+      :grant_type => "fb_exchange_token",
+      :client_id => Constants::FB_APP_ID,
+      :client_secret => Constants::FB_APP_SECRET,
+      :fb_exchange_token => self.fb_access_token
+    }
+    url = "https://graph.facebook.com/oauth/access_token"
+    uri = URI.parse(URI.encode(url))
+    path_with_params = uri.path + "?" + CGI.unescape(params.to_query)
+
+    request = Net::HTTP::Get.new(path_with_params)
+    http = Net::HTTP.new(uri.host, uri.port)
+    http.use_ssl = true
+    response = http.request(request)
+
+    if response.code == "200"
+      response.body.split("&").each do |part|
+        index = part.index("access_token=")
+        if index
+          new_token = part[("access_token=".length + index)..part.length]
+          self.fb_access_token = new_token
+          self.save!
+          return
+        end
+      end
+      raise "no access token found in response body: #{response.body}"
+    else
+      raise "#{response.code} - #{response.body}"
+    end
+  end
 
 
 end
