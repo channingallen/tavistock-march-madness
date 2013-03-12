@@ -85,5 +85,18 @@ class User < ActiveRecord::Base
     end
   end
 
+  def notify(template)
+    raise "must specify template" if template.blank?
+
+    uri = URI.parse(URI.encode(url))
+    request = Net::HTTP::Post.new(uri.path)
+    request.set_form_data(:access_token => Constants::FB_APP_ACCESS_TOKEN,
+                          :template => template,
+                          :href => "")
+    http = Net::HTTP.new(uri.host, uri.port)
+    http.use_ssl = true
+    http.request(request)
+  end
+
 
 end
