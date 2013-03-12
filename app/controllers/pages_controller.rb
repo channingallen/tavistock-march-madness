@@ -1,3 +1,6 @@
+require 'net/http'
+require 'net/https'
+
 class PagesController < ApplicationController
 
   skip_before_filter :verify_authenticity_token, :only => [:index]
@@ -16,8 +19,12 @@ class PagesController < ApplicationController
       # No page? Redirect to the app within a page (specifically, the page the
       # user signed up with if we can find the user).
       else
+        page_id = "486859618037849"
         user = User.find_by_fb_id(data["user_id"])
-        @page_id = user ? user.restaurant_id : "486859618037849"
+        if user and !user.restaurant_id.blank?
+          page_id = user.restaurant_id
+        end
+        @page_url = find_page_app_url(page_id)
         render :layout => "redirect_to_page", :template => "pages/redirect_to_page"
         return
       end
@@ -29,6 +36,7 @@ class PagesController < ApplicationController
       liked = !!params["liked"]
       @page_id = params["page_id"]
     end
+
 
     unless @page_id
       raise "Must specify a page ID."
@@ -126,6 +134,21 @@ class PagesController < ApplicationController
   def base64_url_decode(str)
     str += '=' * (4 - str.length.modulo(4))
     Base64.decode64(str.tr('-_','+/'))
+  end
+
+  def find_page_app_url(page_id)
+    url = "http://graph.facebook.com/#{page_id}"
+    uri = URI.parse(URI.encode(url))
+    request = Net::HTTP::Get.new(uri.path)
+    http = Net::HTTP.new(uri.host, uri.port)
+    response = http.request(request)
+    raise "error" unless response.code == "200"
+
+    json = JSON.parse(response.body)
+    "#{json["link"]}/app_#{Constants::FB_APP_ID}"
+
+  rescue Exception => e
+    "http://www.facebook.com"
   end
 
 end

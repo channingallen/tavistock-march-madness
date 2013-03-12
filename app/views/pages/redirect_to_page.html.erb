@@ -1,5 +1,5 @@
 <%= content_for :head do %>
   <script type="text/javascript">
-    top.location.replace("http://www.facebook.com/<%= @page_id %>/app_<%= Constants::FB_APP_ID %>");
+    top.location.replace(<%= @page_url %>);
   </script>
 <% end %>
