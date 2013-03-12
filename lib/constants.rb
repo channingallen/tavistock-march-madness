@@ -12,6 +12,7 @@ module Constants
 
   # Facebook
   TEST_USER_FB_ID = "707419"
+  FB_APP_ID = "505121329539102"
   FB_APP_SECRET = "305b3e5afc739722934c10e9f4a71815"
 
   # Restaurants
