@@ -7,8 +7,6 @@ gem 'mysql2'
 gem 'passenger'
 gem 'jquery-rails'
 gem 'therubyracer'
-gem 'rest-client'
-gem 'rest-graph'
 
 # Gems used only for assets and not required
 # in production environments by default.
