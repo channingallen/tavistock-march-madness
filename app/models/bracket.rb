@@ -148,6 +148,6 @@ class Bracket < ActiveRecord::Base
   #   Methods   #
   ###############
 
-  # TODO: put methods here
+  # ...
 
 end
