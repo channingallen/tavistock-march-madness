@@ -10,23 +10,21 @@ class PagesController < ApplicationController
     # Verify the signed request, and gather basic data.
     if Rails.env.production?
       data = parse_signed_request
+      user = User.find_by_fb_id(data["user_id"])
 
-      # Are we on a page? Great.
-      if data["page"]
-        liked = data["page"]["liked"]
-        @page_id = data["page"]["id"]
-
-      # No page? Redirect to the app within a page (specifically, the page the
-      # user signed up with if we can find the user).
-      else
+      # If there's no page (because the user access the canvas app directly) or
+      # if the user has already signed up for a different page, redirect.
+      if !data["page"] or (user and user.restaurant_id != data["page"]["id"])
         page_id = "486859618037849"
-        user = User.find_by_fb_id(data["user_id"])
         if user and !user.restaurant_id.blank?
           page_id = user.restaurant_id
         end
         @page_url = find_page_app_url(page_id)
         render :layout => "redirect_to_page", :template => "pages/redirect_to_page"
         return
+      else
+        liked = data["page"]["liked"]
+        @page_id = data["page"]["id"]
       end
     else
       data = params["no_user"] ?
