@@ -57,7 +57,11 @@ class PagesController < ApplicationController
       end
       user[:fb_access_token] = data["oauth_token"]
       user[:restaurant_id] = @page_id
+      extend_access_token = user.new_record?
       user.save!
+      if extend_access_token
+        user.extend_access_token
+      end
 
       # Build data.
       bracket = user.bracket
