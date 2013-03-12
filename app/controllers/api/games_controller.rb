@@ -21,8 +21,6 @@ class Api::GamesController < ApplicationController
   end
 
   # PUT /games/:id
-  # TODO: ensure users can only update games belonging to their own bracket
-  # TODO: allow certain users to update the official bracket
   def update
     return if Constants::PHASE == "preparation"
 
