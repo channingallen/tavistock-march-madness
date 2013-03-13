@@ -2,23 +2,29 @@
   padding: 80px 80px 220px;
 
   header {
+    margin: 0 0 45px;
 
     h1 {
-      padding: 0 3px;
-    }
-
-    h1, h2 {
-      display: inline-block;
       font-family: $robotoFontFamily;
       font-size: 30px;
       line-height: 1.2em;
+      margin: 0 0 13px;
+    }
+
+    h2 {
+      background-image: image-url("bracket_logo.gif");
+      background-position: center;
+      height: 80px;
+      margin: 0 auto;
+      text-indent: -9000px;
+      width: 280px;
     }
   }
 
   nav {
     display: block;
     font-family: $robotoFontFamily;
-    margin: 80px 0 30px 0;
+    margin: 0 0 30px 0;
 
     .link {
       background-position: center 37px;
