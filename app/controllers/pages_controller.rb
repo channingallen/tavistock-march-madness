@@ -10,6 +10,8 @@ class PagesController < ApplicationController
     # Verify the signed request, and gather basic data.
     if Rails.env.production?
       data = parse_signed_request
+      logger.info "data: #{data.inspect}"
+
       user = User.find_by_fb_id(data["user_id"])
 
       # If there's no page (because the user access the canvas app directly) or
@@ -36,7 +38,6 @@ class PagesController < ApplicationController
       liked = !!params["liked"]
       @page_id = params["page_id"]
     end
-
 
     unless @page_id
       raise "Must specify a page ID."
