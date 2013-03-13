@@ -150,5 +150,27 @@ class User < ActiveRecord::Base
     self.update_attributes! :score => self.games.map { |game| game[:score] }.sum
   end
 
+  def self.update_all_scores
+    logfile = File.open("#{Rails.root}/log/whenever.log", 'a')
+    logfile.sync = true
+    logger = Logger.new(logfile)
+    logger.info "\n\n#{Time.now.iso8601}\nUpdating all user scores..."
+
+    official_games = Bracket.where(:is_official => true).first.games
+    official_games_by_round = official_games.inject({}) do |hash, game|
+      game_round_number = game.round_number
+      if hash[game_round_number]
+        hash[game_round_number] << game
+      else
+        hash[game_round_number] = [game]
+      end
+      hash
+    end
+
+    User.all.each do |user|
+      user.update_score!(official_games_by_round)
+      logger.info "   #{user.email} (#{user.id}) - #{user.score} points"
+    end
+  end
 
 end
