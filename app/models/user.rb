@@ -151,6 +151,11 @@ class User < ActiveRecord::Base
   end
 
   def self.update_all_scores
+    logfile = File.open("#{Rails.root}/log/whenever.log", 'a')
+    logfile.sync = true
+    logger = Logger.new(logfile)
+    logger.info "#{Time.now.iso8601} - Updating all user scores..."
+
     official_games = Bracket.where(:is_official => true).first.games
     official_games_by_round = official_games.inject({}) do |hash, game|
       game_round_number = game.round_number
@@ -162,14 +167,10 @@ class User < ActiveRecord::Base
       hash
     end
 
-    User.all.each { |user| user.update_score!(official_games_by_round) }
-  end
-
-  def self.whenever_test
-    logfile = File.open("#{Rails.root}/log/api_v2.log", 'a')
-    logfile.sync = true
-    logger = Logger.new(logfile)
-    logger.info "#{Time.now.iso8601} - whenever_test success!"
+    User.all.each do |user|
+      user.update_score!(official_games_by_round)
+      logger.info "   #{user.email} (#{user.id})\t-\t#{user.score} points"
+    end
   end
 
 end
