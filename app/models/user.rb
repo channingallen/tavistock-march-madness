@@ -150,5 +150,26 @@ class User < ActiveRecord::Base
     self.update_attributes! :score => self.games.map { |game| game[:score] }.sum
   end
 
+  def self.update_all_scores
+    official_games = Bracket.where(:is_official => true).first.games
+    official_games_by_round = official_games.inject({}) do |hash, game|
+      game_round_number = game.round_number
+      if hash[game_round_number]
+        hash[game_round_number] << game
+      else
+        hash[game_round_number] = [game]
+      end
+      hash
+    end
+
+    User.all.each { |user| user.update_score!(official_games_by_round) }
+  end
+
+  def self.whenever_test
+    logfile = File.open("#{Rails.root}/log/api_v2.log", 'a')
+    logfile.sync = true
+    logger = Logger.new(logfile)
+    logger.info "#{Time.now.iso8601} - whenever_test success!"
+  end
 
 end
