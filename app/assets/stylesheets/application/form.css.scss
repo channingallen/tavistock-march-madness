@@ -3,13 +3,22 @@
   padding: 80px 80px 220px;
 
   header {
-    margin: 0 0 70px;
+    margin: 0 0 45px;
 
-    h1, h2 {
-      display: inline-block;
+    h1 {
       font-family: $robotoFontFamily;
       font-size: 30px;
       line-height: 1.2em;
+      margin: 0 0 13px;
+    }
+
+    h2 {
+      background-image: image-url("bracket_logo.gif");
+      background-position: center;
+      height: 80px;
+      margin: 0 auto;
+      text-indent: -9000px;
+      width: 280px;
     }
   }
 
