@@ -2,22 +2,33 @@ App.FormController = Ember.ObjectController.extend({
 
   locations: function() {
     var user = this.get('content');
-    if (!user) return false;
 
-    var restaurant = user.get('restaurant');
+    var restaurant = user ?
+                     user.get('restaurant') :
+                     App.get('restaurants')[App.get('pageId')];
     if (!restaurant.locations) return false;
 
     var locations = [],
       thisLocation; // remember to avoid using window.location
     for (var i = 0; i < restaurant.locations.length; i++) {
       thisLocation = { name: restaurant.locations[i] };
-      if (restaurant.locations[i] == user.get('restaurantLocation')) {
+      if (user && restaurant.locations[i] == user.get('restaurantLocation')) {
+        thisLocation.selected = true;
+      } else if (i == 0) {
         thisLocation.selected = true;
       }
       locations.push(thisLocation);
     }
     return locations;
   }.property('content.restaurantLocation'),
+
+  restaurant: function() {
+    if (this.get('content')) {
+      return this.get('content').get('restaurant');
+    } else {
+      return App.get('restaurants')[App.get('pageId')];
+    }
+  }.property('content.restaurantId'),
 
   submitForm: function() {
 

@@ -62,7 +62,7 @@ class PagesController < ApplicationController
       user[:restaurant_id] = @page_id
       extend_access_token = user.new_record?
       user.save!
-      if extend_access_token
+      if extend_access_token and Rails.env.production?
         user.extend_access_token
       end
 
