@@ -37,6 +37,9 @@ App.helpers.facebook = {
     user.set('timezone', meResponse.timezone);
     user.set('fbUsername', meResponse.username);
     user.set('fbAccessToken', accessToken);
+    if (App.get('pageId') && !user.get('restaurantId')) {
+      user.set('restaurantId', App.get('pageId'));
+    }
     user.on('didUpdate', function() {
       App.set('currentUser', App.User.find(user.get('id')));
       if (callback && typeof callback == 'function') callback();
@@ -89,6 +92,7 @@ App.helpers.facebook = {
                 timezone: meResponse.timezone,
                 fbUsername: meResponse.username,
                 fbAccessToken: accessToken,
+                restaurantId: App.get('pageId') ? App.get('pageId') : null,
                 fbId: meResponse.id
               });
               newUser.on('didCreate', function() {

@@ -11,6 +11,7 @@
     });
 
     if (window.App) {
+      <% if @page_id %>App.set('pageId', '<%= @page_id %>');<% end %>;
       App.helpers.facebook.checkLogin();
       App.helpers.facebook.enableAutoResizing();
     } else {

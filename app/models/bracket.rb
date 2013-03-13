@@ -9,6 +9,15 @@ class Bracket < ActiveRecord::Base
 
   NUM_TEAMS = 64
   NUM_GAMES = 67
+  POINTS_PER_WIN_BY_ROUND = {
+    1 => 1, # First Four
+    2 => 1, # Round of 64
+    3 => 2, # Round of 32
+    4 => 3, # Sweet Sixteen
+    5 => 4, # Elite Eight
+    6 => 6, # Final Four
+    7 => 10, # Finals
+  }
 
   ####################
   #   Associations   #
@@ -148,6 +157,6 @@ class Bracket < ActiveRecord::Base
   #   Methods   #
   ###############
 
-  # TODO: put methods here
+  # ...
 
 end

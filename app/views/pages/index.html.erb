@@ -1,19 +1,19 @@
-<% if @user_data %>
-  <%= content_for :head do %>
-    <script type="text/javascript">
+<%= content_for :head do %>
+  <script type="text/javascript">
 
-      // Load data into store.
+    <% if @user_data %>
+      // Load user datainto store.
       var initialData = <%= @user_data.html_safe %>;
       App.store.loadMany(App.Team, initialData.teams);
       App.store.load(App.User, initialData.user);
       App.store.load(App.Bracket, initialData.bracket);
       App.store.loadMany(App.Game, initialData.games);
-
-      // Set globals.
       App.set('currentUser', App.User.find(initialData.user.id));
-      App.set('restaurants', <%= Constants::RESTAURANTS.to_json.to_s.html_safe %>);
-      App.set('phase', <%= Constants::PHASE.to_json.to_s.html_safe %>);
+    <% end %>
 
-    </script>
-  <% end %>
+    App.set('pageId', '<%= @page_id %>');
+    App.set('restaurants', <%= Constants::RESTAURANTS.to_json.to_s.html_safe %>);
+    App.set('phase', <%= Constants::PHASE.to_json.to_s.html_safe %>);
+
+  </script>
 <% end %>

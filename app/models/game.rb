@@ -8,22 +8,14 @@ class Game < ActiveRecord::Base
   #   Constants   #
   #################
 
-  POINTS_PER_WIN_BY_ROUND = {
-    1 => 1, # First Four
-    2 => 1, # Round of 64
-    3 => 2, # Round of 32
-    4 => 3, # Sweet Sixteen
-    5 => 4, # Elite Eight
-    6 => 6, # Final Four
-    7 => 10, # Finals
-  }
+  # ...
 
 
   ####################
   #   Associations   #
   ####################
 
-  belongs_to :bracket
+  belongs_to :bracket, :touch => true
   has_one    :user, :through => :bracket
   belongs_to :next_game, :class_name => "Game"
   has_many   :previous_games, :foreign_key => "next_game_id", :order => "id ASC", :class_name => "Game"
@@ -107,7 +99,6 @@ class Game < ActiveRecord::Base
   #################
 
   before_validation :nullify_winning_team
-  after_update :update_scores
   after_update :update_teams_for_later_games
 
   private
@@ -120,17 +111,6 @@ class Game < ActiveRecord::Base
     return if team_ids.include?(self[:winning_team_id])
 
     self[:winning_team_id] = nil
-  end
-
-  # Updates the scores of every single user's games.
-  def update_scores
-    return unless self.bracket[:is_official]
-    return unless self[:winning_team_id]
-
-    Game.award_points_for_win({
-      :winning_team_id => self[:winning_team_id],
-      :round_number => self.round_number
-    })
   end
 
   # Updates the next game's team_one_id or team_two_id based on the winner of
@@ -183,38 +163,6 @@ class Game < ActiveRecord::Base
     end
 
     round_num
-  end
-
-  # Updates the scores of every single user's games.
-  def self.award_points_for_win(options)
-    raise "invalid team" unless Team.exists?(options[:winning_team_id])
-    num_points = Game::POINTS_PER_WIN_BY_ROUND[options[:round_number]]
-
-    # For each user's bracket...
-    Bracket.all(:conditions => "is_official = FALSE").each do |bracket|
-
-      # ...we find every game in which the appropriate team is the winner.
-      conditions = ["bracket_id = ? AND winning_team_id = ?",
-                    bracket[:id],
-                    options[:winning_team_id]]
-      potential_matching_games = Game.all(:conditions => conditions)
-
-      # We then narrow this list down to whichever game occurred in the
-      # appropriate round.
-      matching_game = potential_matching_games.detect do |game|
-        game.round_number == options[:round_number]
-      end
-
-      # If a matching game was found, we award the points.
-      if matching_game
-        matching_game.update_attributes! :score => num_points
-      end
-
-      # Update the bracket's user's score.
-      user = bracket.user
-      total_score = bracket.games.sum(:score)
-      user.update_attributes! :score => total_score
-    end
   end
 
 end

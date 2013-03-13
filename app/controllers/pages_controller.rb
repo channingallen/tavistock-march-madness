@@ -10,11 +10,15 @@ class PagesController < ApplicationController
     # Verify the signed request, and gather basic data.
     if Rails.env.production?
       data = parse_signed_request
+      logger.info "data: #{data.inspect}"
+
       user = User.find_by_fb_id(data["user_id"])
 
       # If there's no page (because the user access the canvas app directly) or
       # if the user has already signed up for a different page, redirect.
-      if !data["page"] or (user and user.restaurant_id != data["page"]["id"])
+      user_signed_up_for_different_page = (user and user.restaurant_id and
+                                           user.restaurant_id != data["page"]["id"])
+      if !data["page"] or user_signed_up_for_different_page
         page_id = "486859618037849"
         if user and !user.restaurant_id.blank?
           page_id = user.restaurant_id
@@ -34,7 +38,6 @@ class PagesController < ApplicationController
       liked = !!params["liked"]
       @page_id = params["page_id"]
     end
-
 
     unless @page_id
       raise "Must specify a page ID."
@@ -57,7 +60,11 @@ class PagesController < ApplicationController
       end
       user[:fb_access_token] = data["oauth_token"]
       user[:restaurant_id] = @page_id
+      extend_access_token = user.new_record?
       user.save!
+      if extend_access_token and Rails.env.production?
+        user.extend_access_token
+      end
 
       # Build data.
       bracket = user.bracket

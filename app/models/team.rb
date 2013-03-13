@@ -17,13 +17,13 @@ class Team < ActiveRecord::Base
   #   Callbacks   #
   #################
 
-  # TODO: put callbacks here
+  # ...
 
 
   ###############
   #   Methods   #
   ###############
 
-  # TODO: put methods here
+  # ...
 
 end
