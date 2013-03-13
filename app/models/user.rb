@@ -154,7 +154,7 @@ class User < ActiveRecord::Base
     logfile = File.open("#{Rails.root}/log/whenever.log", 'a')
     logfile.sync = true
     logger = Logger.new(logfile)
-    logger.info "#{Time.now.iso8601} - Updating all user scores..."
+    logger.info "\n\n#{Time.now.iso8601}\nUpdating all user scores..."
 
     official_games = Bracket.where(:is_official => true).first.games
     official_games_by_round = official_games.inject({}) do |hash, game|
@@ -169,7 +169,7 @@ class User < ActiveRecord::Base
 
     User.all.each do |user|
       user.update_score!(official_games_by_round)
-      logger.info "   #{user.email} (#{user.id})\t-\t#{user.score} points"
+      logger.info "   #{user.email} (#{user.id}) - #{user.score} points"
     end
   end
 
