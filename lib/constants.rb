@@ -18,8 +18,8 @@ module Constants
 
   # Restaurants
   RESTAURANTS = {
-      "190166997684083" => {
-          :id => "190166997684083",
+      "376824852425188" => {
+          :id => "376824852425188",
           :name => "Abe's",
           :image => "like_gates/like_gate_abe.png"
       },
