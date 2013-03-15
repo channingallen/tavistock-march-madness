@@ -5,19 +5,24 @@
     margin: 0 0 45px;
 
     h1 {
+      background-color: $red;
+      display: inline-block;
       font-family: $robotoFontFamily;
       font-size: 30px;
       line-height: 1.2em;
-      margin: 0 0 13px;
+      margin: 0 0 20px;
+      padding: 3px 10px;
     }
 
     h2 {
       background-image: image-url("bracket_logo.gif");
-      background-position: center;
-      height: 80px;
+      background-position: -10px -13px;
+      background-repeat: no-repeat;
+      background-size: 350px;
+      height: 130px;
       margin: 0 auto;
       text-indent: -9000px;
-      width: 280px;
+      width: 320px;
     }
   }
 
