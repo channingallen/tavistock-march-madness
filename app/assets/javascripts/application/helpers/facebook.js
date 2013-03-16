@@ -124,14 +124,18 @@ App.helpers.facebook = {
 
   shareOnWall: function(callback) {
     callback = (typeof callback == 'function') ? callback : function() {};
+    var restaurantName = App.get('currentUser.restaurant.name');
     FB.ui({
       method: 'feed',
       redirect_uri: App.get('pageAppUrl'),
       link: 'https://developers.facebook.com/docs/reference/dialogs/',
       picture: 'http://ballerassshit.com/assets/icons/page_icon_tab.png',
-      name: 'March Madness 2013',
-      caption: 'Compete to win!',
-      description: 'Fill out a March Badness bracket between the 17th and the 20th!'
+      name: restaurantName + ' Bracket Challenge',
+      caption: 'Enter for a chance to win!',
+      description: 'Fill out a bracket between March 17-20 for a chance to ' +
+                   'win an all-expenses paid trip to Las Vegas, a party for ' +
+                   'you and five friends, and dining rewards card at ' +
+                   restaurantName + '.'
     }, callback);
   }
 };
