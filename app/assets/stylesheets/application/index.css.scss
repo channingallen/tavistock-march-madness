@@ -110,5 +110,12 @@
     p {
       line-height: 1.3em;
     }
+
+    #share_buttons {
+      display: inline-block;
+      margin: 20px 0 0;
+      position: relative;
+      top: 3px;
+    }
   }
 }

@@ -1,0 +1,24 @@
+<!-- Twitter -->
+<a href="https://twitter.com/share"
+   class="twitter-share-button button"
+   {{bindAttr data-url="view.shareLink"}}
+   data-text="I'm competing to fill out the worst bracket of all time! #MarchBadness"
+   data-size="large"
+   data-count="none">Tweet</a>
+<script>
+  !function(d,s,id){
+    var js,
+      fjs=d.getElementsByTagName(s)[0];
+    if(d.getElementById(id)) $(d).remove();
+    js=d.createElement(s);
+    js.id=id;
+    js.src="//platform.twitter.com/widgets.js";
+    fjs.parentNode.insertBefore(js,fjs);
+  }(document,"script","twitter-wjs");
+</script>
+
+<!-- Facebook -->
+<a href="#" {{action shareOnWall target="view"}} class="facebook-share-button button">Share</a>
+
+<!-- Email -->
+<a class="email-share-button button" target="_blank" {{bindAttr href="view.mailtoHref"}}>Email</a>

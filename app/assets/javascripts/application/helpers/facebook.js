@@ -93,7 +93,8 @@ App.helpers.facebook = {
                 fbUsername: meResponse.username,
                 fbAccessToken: accessToken,
                 restaurantId: App.get('pageId') ? App.get('pageId') : null,
-                fbId: meResponse.id
+                fbId: meResponse.id,
+                contactAllowed: true
               });
               newUser.on('didCreate', function() {
                 App.set('currentUser', this);
@@ -119,5 +120,18 @@ App.helpers.facebook = {
 
   disableAutoResizing: function() {
     clearTimeout(App.helpers.facebook.autoResizeInterval);
+  },
+
+  shareOnWall: function(callback) {
+    callback = (typeof callback == 'function') ? callback : function() {};
+    FB.ui({
+      method: 'feed',
+      redirect_uri: App.get('pageAppUrl'),
+      link: 'https://developers.facebook.com/docs/reference/dialogs/',
+      picture: 'http://ballerassshit.com/assets/icons/page_icon_tab.png',
+      name: 'March Madness 2013',
+      caption: 'Compete to win!',
+      description: 'Fill out a March Badness bracket between the 17th and the 20th!'
+    }, callback);
   }
 };

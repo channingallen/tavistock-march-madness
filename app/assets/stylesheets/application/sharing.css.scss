@@ -1,0 +1,26 @@
+#share_buttons {
+
+  .button {
+    cursor: pointer;
+    display: inline-block;
+    vertical-align: top;
+  }
+
+  .facebook-share-button {
+    background-image: image-url("fb_share_button.png");
+    background-position: center center;
+    background-repeat: no-repeat;
+    height: 28px;
+    text-indent: -9000px;
+    width: 80px;
+  }
+
+  .email-share-button {
+    background-image: image-url("email_share_button.png");
+    background-position: center center;
+    background-repeat: no-repeat;
+    height: 28px;
+    text-indent: -9000px;
+    width: 40px;
+  }
+}

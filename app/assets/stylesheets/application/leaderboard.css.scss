@@ -85,25 +85,8 @@
             vertical-align: top;
           }
 
-          button {
-            @include box-shadow(5px 5px 10px rgba(0,0,0,0.5));
-            background-color: $red;
-            color: #ffffff;
-            font-size: 18px;
-            height: 42px;
-            line-height: 42px;
-            padding: 0 15px;
-
-            &:hover {
-              background-color: darken($red, 2%);
-            }
-
-            &:active {
-              @include box-shadow(2px 2px 15px rgba(0,0,0,0.6));
-              left: 1px;
-              position: relative;
-              top: 1px;
-            }
+          #share_buttons {
+            margin: 0 auto;
           }
         }
       }
