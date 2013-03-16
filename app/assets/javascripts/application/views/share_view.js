@@ -10,7 +10,7 @@ App.ShareView = Ember.View.extend({
 
   tweetText: function() {
     return 'Take the ' + App.get('currentUser.restaurant.name') +
-           ' #BracketChallenge for a chance to win!' + App.get('pageAppUrl');
+           ' #BracketChallenge for a chance to win!';
   }.property('App.pageAppUrl'),
 
   mailtoHref: function() {
