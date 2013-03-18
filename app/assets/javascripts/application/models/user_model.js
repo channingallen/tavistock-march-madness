@@ -24,6 +24,20 @@ App.User = DS.Model.extend({
     return name ? name.split(' ').slice(1).join(' ') : '';
   }.property('name'),
 
+  abbreviatedName: function() {
+    var currentUser = App.get('currentUser');
+    if (currentUser && currentUser.get('id') == this.get('id')) {
+      return this.get('name');
+    }
+
+    var firstName = this.get('firstName'),
+      lastName = this.get('lastName');
+    if (lastName) lastName = lastName[0] + '.';
+    return firstName ?
+           firstName + (lastName ? ' ' + lastName : '') :
+           '';
+  }.property('name'),
+
   restaurant: function() {
     var restaurants = App.get('restaurants');
     return restaurants ? restaurants[this.get('restaurantId')] : {};

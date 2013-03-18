@@ -15,12 +15,12 @@ class UserSerializer < ActiveModel::Serializer
              :fb_access_token
 
   def rank
-    str = "(score < ? OR (score = ? AND created_at < ?)) AND restaurant_id "
+    str = "(score > ? OR (score = ? AND id < ?)) AND restaurant_id "
     str += object[:restaurant_id] ? "= ?" : "IS NULL"
     conds = [str,
              object[:score],
              object[:score],
-             object[:created_at]]
+             object[:id]]
     conds.push(object[:restaurant_id]) if object[:restaurant_id]
     User.count(:conditions => conds) + 1
   end

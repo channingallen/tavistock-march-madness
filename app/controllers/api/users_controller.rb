@@ -55,6 +55,9 @@ class Api::UsersController < ApplicationController
       sort_direction = params[:order].upcase
     end
     order = "#{sort_property} #{sort_direction}"
+    unless sort_property == "id"
+      order += ", id ASC"
+    end
 
     # Custom limit?
     limit = params[:limit] ? params[:limit].to_i : User.count
@@ -73,7 +76,7 @@ class Api::UsersController < ApplicationController
       unless user[:restaurant_location].nil?
         conditions.push(user[:restaurant_location])
       end
-      users += User.where(conditions).order("score DESC").limit(6)
+      users += User.where(conditions).order("score DESC, id ASC").limit(6)
 
       # user himself
       users.push(user)
@@ -87,7 +90,7 @@ class Api::UsersController < ApplicationController
       unless user[:restaurant_location].nil?
         conditions.push(user[:restaurant_location])
       end
-      users += User.where(conditions).order("score ASC").limit(9)
+      users += User.where(conditions).order("score ASC, id ASC").limit(9)
 
     # Normal request.
     else
