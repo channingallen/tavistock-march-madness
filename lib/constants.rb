@@ -5,7 +5,7 @@ module Constants
   # "preparation" - no brackets are editable
   # "selection"   - individual brackets are editable, but the official bracket is not
   # "tournament"  - the official bracket is editable, but individual brackets are not; signups disabled
-  PHASE = "preparation"
+  PHASE = "selection"
 
   # Database
   MAX_DB_STRING_LENGTH = 254
