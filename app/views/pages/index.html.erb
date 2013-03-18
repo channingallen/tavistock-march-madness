@@ -3,7 +3,7 @@
 
     <% if @initial_data %>
       // Load user datainto store.
-      var initialData = <%= @user_data.html_safe %>;
+      var initialData = <%= @initial_data.html_safe %>;
       if (initialData.teams) App.store.loadMany(App.Team, initialData.teams);
       if (initialData.user) App.store.load(App.User, initialData.user);
       if (initialData.bracket) App.store.load(App.Bracket, initialData.bracket);

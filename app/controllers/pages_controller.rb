@@ -77,6 +77,7 @@ class PagesController < ApplicationController
         :teams => ActiveModel::ArraySerializer.new(teams).as_json
       }.to_json
     else
+      teams = Team.all
       @initial_data = {
         :teams => ActiveModel::ArraySerializer.new(teams).as_json
       }.to_json
