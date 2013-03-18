@@ -129,10 +129,18 @@ class Bracket < ActiveRecord::Base
 
   # Set the set_next_game_id attributes.
   def set_next_game_ids(rounds)
-    rounds[0].each_with_index do |game_id, index|
-      game = Game.first({ :conditions => ["id = ?", game_id] })
-      game.update_attributes! :next_game_id => rounds[1][index * 8]
-    end
+    game_id = rounds[0][0]
+    game = Game.first({ :conditions => ["id = ?", game_id] })
+    game.update_attributes! :next_game_id => rounds[1][0]
+    game_id = rounds[0][1]
+    game = Game.first({ :conditions => ["id = ?", game_id] })
+    game.update_attributes! :next_game_id => rounds[1][4]
+    game_id = rounds[0][2]
+    game = Game.first({ :conditions => ["id = ?", game_id] })
+    game.update_attributes! :next_game_id => rounds[1][11]
+    game_id = rounds[0][3]
+    game = Game.first({ :conditions => ["id = ?", game_id] })
+    game.update_attributes! :next_game_id => rounds[1][24]
 
     rounds.each_with_index do |round, round_index|
       next if round_index == 0
