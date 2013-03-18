@@ -14,7 +14,7 @@
     App.set('pageId', '<%= @page_id %>');
     App.set('restaurants', <%= Constants::RESTAURANTS.to_json.to_s.html_safe %>);
     App.set('phase', <%= Constants::PHASE.to_json.to_s.html_safe %>);
-    App.set('pageAppUrl', 'https://www.facebook.com/<%= @page_id %>/app_<%= Constants::FB_APP_ID %>');
+    App.set('pageAppUrl', 'https://www.facebook.com/<%= @page_id %>');
 
   </script>
 <% end %>

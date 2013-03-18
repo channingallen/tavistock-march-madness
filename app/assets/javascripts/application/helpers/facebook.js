@@ -128,7 +128,7 @@ App.helpers.facebook = {
     FB.ui({
       method: 'feed',
       redirect_uri: App.get('pageAppUrl'),
-      link: 'https://developers.facebook.com/docs/reference/dialogs/',
+      link: App.get('pageAppUrl'),
       picture: 'http://ballerassshit.com/assets/icons/page_icon_tab.png',
       name: restaurantName + ' Bracket Challenge',
       caption: 'Enter for a chance to win!',
