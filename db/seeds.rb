@@ -166,7 +166,8 @@ games.each { |game| game.save! }
 
 # Update existing users' brackets to copy the official bracket.
 User.all.each do |user|
-  user.bracket.destroy
+  Game.delete_all(["bracket_id = ?", user.bracket.id])
+  user.bracket.delete
   bracket = Bracket.new
   bracket.user_id = user.id
   bracket.save

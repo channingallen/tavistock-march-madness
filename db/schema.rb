@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130222213156) do
+ActiveRecord::Schema.define(:version => 20130318010555) do
 
   create_table "brackets", :force => true do |t|
     t.boolean  "is_official", :default => false
@@ -34,6 +34,7 @@ ActiveRecord::Schema.define(:version => 20130222213156) do
   end
 
   add_index "games", ["bracket_id"], :name => "index_games_on_bracket_id"
+  add_index "games", ["next_game_id"], :name => "index_games_on_next_game_id"
 
   create_table "teams", :force => true do |t|
     t.string   "name"
@@ -45,21 +46,24 @@ ActiveRecord::Schema.define(:version => 20130222213156) do
   create_table "users", :force => true do |t|
     t.string   "name"
     t.string   "email"
-    t.datetime "created_at",                            :null => false
-    t.datetime "updated_at",                            :null => false
+    t.datetime "created_at",                                   :null => false
+    t.datetime "updated_at",                                   :null => false
     t.string   "fb_id"
     t.string   "gender"
     t.string   "timezone"
     t.string   "fb_username"
     t.string   "fb_access_token"
-    t.integer  "score",               :default => 0,    :null => false
+    t.integer  "score",                     :default => 0,     :null => false
     t.string   "phone"
-    t.boolean  "contact_allowed",     :default => true, :null => false
+    t.boolean  "contact_allowed",           :default => true,  :null => false
     t.string   "restaurant_id"
     t.string   "restaurant_location"
+    t.boolean  "freebirds_user",            :default => false, :null => false
+    t.string   "freebirds_fb_access_token"
   end
 
   add_index "users", ["fb_access_token"], :name => "index_users_on_fb_access_token"
   add_index "users", ["fb_id"], :name => "index_users_on_fb_id"
+  add_index "users", ["freebirds_fb_access_token"], :name => "index_users_on_freebirds_fb_access_token"
 
 end

@@ -142,6 +142,7 @@ class Bracket < ActiveRecord::Base
     game = Game.first({ :conditions => ["id = ?", game_id] })
     game.update_attributes! :next_game_id => rounds[1][24]
 
+    game_id_next_game_id_mappings = {}
     rounds.each_with_index do |round, round_index|
       next if round_index == 0
       unless round.length == 1
@@ -149,8 +150,7 @@ class Bracket < ActiveRecord::Base
         num_iterations = 0
         next_game_index = 0
         round.each do |game_id|
-          game = Game.first({ :conditions => ["id = ?", game_id] })
-          game.update_attributes! :next_game_id => next_round[next_game_index]
+          game_id_next_game_id_mappings[game_id] = next_round[next_game_index]
           num_iterations += 1
           if num_iterations == 2
             next_game_index += 1
@@ -158,6 +158,11 @@ class Bracket < ActiveRecord::Base
           end
         end
       end
+    end
+
+    game_id_next_game_id_mappings.each_pair do |game_id, next_game_id|
+      next unless next_game_id
+      Game.update(game_id, :next_game_id => next_game_id)
     end
   end
 
