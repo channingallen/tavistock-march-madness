@@ -64,10 +64,10 @@ class Bracket < ActiveRecord::Base
   def set_up_bracket
 
     # Create the games.
-    games = create_bracket_games
+    create_bracket_games
 
     # Organize the games into rounds.
-    game_ids = games.collect { |game| game[:id] }
+    game_ids = Game.where(:bracket_id => self.id).select("id").map { |g| g.id }
     rounds = create_rounds(game_ids)
 
     # Set the next_game_id attributes.
@@ -89,19 +89,22 @@ class Bracket < ActiveRecord::Base
       })
     end
 
-    games = []
-    Bracket::NUM_GAMES.times do |index|
-      game = Game.new
-      game[:bracket_id] = self[:id]
-      unless official_games.empty?
-        game[:team_one_id] = official_games[index][:team_one_id]
-        game[:team_two_id] = official_games[index][:team_two_id]
+    Game.transaction do
+      time_string = Time.now.to_s(:db)
+      Bracket::NUM_GAMES.times do |index|
+        if official_games.empty?
+          team_one_id = "NULL"
+          team_two_id = "NULL"
+        else
+          team_one_id = official_games[index][:team_one_id] || "NULL"
+          team_two_id = official_games[index][:team_two_id] || "NULL"
+        end
+        sql = "INSERT INTO `games` " +
+              "(`bracket_id`, `created_at`, `next_game_id`, `score`, `team_one_id`, `team_two_id`, `updated_at`, `winning_team_id`) VALUES " +
+              "(#{self.id}, '#{time_string}', NULL, 0, #{team_one_id}, #{team_two_id}, '#{time_string}', NULL)"
+        Game.connection.execute(sql)
       end
-      game.save!
-      games.push(game)
     end
-
-    games
   end
 
   # Organize the games into rounds.
@@ -129,20 +132,12 @@ class Bracket < ActiveRecord::Base
 
   # Set the set_next_game_id attributes.
   def set_next_game_ids(rounds)
-    game_id = rounds[0][0]
-    game = Game.first({ :conditions => ["id = ?", game_id] })
-    game.update_attributes! :next_game_id => rounds[1][0]
-    game_id = rounds[0][1]
-    game = Game.first({ :conditions => ["id = ?", game_id] })
-    game.update_attributes! :next_game_id => rounds[1][4]
-    game_id = rounds[0][2]
-    game = Game.first({ :conditions => ["id = ?", game_id] })
-    game.update_attributes! :next_game_id => rounds[1][11]
-    game_id = rounds[0][3]
-    game = Game.first({ :conditions => ["id = ?", game_id] })
-    game.update_attributes! :next_game_id => rounds[1][24]
-
     game_id_next_game_id_mappings = {}
+    game_id_next_game_id_mappings[rounds[0][0]] = rounds[1][0]
+    game_id_next_game_id_mappings[rounds[0][1]] = rounds[1][4]
+    game_id_next_game_id_mappings[rounds[0][2]] = rounds[1][11]
+    game_id_next_game_id_mappings[rounds[0][3]] = rounds[1][24]
+
     rounds.each_with_index do |round, round_index|
       next if round_index == 0
       unless round.length == 1
@@ -160,9 +155,14 @@ class Bracket < ActiveRecord::Base
       end
     end
 
-    game_id_next_game_id_mappings.each_pair do |game_id, next_game_id|
-      next unless next_game_id
-      Game.update(game_id, :next_game_id => next_game_id)
+    Game.transaction do
+      time_string = Time.now.to_s(:db)
+      game_id_next_game_id_mappings.each_pair do |game_id, next_game_id|
+        next unless next_game_id
+        sql = "UPDATE `games` SET `next_game_id` = #{next_game_id}, " +
+              "`updated_at` = '#{time_string}' WHERE `games`.`id` = #{game_id}"
+        Game.connection.execute(sql)
+      end
     end
   end
 
