@@ -70,17 +70,16 @@ class PagesController < ApplicationController
       bracket = user.bracket
       games = bracket.games
       teams = Team.all
-      @user_data = {
+      @initial_data = {
         :user => UserSerializer.new(user).as_json[:user],
         :bracket => BracketSerializer.new(bracket).as_json[:bracket],
         :games => ActiveModel::ArraySerializer.new(games).as_json,
         :teams => ActiveModel::ArraySerializer.new(teams).as_json
       }.to_json
-
-    # Otherwise, we pass nil so the view will know that the user hasn't
-    # authenticated.
     else
-      @user_data = nil
+      @initial_data = {
+        :teams => ActiveModel::ArraySerializer.new(teams).as_json
+      }.to_json
     end
 
   rescue Exception => e

@@ -1,14 +1,14 @@
 <%= content_for :head do %>
   <script type="text/javascript">
 
-    <% if @user_data %>
+    <% if @initial_data %>
       // Load user datainto store.
       var initialData = <%= @user_data.html_safe %>;
-      App.store.loadMany(App.Team, initialData.teams);
-      App.store.load(App.User, initialData.user);
-      App.store.load(App.Bracket, initialData.bracket);
-      App.store.loadMany(App.Game, initialData.games);
-      App.set('currentUser', App.User.find(initialData.user.id));
+      if (initialData.teams) App.store.loadMany(App.Team, initialData.teams);
+      if (initialData.user) App.store.load(App.User, initialData.user);
+      if (initialData.bracket) App.store.load(App.Bracket, initialData.bracket);
+      if (initialData.games) App.store.loadMany(App.Game, initialData.games);
+      if (initialData.user) App.set('currentUser', App.User.find(initialData.user.id));
     <% end %>
 
     App.set('pageId', '<%= @page_id %>');
