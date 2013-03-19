@@ -173,4 +173,18 @@ class User < ActiveRecord::Base
     end
   end
 
+  def self.counts
+    total = User.count
+    num_filled_out_form = User.where("email IS NOT NULL AND name IS NOT NULL AND phone IS NOT NULL").size
+    num_started_bracket = Game.where("winning_team_id IS NOT NULL").select("DISTINCT(bracket_id)").size
+    num_finished_bracket = total - Game.where("winning_team_id IS NULL AND next_game_id IS NOT NULL").select("DISTINCT(bracket_id)").size
+
+    puts "\n********************************************************\n"
+    puts "Num Total Signups:    #{total}"
+    puts "Num Filled Out Form:  #{num_filled_out_form} (#{(100*num_filled_out_form/total.to_f).round}%)"
+    puts "Num Started Bracket:  #{num_started_bracket} (#{(100*num_started_bracket/total.to_f).round}%)"
+    puts "Num Finished Bracket: #{num_finished_bracket} (#{(100*num_finished_bracket/total.to_f).round}%)"
+    puts "\n********************************************************\n\n"
+  end
+
 end
