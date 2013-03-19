@@ -174,17 +174,43 @@ class User < ActiveRecord::Base
   end
 
   def self.counts
-    total = User.count
-    num_filled_out_form = User.where("email IS NOT NULL AND name IS NOT NULL AND phone IS NOT NULL").size
-    num_started_bracket = Game.where("winning_team_id IS NOT NULL").select("DISTINCT(bracket_id)").size
-    num_finished_bracket = total - Game.where("winning_team_id IS NULL AND next_game_id IS NOT NULL").select("DISTINCT(bracket_id)").size
+    def get_restaurant_count(restaurant, location = nil)
+      restaurant_conditions = { :restaurant_id => restaurant[:id], :restaurant_location => location }
+      total = User.where(restaurant_conditions).size
 
-    puts "\n********************************************************\n"
-    puts "Num Total Signups:    #{total}"
-    puts "Num Filled Out Form:  #{num_filled_out_form} (#{(100*num_filled_out_form/total.to_f).round}%)"
-    puts "Num Started Bracket:  #{num_started_bracket} (#{(100*num_started_bracket/total.to_f).round}%)"
-    puts "Num Finished Bracket: #{num_finished_bracket} (#{(100*num_finished_bracket/total.to_f).round}%)"
-    puts "\n********************************************************\n\n"
+      num_filled_out_form = User.where(restaurant_conditions).where("email IS NOT NULL AND name IS NOT NULL AND phone IS NOT NULL").size
+      num_filled_out_form_pct = total == 0 ? 0 : (100*num_filled_out_form/total.to_f).round
+
+      user_ids = User.where(restaurant_conditions).select("id").map { |u| u.id }
+      bracket_ids = Bracket.where(["user_id IN (?)", user_ids]).select("id").map { |b| b.id }
+      bracket_ids_condition = ["bracket_id IN (?)", bracket_ids]
+      num_started_bracket = Game.where(bracket_ids_condition).where("winning_team_id IS NOT NULL").select("DISTINCT(bracket_id)").size
+      num_started_bracket_pct = total == 0 ? 0 : (100*num_started_bracket/total.to_f).round
+
+      num_finished_bracket = total - Game.where(bracket_ids_condition).where("winning_team_id IS NULL AND next_game_id IS NOT NULL").select("DISTINCT(bracket_id)").size
+      num_finished_bracket_pct = total == 0 ? 0 : (100*num_finished_bracket/total.to_f).round
+
+      "\n#{restaurant[:name]}#{location ? " (#{location})" : ""}:" +
+        "\nNum Total Signups:    #{total}" +
+        "\nNum Filled Out Form:  #{num_filled_out_form} (#{num_filled_out_form_pct}%)" +
+        "\nNum Started Bracket:  #{num_started_bracket} (#{num_started_bracket_pct}%)" +
+        "\nNum Finished Bracket: #{num_finished_bracket} (#{num_finished_bracket_pct}%)"
+    end
+
+    counts = []
+    restaurant_ids = User.select("DISTINCT(restaurant_id)").map { |u| u.restaurant_id }
+    restaurant_ids.each do |restaurant_id|
+      restaurant = Constants::RESTAURANTS[restaurant_id]
+      if restaurant[:locations] and !restaurant[:locations].empty?
+        restaurant[:locations].each do |location|
+          counts << get_restaurant_count(restaurant, location)
+        end
+      else
+        counts << get_restaurant_count(restaurant)
+      end
+    end
+
+    puts counts.join("\n")
   end
 
 end
