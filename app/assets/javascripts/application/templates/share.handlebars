@@ -18,7 +18,7 @@
 </script>
 
 <!-- Facebook -->
-<a href="#" {{action shareOnWall target="view"}} class="facebook-share-button button">Share</a>
+<a {{bindAttr href="view.shareLink"}} {{action shareOnWall target="view"}} class="facebook-share-button button">Share</a>
 
 <!-- Email -->
 <a class="email-share-button button" target="_blank" {{bindAttr href="view.mailtoHref"}}>Email</a>
