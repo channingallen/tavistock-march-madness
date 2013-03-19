@@ -16,9 +16,7 @@ class PagesController < ApplicationController
 
       # If there's no page (because the user access the canvas app directly) or
       # if the user has already signed up for a different page, redirect.
-      user_signed_up_for_different_page = (user and user.restaurant_id and
-                                           user.restaurant_id != data["page"]["id"])
-      if !data["page"] or user_signed_up_for_different_page
+     if !data["page"] or (user and user.restaurant_id and user.restaurant_id != data["page"]["id"])
         page_id = "486859618037849"
         if user and !user.restaurant_id.blank?
           page_id = user.restaurant_id
