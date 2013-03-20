@@ -87,6 +87,7 @@ class User < ActiveRecord::Base
   def notify(template)
     raise "must specify template" if template.blank?
 
+    url = "https://graph.facebook.com/#{self.fb_id}/notifications"
     uri = URI.parse(URI.encode(url))
     request = Net::HTTP::Post.new(uri.path)
     request.set_form_data(:access_token => Constants::FB_APP_ACCESS_TOKEN,
@@ -187,7 +188,7 @@ class User < ActiveRecord::Base
       num_started_bracket = Game.where(bracket_ids_condition).where("winning_team_id IS NOT NULL").select("DISTINCT(bracket_id)").size
       num_started_bracket_pct = total == 0 ? 0 : (100*num_started_bracket/total.to_f).round
 
-      num_finished_bracket = total - Game.where(bracket_ids_condition).where("winning_team_id IS NULL AND next_game_id IS NOT NULL").select("DISTINCT(bracket_id)").size
+      num_finished_bracket = total - Game.where(bracket_ids_condition).where("winning_team_id IS NULL").select("DISTINCT(bracket_id)").size
       num_finished_bracket_pct = total == 0 ? 0 : (100*num_finished_bracket/total.to_f).round
 
       "\n#{restaurant[:name]}#{location ? " (#{location})" : ""}:" +
