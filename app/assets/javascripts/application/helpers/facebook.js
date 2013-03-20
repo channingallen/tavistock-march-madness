@@ -84,7 +84,7 @@ App.helpers.facebook = {
                                                             accessToken,
                                                             meResponse,
                                                             callback);
-            } else {
+            } else if (App.get('phase') != 'tournament') {
               var newUser = App.User.createRecord({
                 name: meResponse.name,
                 email: null,

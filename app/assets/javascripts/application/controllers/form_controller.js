@@ -1,5 +1,9 @@
 App.FormController = Ember.ObjectController.extend({
 
+  tournamentPhase: function() {
+    return App.get('phase') == 'tournament';
+  }.property('App.phase'),
+
   locations: function() {
     var user = this.get('content');
 

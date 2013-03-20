@@ -2,6 +2,10 @@ App.LeaderboardFriendsController = Ember.ArrayController.extend({
   sortProperties: ['rank'],
   sortAscending: true,
 
+  tournamentPhase: function() {
+    return App.get('phase') == 'tournament';
+  }.property('App.phase'),
+
   users: function() {
     return this.get('arrangedContent');
   }.property('content.@each'),

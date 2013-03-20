@@ -2,6 +2,10 @@ App.ShareView = Ember.View.extend({
   elementId: 'share_buttons',
   templateName: 'share',
 
+  tournamentPhase: function() {
+    return App.get('phase') == 'tournament';
+  }.property('App.phase'),
+
   // attribute bindings
 
   shareLink: function() {

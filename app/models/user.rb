@@ -176,6 +176,7 @@ class User < ActiveRecord::Base
 
   def self.counts
     def get_restaurant_count(restaurant, location = nil)
+      return "" unless restaurant
       restaurant_conditions = { :restaurant_id => restaurant[:id], :restaurant_location => location }
       total = User.where(restaurant_conditions).size
 
@@ -202,7 +203,7 @@ class User < ActiveRecord::Base
     restaurant_ids = User.select("DISTINCT(restaurant_id)").map { |u| u.restaurant_id }
     restaurant_ids.each do |restaurant_id|
       restaurant = Constants::RESTAURANTS[restaurant_id]
-      if restaurant[:locations] and !restaurant[:locations].empty?
+      if restaurant and restaurant[:locations] and !restaurant[:locations].empty?
         restaurant[:locations].each do |location|
           counts << get_restaurant_count(restaurant, location)
         end

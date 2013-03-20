@@ -1,5 +1,9 @@
 App.IndexController = Ember.Controller.extend({
 
+  tournamentPhase: function() {
+    return App.get('phase') == 'tournament';
+  }.property('App.phase'),
+
   currentUser: function() {
     this.set('content', App.get('currentUser'));
     return this.get('content');
