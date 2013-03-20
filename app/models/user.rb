@@ -98,7 +98,7 @@ class User < ActiveRecord::Base
     http.request(request)
   end
 
-  def update_score!(official_games_by_round = nil)
+  def update_score!(valid_team_ids, official_games_by_round = nil)
 
     # Prepare the list of official games by organizing them by round.
     unless official_games_by_round
@@ -127,28 +127,40 @@ class User < ActiveRecord::Base
 
     # Assign scores to the user's games.
     # For each game in each round...
-    valid_team_ids = Team.select(:id).map { |t| t.id }
+    game_id_score_mappings = {}
     user_games_by_round.each_pair do |round_number, games|
       games.each do |game|
 
         # ...determine whether or not the correct prediction was made.
         correct_pick = false
-        predicted_winner_id = game[:winning_team_id]
+        predicted_winner_id = game.winning_team_id
         if valid_team_ids.include? predicted_winner_id
           official_games_by_round[round_number].each do |official_game|
-            if official_game[:winning_team_id] == predicted_winner_id
+            if official_game.winning_team_id == predicted_winner_id
               correct_pick = true
               break
             end
           end
         end
         score = correct_pick ? Bracket::POINTS_PER_WIN_BY_ROUND[round_number] : 0
-        game.update_attributes! :score => score
+        unless game.score == score
+          game_id_score_mappings[game.id] = score
+        end
+      end
+    end
+    Game.transaction do
+      time_string = Time.now.to_s(:db)
+      game_id_score_mappings.each_pair do |game_id, new_score|
+        next unless (game_id and new_score)
+        sql = "UPDATE `games` SET `score` = #{new_score}, " +
+              "`updated_at` = '#{time_string}' WHERE `games`.`id` = #{game_id}"
+        Game.connection.execute(sql)
       end
     end
 
     # Calculate the total score and update the user object itself.
-    self.update_attributes! :score => self.games.map { |game| game[:score] }.sum
+    total_score = self.games.select('games.score').map { |g| g.score }.sum
+    self.update_attributes! :score => total_score
   end
 
   def self.update_all_scores
@@ -168,8 +180,9 @@ class User < ActiveRecord::Base
       hash
     end
 
+    valid_team_ids = Team.select(:id).map { |t| t.id }
     User.all.each do |user|
-      user.update_score!(official_games_by_round)
+      user.update_score!(valid_team_ids, official_games_by_round)
       logger.info "   #{user.email} (#{user.id}) - #{user.score} points"
     end
   end
