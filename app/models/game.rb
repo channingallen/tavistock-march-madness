@@ -153,13 +153,32 @@ class Game < ActiveRecord::Base
   # First Four as round #1, then the ro64 is round #2, etc, until the finals,
   # which is round #7.
   def round_number
+    position = Game.where(['bracket_id = ? AND id < ?', self.bracket_id, self.id]).size
+    if position < 32
+       2
+    elsif position < 48
+       3
+    elsif position < 56
+       4
+    elsif position < 60
+       5
+    elsif position < 62
+       6
+    elsif position < 63
+       7
+    else
+       1
+    end
+  end
+
+  def old_round_number
     round_num = 7
-    next_game = Game.first(:conditions => ["id = ?", self[:next_game_id]])
+    next_game = Game.where(:id => self.next_game_id).select('next_game_id').first
     while next_game
       round_num -= 1
-      break unless next_game[:next_game_id]
-      conditions = ["id = ?", next_game[:next_game_id]]
-      next_game = Game.first(:conditions => conditions)
+      break unless next_game.next_game_id
+      conds = { :id => next_game.next_game_id }
+      next_game = Game.where(conds).select('next_game_id').first
     end
 
     round_num
