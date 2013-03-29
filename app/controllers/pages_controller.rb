@@ -116,7 +116,7 @@ class PagesController < ApplicationController
                 :id => user.id,
                 :name => user.name,
                 :score => user.score,
-                :email => user.contact_allowed ? user.email : "#{user.email}, but no contact allowed",
+                :email => user.contact_allowed ? user.email : "#{user.email}, no contact allowed",
                 :phone => user.phone
               }
             end
@@ -135,7 +135,7 @@ class PagesController < ApplicationController
               :id => user.id,
               :name => user.name,
               :score => user.score,
-              :email => user.contact_allowed ? user.email : "no contact allowed",
+              :email => user.contact_allowed ? user.email : "#{user.email}, no contact allowed",
               :phone => user.phone
             }
           end
