@@ -107,12 +107,15 @@ class PagesController < ApplicationController
           this_ranking_data = { :name => "#{rest_data[:name]} (#{rest_location})" }
           this_ranking_data[:users] = User.
             where(:restaurant_id => rest_id, :restaurant_location => rest_location).
+            where("score > 0").
+            where("contact_allowed = FALSE or email IS NOT NULL").
             order('score DESC, id ASC').
             limit(25).
             collect do |user|
               {
                 :id => user.id,
                 :name => user.name,
+                :score => user.score,
                 :email => user.contact_allowed ? user.email : "no contact allowed"
               }
             end
@@ -122,18 +125,23 @@ class PagesController < ApplicationController
         this_ranking_data = { :name => rest_data[:name] }
         this_ranking_data[:users] = User.
           where(:restaurant_id => rest_id).
+          where("score > 0").
+          where("contact_allowed = FALSE or email IS NOT NULL").
           order('score DESC, id ASC').
           limit(25).
           collect do |user|
             {
               :id => user.id,
               :name => user.name,
+              :score => user.score,
               :email => user.contact_allowed ? user.email : "no contact allowed"
             }
           end
         @ranking_data.push(this_ranking_data)
       end
     end
+
+    render :layout => "blank"
   end
 
   private
