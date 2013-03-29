@@ -62,6 +62,8 @@ MarchMadness::Application.routes.draw do
 
   match "/channel" => "pages#channel"
 
+  match "/rankings" => "pages#rankings"
+
   namespace :api do
     resources :users, :only => [:index, :show, :create, :update]
     resources :brackets, :only => [:index, :show]

@@ -1,0 +1,10 @@
+<h1>Rankings for Each Restaurant</h1>
+
+<% @rankings.each do |data| %>
+  <h2><%= data[:name] %></h2>
+  <ol>
+    <% data[:users].each do |user| %>
+      <li title="<%= user[:id] %>"><%= user[:name] %> (<%= user[:email] %>)</li>
+    <% end %>
+  </ol>
+<% end %>

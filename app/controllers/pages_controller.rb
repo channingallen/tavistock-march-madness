@@ -98,6 +98,44 @@ class PagesController < ApplicationController
     render :text => text
   end
 
+  def rankings
+    @ranking_data = []
+
+    Constants::RESTAURANTS.each_pair do |rest_id, rest_data|
+      if rest_data[:locations]
+        rest_data[:locations].each do |rest_location|
+          this_ranking_data = { :name => "#{rest_data[:name]} (#{rest_location})" }
+          this_ranking_data[:users] = User.
+            where(:restaurant_id => rest_id, :restaurant_location => rest_location).
+            order('score DESC, id ASC').
+            limit(25).
+            collect do |user|
+              {
+                :id => user.id,
+                :name => user.name,
+                :email => user.contact_allowed ? user.email : "no contact allowed"
+              }
+            end
+          @ranking_data.push(this_ranking_data)
+        end
+      else
+        this_ranking_data = { :name => rest_data[:name] }
+        this_ranking_data[:users] = User.
+          where(:restaurant_id => rest_id).
+          order('score DESC, id ASC').
+          limit(25).
+          collect do |user|
+            {
+              :id => user.id,
+              :name => user.name,
+              :email => user.contact_allowed ? user.email : "no contact allowed"
+            }
+          end
+        @ranking_data.push(this_ranking_data)
+      end
+    end
+  end
+
   private
 
   # Raises an error if the request wasn't made via the Facebook app canvas (i.e.
