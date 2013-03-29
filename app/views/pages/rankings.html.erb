@@ -6,7 +6,7 @@
     <% data[:users].each do |user| %>
       <li title="<%= user[:id] %>">
         <strong><%= user[:score] %> points</strong> &ndash;
-        <%= user[:name] %> (<%= user[:email] %>)
+        <%= user[:name] %> (<%= user[:email] %>) (<%= user[:phone] %>)
       </li>
     <% end %>
   </ol>
