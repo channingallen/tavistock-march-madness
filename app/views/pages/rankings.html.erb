@@ -2,6 +2,12 @@
 
 <% @ranking_data.each do |data| %>
   <h2><%= data[:name] %></h2>
+  <ul>
+    <li><strong>Total Signups:</strong> <%= data[:num_total_signups] %></li>
+    <li><strong>Filled Out Form:</strong> <%= data[:num_filled_out_form] %></li>
+    <li><strong>Started Bracket:</strong> <%= data[:num_started_bracket] %></li>
+    <li><strong>Finished Bracket:</strong> <%= data[:num_finished_bracket] %></li>
+  </ul>
   <ol>
     <% data[:users].each do |user| %>
       <li title="<%= user[:id] %>">

@@ -105,32 +105,14 @@ class PagesController < ApplicationController
       if rest_data[:locations]
         rest_data[:locations].each do |rest_location|
           this_ranking_data = { :name => "#{rest_data[:name]} (#{rest_location})" }
-          this_ranking_data[:users] = User.
-            where(:restaurant_id => rest_id, :restaurant_location => rest_location).
+          rest_users = User.
+            where(:restaurant_id => rest_id, :restaurant_location => rest_location)
+          users = rest_users.
             where("score > 0").
             where("contact_allowed = FALSE or email IS NOT NULL").
             order('score DESC, id ASC').
-            limit(25).
-            collect do |user|
-              {
-                :id => user.id,
-                :name => user.name,
-                :score => user.score,
-                :email => user.contact_allowed ? user.email : "#{user.email}, no contact allowed",
-                :phone => user.phone
-              }
-            end
-          @ranking_data.push(this_ranking_data)
-        end
-      else
-        this_ranking_data = { :name => rest_data[:name] }
-        this_ranking_data[:users] = User.
-          where(:restaurant_id => rest_id).
-          where("score > 0").
-          where("contact_allowed = FALSE or email IS NOT NULL").
-          order('score DESC, id ASC').
-          limit(25).
-          collect do |user|
+            limit(25)
+          this_ranking_data[:users] = users.collect do |user|
             {
               :id => user.id,
               :name => user.name,
@@ -139,6 +121,58 @@ class PagesController < ApplicationController
               :phone => user.phone
             }
           end
+
+          this_ranking_data[:users][:num_total_signups] = rest_users.size
+          this_ranking_data[:users][:num_filled_out_form] = rest_users.
+            where("email IS NOT NULL").
+            size
+          this_ranking_data[:users][:num_started_bracket] = 0
+          this_ranking_data[:users][:num_finished_bracket] = 0
+          rest_users.each do |u|
+            num_chosen_games = u.games.where("winning_team_id IS NOT NULL").size
+            if num_chosen_games == 67
+              this_ranking_data[:users][:num_finished_bracket] += 1
+            elsif num_chosen_games > 0
+              this_ranking_data[:users][:num_started_bracket] += 1
+            end
+          end
+
+          @ranking_data.push(this_ranking_data)
+        end
+
+      else
+        this_ranking_data = { :name => rest_data[:name] }
+        rest_users = User.where(:restaurant_id => rest_id)
+        users = rest_users.
+          where("score > 0").
+          where("contact_allowed = FALSE or email IS NOT NULL").
+          order('score DESC, id ASC').
+          limit(25)
+        this_ranking_data[:users] = users.collect do |user|
+          {
+            :id => user.id,
+            :name => user.name,
+            :score => user.score,
+            :email => user.contact_allowed ? user.email : "#{user.email}, no contact allowed",
+            :phone => user.phone
+          }
+        end
+
+        this_ranking_data[:users][:num_total_signups] = rest_users.size
+        this_ranking_data[:users][:num_filled_out_form] = rest_users.
+          where("email IS NOT NULL").
+          size
+        this_ranking_data[:users][:num_started_bracket] = 0
+        this_ranking_data[:users][:num_finished_bracket] = 0
+        rest_users.each do |u|
+          num_chosen_games = u.games.where("winning_team_id IS NOT NULL").size
+          if num_chosen_games == 67
+            this_ranking_data[:users][:num_finished_bracket] += 1
+          elsif num_chosen_games > 0
+            this_ranking_data[:users][:num_started_bracket] += 1
+          end
+        end
+
         @ranking_data.push(this_ranking_data)
       end
     end
