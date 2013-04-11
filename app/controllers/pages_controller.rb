@@ -122,18 +122,18 @@ class PagesController < ApplicationController
             }
           end
 
-          this_ranking_data[:users][:num_total_signups] = rest_users.size
-          this_ranking_data[:users][:num_filled_out_form] = rest_users.
+          this_ranking_data[:num_total_signups] = rest_users.size
+          this_ranking_data[:num_filled_out_form] = rest_users.
             where("email IS NOT NULL").
             size
-          this_ranking_data[:users][:num_started_bracket] = 0
-          this_ranking_data[:users][:num_finished_bracket] = 0
+          this_ranking_data[:num_started_bracket] = 0
+          this_ranking_data[:num_finished_bracket] = 0
           rest_users.each do |u|
             num_chosen_games = u.games.where("winning_team_id IS NOT NULL").size
             if num_chosen_games == 67
-              this_ranking_data[:users][:num_finished_bracket] += 1
+              this_ranking_data[:num_finished_bracket] += 1
             elsif num_chosen_games > 0
-              this_ranking_data[:users][:num_started_bracket] += 1
+              this_ranking_data[:num_started_bracket] += 1
             end
           end
 
@@ -158,18 +158,18 @@ class PagesController < ApplicationController
           }
         end
 
-        this_ranking_data[:users][:num_total_signups] = rest_users.size
-        this_ranking_data[:users][:num_filled_out_form] = rest_users.
+        this_ranking_data[:num_total_signups] = rest_users.size
+        this_ranking_data[:num_filled_out_form] = rest_users.
           where("email IS NOT NULL").
           size
-        this_ranking_data[:users][:num_started_bracket] = 0
-        this_ranking_data[:users][:num_finished_bracket] = 0
+        this_ranking_data[:num_started_bracket] = 0
+        this_ranking_data[:num_finished_bracket] = 0
         rest_users.each do |u|
           num_chosen_games = u.games.where("winning_team_id IS NOT NULL").size
           if num_chosen_games == 67
-            this_ranking_data[:users][:num_finished_bracket] += 1
+            this_ranking_data[:num_finished_bracket] += 1
           elsif num_chosen_games > 0
-            this_ranking_data[:users][:num_started_bracket] += 1
+            this_ranking_data[:num_started_bracket] += 1
           end
         end
 
